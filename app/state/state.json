@@ -1,0 +1,18 @@
+{
+    "bot_active": true,
+    "balance": 100030.00146000003,
+    "positions": {},
+    "max_trades_per_day": 5,
+    "trades_done_today": 5,
+    "last_trade_time": null,
+    "last_trade_date": "2026-02-27",
+    "symbol": "BTCUSDT",
+    "trade_quantity": 0.001,
+    "last_price": 30000.88,
+    "daily_pnl": -100.0,
+    "test_key": "test_value",
+    "price_BTCUSDT": 29994.29,
+    "kill_switch": false,
+    "telegram_chat_id": 6374923090,
+    "last_trade_day": "2026-02-27"
+}
