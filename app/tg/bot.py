@@ -378,7 +378,24 @@ async def start_telegram_bot(
         return app
 
     except Exception as e:
-        logger.exception(f"❌ Telegram bot failed to start: {e}")
+        error_str = str(e)
+        
+        # Handle "Conflict" error (multiple instances)
+        if "Conflict" in error_str and "getUpdates" in error_str:
+            logger.error(
+                "❌ TELEGRAM CONFLICT ERROR!\n"
+                "   Another bot instance is using the same token.\n"
+                "   This usually happens when running multiple instances.\n\n"
+                "   SOLUTION:\n"
+                "   1. Kill ALL bot processes: pkill -9 -f 'python.*app.main'\n"
+                "   2. Wait 5 seconds\n"
+                "   3. Delete lock file: rm ~/.bot_lock\n"
+                "   4. Restart bot\n\n"
+                f"   Error: {e}"
+            )
+        else:
+            logger.exception(f"❌ Telegram bot failed to start: {e}")
+        
         raise
 
 

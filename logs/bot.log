@@ -22715,3 +22715,146 @@ To fix this, restart the bot in 2-3 minutes or kill all Python processes:
 [2026-03-01 17:24:13,939] [INFO] [app.market.analyzer] 📊 BTC/USDT | $66940.59 | Trend=bearish | RSI=44.0 | MACD=▼ | Regime=trending | Vol=low | Conf=29.1%
 [2026-03-01 17:24:15,964] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
 [2026-03-01 17:24:15,969] [INFO] [app.market.analyzer] 📊 BTC/USDT | $65999.69 | Trend=sideways | RSI=56.4 | MACD=▼ | Regime=ranging | Vol=low | Conf=22.6%
+[2026-03-01 17:28:15,464] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 17:28:15,465] [CRITICAL] [app.risk.loss_guard] 🚨 EMERGENCY DRAWDOWN | Lost $11.89 (30.0%) of initial | Limit: 15.0%
+[2026-03-01 17:28:15,473] [WARNING] [app.risk.kill_switch] 🚨 Emergency closing 1 position(s)...
+[2026-03-01 17:28:15,473] [INFO] [app.exchange.paper] 📝🔴 PAPER SELL | BTC/USDT | Qty=0.00017197 | Price=$69024.627527 | PnL=$-0.0081 | Fee=$0.0119
+[2026-03-01 17:28:15,473] [INFO] [app.state.manager] 📉 Position closed | BTC/USDT | PnL=$-0.0200 | Balance=$39.55
+[2026-03-01 17:28:15,473] [INFO] [app.risk.kill_switch] 🚨 Emergency close | BTC/USDT | Qty=0.00017197 @ $69024.627527 | PnL=$-0.0200
+[2026-03-01 17:28:15,474] [CRITICAL] [app.risk.kill_switch] 🛑 KILL SWITCH ACTIVATED | Reason: Emergency stop: 30.0% total drawdown | Source: loss_guard | Loss: 30.0% | Auto-resume: NEVERmin | Positions closed: 1
+[2026-03-01 17:28:15,474] [CRITICAL] [app.risk.loss_guard] 🚨 EMERGENCY TRIGGERED | Emergency stop: 30.0% total drawdown
+[2026-03-01 17:28:15,474] [WARNING] [app.orchestrator.controller] 🛑 Loss guard: Emergency stop: 30.0% total drawdown
+[2026-03-01 17:28:33,450] [INFO] [app.tg.auth] ✅ Authorised: 6374923090 (Pranav Thakur)
+[2026-03-01 17:28:38,772] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 17:28:38,775] [INFO] [app.market.analyzer] 📊 BTC/USDT | $68567.37 | Trend=bearish | RSI=31.2 | MACD=▼ | Regime=trending | Vol=low | Conf=42.2%
+[2026-03-01 17:29:14,279] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 17:29:14,281] [INFO] [app.market.analyzer] 📊 BTC/USDT | $67115.43 | Trend=bearish | RSI=47.6 | MACD=▼ | Regime=trending | Vol=low | Conf=26.9%
+[2026-03-01 17:29:16,299] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 17:29:16,302] [INFO] [app.market.analyzer] 📊 BTC/USDT | $66029.76 | Trend=sideways | RSI=55.5 | MACD=▼ | Regime=ranging | Vol=low | Conf=24.6%
+[2026-03-01 17:33:39,107] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 17:33:39,114] [INFO] [app.market.analyzer] 📊 BTC/USDT | $68603.27 | Trend=bearish | RSI=28.0 | MACD=▼ | Regime=trending | Vol=low | Conf=45.0%
+[2026-03-01 17:34:14,627] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 17:34:14,632] [INFO] [app.market.analyzer] 📊 BTC/USDT | $67201.69 | Trend=bearish | RSI=54.2 | MACD=▲ | Regime=trending | Vol=low | Conf=27.2%
+[2026-03-01 17:34:16,633] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 17:34:16,637] [INFO] [app.market.analyzer] 📊 BTC/USDT | $66140.68 | Trend=sideways | RSI=58.3 | MACD=▼ | Regime=ranging | Vol=low | Conf=26.8%
+[2026-03-01 17:39:21,534] [INFO] [__main__] 🚀 Starting 4-Brain Trading Bot...
+[2026-03-01 17:39:21,534] [INFO] [__main__] 📁 Base directory: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-01 17:39:21,534] [INFO] [__main__] ⚙️ Config loaded | Mode=PAPER | Coins=['BTC/USDT', 'ETH/USDT'] | Interval=300s | BaseRisk=1.0%
+[2026-03-01 17:39:21,535] [INFO] [app.state.manager] ✅ StateManager ready | Balance=$39.58 | Positions=0 | Active=True
+[2026-03-01 17:39:21,535] [INFO] [__main__] 📊 State: Balance=$39.58
+[2026-03-01 17:39:21,535] [INFO] [__main__] 📝 Exchange: Paper Trading
+[2026-03-01 17:39:21,535] [INFO] [__main__] 📈 Analyzer: BTC/USDT
+[2026-03-01 17:39:21,535] [INFO] [__main__] 📈 Strategy: 4brain_scalping | Symbol: BTC/USDT
+[2026-03-01 17:39:21,535] [INFO] [__main__] ✅ All components initialized
+[2026-03-01 17:39:21,535] [INFO] [__main__] ✅ Bot is LIVE | Mode=PAPER | Coins=BTC/USDT,ETH/USDT | Interval=300s
+[2026-03-01 17:39:21,535] [WARNING] [__main__] ⚠️ Telegram not configured (missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID). Bot will run without notifications.
+[2026-03-01 17:39:21,535] [INFO] [app.orchestrator.scheduler] ⏱️ Scheduler started | Interval=300s | IdlePoll=2s
+[2026-03-01 17:39:21,536] [INFO] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$39.58 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-01 17:39:21,536] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 17:39:21,537] [INFO] [app.exchange.paper] 🕯️ Seeded 150 candles for BTC/USDT (start=$66165.84)
+[2026-03-01 17:39:21,538] [INFO] [app.market.analyzer] 📊 BTC/USDT | $66165.84 | Trend=bullish | RSI=47.6 | MACD=▼ | Regime=trending | Vol=low | Conf=23.0%
+[2026-03-01 17:40:34,989] [INFO] [__main__] 🚀 Starting 4-Brain Trading Bot...
+[2026-03-01 17:40:34,989] [INFO] [__main__] 📁 Base directory: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-01 17:40:34,989] [INFO] [__main__] ⚙️ Config loaded | Mode=PAPER | Coins=['BTC/USDT', 'ETH/USDT'] | Interval=300s | BaseRisk=1.0%
+[2026-03-01 17:40:34,989] [INFO] [app.state.manager] ✅ StateManager ready | Balance=$39.58 | Positions=0 | Active=True
+[2026-03-01 17:40:34,989] [INFO] [__main__] 📊 State: Balance=$39.58
+[2026-03-01 17:40:34,989] [INFO] [__main__] 📝 Exchange: Paper Trading
+[2026-03-01 17:40:34,989] [INFO] [__main__] 📈 Analyzer: BTC/USDT
+[2026-03-01 17:40:34,989] [INFO] [__main__] 📈 Strategy: 4brain_scalping | Symbol: BTC/USDT
+[2026-03-01 17:40:34,989] [INFO] [__main__] ✅ All components initialized
+[2026-03-01 17:40:34,989] [INFO] [__main__] ✅ Bot is LIVE | Mode=PAPER | Coins=BTC/USDT,ETH/USDT | Interval=300s
+[2026-03-01 17:40:34,989] [WARNING] [__main__] ⚠️ Telegram not configured (missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID). Bot will run without notifications.
+[2026-03-01 17:40:34,989] [INFO] [app.orchestrator.scheduler] ⏱️ Scheduler started | Interval=300s | IdlePoll=2s
+[2026-03-01 17:40:34,990] [INFO] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$39.58 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-01 17:40:34,990] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 17:40:34,991] [INFO] [app.exchange.paper] 🕯️ Seeded 150 candles for BTC/USDT (start=$67441.69)
+[2026-03-01 17:40:34,992] [INFO] [app.market.analyzer] 📊 BTC/USDT | $67441.69 | Trend=bullish | RSI=67.8 | MACD=▲ | Regime=trending | Vol=low | Conf=46.8%
+[2026-03-01 17:43:36,348] [INFO] [__main__] 🚀 Starting 4-Brain Trading Bot...
+[2026-03-01 17:43:36,348] [INFO] [__main__] 📁 Base directory: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-01 17:43:36,348] [INFO] [__main__] ⚙️ Config loaded | Mode=PAPER | Coins=['BTC/USDT', 'ETH/USDT'] | Interval=300s | BaseRisk=1.0%
+[2026-03-01 17:43:36,348] [INFO] [app.state.manager] ✅ StateManager ready | Balance=$39.58 | Positions=0 | Active=True
+[2026-03-01 17:43:36,348] [INFO] [__main__] 📊 State: Balance=$39.58
+[2026-03-01 17:43:36,348] [INFO] [__main__] 📝 Exchange: Paper Trading
+[2026-03-01 17:43:36,348] [INFO] [__main__] 📈 Analyzer: BTC/USDT
+[2026-03-01 17:43:36,348] [INFO] [__main__] 📈 Strategy: 4brain_scalping | Symbol: BTC/USDT
+[2026-03-01 17:43:36,348] [INFO] [__main__] ✅ All components initialized
+[2026-03-01 17:43:36,349] [INFO] [__main__] ✅ Bot is LIVE | Mode=PAPER | Coins=BTC/USDT,ETH/USDT | Interval=300s
+[2026-03-01 17:43:36,480] [INFO] [app.tg.commands] 📋 Registered 16 Telegram commands
+[2026-03-01 17:43:36,480] [INFO] [app.orchestrator.scheduler] ⏱️ Scheduler started | Interval=300s | IdlePoll=2s
+[2026-03-01 17:43:36,480] [INFO] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$39.58 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-01 17:43:36,481] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 17:43:36,482] [INFO] [app.exchange.paper] 🕯️ Seeded 150 candles for BTC/USDT (start=$69090.40)
+[2026-03-01 17:43:36,482] [INFO] [app.market.analyzer] 📊 BTC/USDT | $69090.40 | Trend=bullish | RSI=69.9 | MACD=▲ | Regime=trending | Vol=low | Conf=37.7%
+[2026-03-01 17:43:36,484] [INFO] [app.strategies.scalping] 🟢 LONG setup | BTC/USDT @ $69090.40 | BrainConf=0.65 FactorConf=0.66 Final=0.65
+[2026-03-01 17:43:36,484] [INFO] [app.strategies.base] ✅ Entry signal | BTC/USDT BUY @ $69090.40 | SL=$68845.25 TP=$69703.26 | RR=2.50 Conf=0.65 Brains=3
+[2026-03-01 17:43:36,484] [INFO] [app.risk.adaptive_risk] 🎯 Adaptive Risk: 1.150% | Base: 1.0% | DD: 0.0% | Vol(low) ×1.15
+[2026-03-01 17:43:36,484] [INFO] [app.exchange.paper] 📝🟢 PAPER BUY | BTC/USDT | Qty=0.00017187 | Price=$69113.488832 | Cost=$11.8785 | Fee=$0.0119
+[2026-03-01 17:43:36,484] [INFO] [app.state.manager] 📈 Position opened | BTC/USDT | Qty=0.00017187 @ $69113.488832
+[2026-03-01 17:43:36,486] [INFO] [app.orchestrator.controller] ✅ Entry executed | BTC/USDT BUY | Qty=0.00017187 @ $69113.49 | SL=$68845.25 TP=$69703.26
+[2026-03-01 17:43:37,306] [INFO] [app.tg.bot] ✅ Telegram bot started | Chat ID: 6374...3090
+[2026-03-01 17:43:37,306] [INFO] [__main__] ✅ Telegram bot started
+[2026-03-01 17:43:44,478] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: manual | Was active for 0s | risk_locked cleared
+[2026-03-01 17:43:44,481] [INFO] [app.risk.loss_guard] ✅ Cooldown expired — trading can resume
+[2026-03-01 17:43:44,483] [WARNING] [app.risk.loss_guard] 🔓 Loss guard UNLOCKED by resume | Emergency acknowledged — will not re-trigger until baseline reset
+[2026-03-01 17:43:44,483] [INFO] [app.orchestrator.controller] ▶️ Bot resumed | kill_switch cleared | loss_guard unlocked | risk_locked=False
+[2026-03-01 17:44:04,599] [WARNING] [app.risk.loss_guard] 🔄 Baseline RESET by telegram | Old: $39.58 → New: $27.69 | Emergency now triggers at $23.54 (15% of $27.69)
+[2026-03-01 17:44:04,603] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: telegram | Was active for 0s | risk_locked cleared
+[2026-03-01 17:44:04,605] [INFO] [app.risk.adaptive_risk] 🔄 Risk manager streaks reset
+[2026-03-01 17:44:04,605] [WARNING] [app.orchestrator.controller] 🔄 RISK BASELINE RESET by telegram | New baseline: $27.69 | All locks cleared | Streaks reset
+[2026-03-01 17:44:11,377] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: manual | Was active for 0s | risk_locked cleared
+[2026-03-01 17:44:11,380] [INFO] [app.risk.loss_guard] ✅ Cooldown expired — trading can resume
+[2026-03-01 17:44:11,383] [WARNING] [app.risk.loss_guard] 🔓 Loss guard UNLOCKED by resume | Emergency acknowledged — will not re-trigger until baseline reset
+[2026-03-01 17:44:11,383] [INFO] [app.orchestrator.controller] ▶️ Bot resumed | kill_switch cleared | loss_guard unlocked | risk_locked=False
+[2026-03-01 17:45:04,611] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: manual | Was active for 0s | risk_locked cleared
+[2026-03-01 17:45:04,615] [INFO] [app.risk.loss_guard] ✅ Cooldown expired — trading can resume
+[2026-03-01 17:45:04,617] [WARNING] [app.risk.loss_guard] 🔓 Loss guard UNLOCKED by resume | Emergency acknowledged — will not re-trigger until baseline reset
+[2026-03-01 17:45:04,618] [INFO] [app.orchestrator.controller] ▶️ Bot resumed | kill_switch cleared | loss_guard unlocked | risk_locked=False
+[2026-03-01 18:08:02,428] [INFO] [__main__] 🚀 Starting 4-Brain Trading Bot...
+[2026-03-01 18:08:02,428] [INFO] [__main__] 📁 Base directory: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-01 18:08:02,428] [INFO] [__main__] ⚙️ Config loaded | Mode=PAPER | Coins=['BTC/USDT', 'ETH/USDT'] | Interval=300s | BaseRisk=1.0%
+[2026-03-01 18:08:02,428] [INFO] [app.state.manager] ✅ StateManager ready | Balance=$27.69 | Positions=1 | Active=True
+[2026-03-01 18:08:02,428] [INFO] [__main__] 📊 State: Balance=$27.69
+[2026-03-01 18:08:02,428] [INFO] [__main__] 📝 Exchange: Paper Trading
+[2026-03-01 18:08:02,428] [INFO] [__main__] 📈 Analyzer: BTC/USDT
+[2026-03-01 18:08:02,428] [INFO] [__main__] 📈 Strategy: 4brain_scalping | Symbol: BTC/USDT
+[2026-03-01 18:08:02,428] [INFO] [__main__] ✅ All components initialized
+[2026-03-01 18:08:02,428] [INFO] [__main__] ✅ Bot is LIVE | Mode=PAPER | Coins=BTC/USDT,ETH/USDT | Interval=300s
+[2026-03-01 18:08:02,583] [INFO] [app.tg.commands] 📋 Registered 16 Telegram commands
+[2026-03-01 18:08:02,583] [INFO] [app.orchestrator.scheduler] ⏱️ Scheduler started | Interval=300s | IdlePoll=2s
+[2026-03-01 18:08:02,583] [INFO] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$27.69 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-01 18:08:02,584] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 18:08:02,586] [INFO] [app.exchange.paper] 🕯️ Seeded 150 candles for BTC/USDT (start=$71808.68)
+[2026-03-01 18:08:02,587] [INFO] [app.market.analyzer] 📊 BTC/USDT | $71808.68 | Trend=sideways | RSI=39.8 | MACD=▼ | Regime=ranging | Vol=low | Conf=27.1%
+[2026-03-01 18:08:02,587] [INFO] [app.exchange.paper] 📝🔴 PAPER SELL | BTC/USDT | Qty=0.00017187 | Price=$71774.109555 | PnL=$+0.4573 | Fee=$0.0123
+[2026-03-01 18:08:02,587] [INFO] [app.state.manager] 📉 Position closed | BTC/USDT | PnL=$+0.4449 | Balance=$40.01
+[2026-03-01 18:08:02,589] [INFO] [app.risk.adaptive_risk] 📊 Risk stats updated | PnL=$+0.4449 | Streaks W1/L0 | WinRate=50.0%
+[2026-03-01 18:08:02,591] [INFO] [app.risk.loss_guard] 📈 Win recorded | +$0.4449 (3.7%) | Streak: 2 | Daily PnL: $0.89
+[2026-03-01 18:08:02,591] [INFO] [app.orchestrator.controller] ✅ Exit executed | BTC/USDT | Qty=0.00017187 @ $71774.11 | PnL=$+0.4449 (+3.75%) | Reason=TAKE PROFIT
+[2026-03-01 18:08:03,393] [INFO] [app.tg.bot] ✅ Telegram bot started | Chat ID: 6374...3090
+[2026-03-01 18:08:03,393] [INFO] [__main__] ✅ Telegram bot started
+[2026-03-01 18:08:13,896] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: manual | Was active for 0s | risk_locked cleared
+[2026-03-01 18:08:13,898] [INFO] [app.risk.loss_guard] ✅ Cooldown expired — trading can resume
+[2026-03-01 18:08:13,901] [WARNING] [app.risk.loss_guard] 🔓 Loss guard UNLOCKED by resume | Emergency acknowledged — will not re-trigger until baseline reset
+[2026-03-01 18:08:13,902] [INFO] [app.orchestrator.controller] ▶️ Bot resumed | kill_switch cleared | loss_guard unlocked | risk_locked=False
+[2026-03-01 18:08:35,196] [WARNING] [app.risk.loss_guard] 🔄 Baseline RESET by telegram | Old: $27.69 → New: $40.01 | Emergency now triggers at $34.01 (15% of $40.01)
+[2026-03-01 18:08:35,202] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: telegram | Was active for 0s | risk_locked cleared
+[2026-03-01 18:08:35,205] [INFO] [app.risk.adaptive_risk] 🔄 Risk manager streaks reset
+[2026-03-01 18:08:35,205] [WARNING] [app.orchestrator.controller] 🔄 RISK BASELINE RESET by telegram | New baseline: $40.01 | All locks cleared | Streaks reset
+[2026-03-01 18:09:32,946] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: manual | Was active for 0s | risk_locked cleared
+[2026-03-01 18:09:32,949] [INFO] [app.risk.loss_guard] ✅ Cooldown expired — trading can resume
+[2026-03-01 18:09:32,953] [WARNING] [app.risk.loss_guard] 🔓 Loss guard UNLOCKED by resume | Emergency acknowledged — will not re-trigger until baseline reset
+[2026-03-01 18:09:32,953] [INFO] [app.orchestrator.controller] ▶️ Bot resumed | kill_switch cleared | loss_guard unlocked | risk_locked=False
+[2026-03-01 18:13:02,932] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 18:13:02,937] [INFO] [app.market.analyzer] 📊 BTC/USDT | $72997.06 | Trend=sideways | RSI=38.9 | MACD=▼ | Regime=ranging | Vol=low | Conf=26.9%
+[2026-03-01 18:18:03,267] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 18:18:03,272] [INFO] [app.market.analyzer] 📊 BTC/USDT | $73087.03 | Trend=sideways | RSI=43.1 | MACD=▲ | Regime=ranging | Vol=low | Conf=24.0%
+[2026-03-01 18:31:05,579] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: manual | Was active for 0s | risk_locked cleared
+[2026-03-01 18:31:05,581] [INFO] [app.risk.loss_guard] ✅ Cooldown expired — trading can resume
+[2026-03-01 18:31:05,584] [WARNING] [app.risk.loss_guard] 🔓 Loss guard UNLOCKED by resume | Emergency acknowledged — will not re-trigger until baseline reset
+[2026-03-01 18:31:05,584] [INFO] [app.orchestrator.controller] ▶️ Bot resumed | kill_switch cleared | loss_guard unlocked | risk_locked=False
+[2026-03-01 18:31:20,065] [WARNING] [app.risk.loss_guard] 🔄 Baseline RESET by telegram | Old: $40.01 → New: $40.01 | Emergency now triggers at $34.01 (15% of $40.01)
+[2026-03-01 18:31:20,071] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: telegram | Was active for 0s | risk_locked cleared
+[2026-03-01 18:31:20,075] [INFO] [app.risk.adaptive_risk] 🔄 Risk manager streaks reset
+[2026-03-01 18:31:20,075] [WARNING] [app.orchestrator.controller] 🔄 RISK BASELINE RESET by telegram | New baseline: $40.01 | All locks cleared | Streaks reset
+[2026-03-01 18:52:34,740] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 18:52:34,746] [INFO] [app.market.analyzer] 📊 BTC/USDT | $73034.48 | Trend=sideways | RSI=58.9 | MACD=▲ | Regime=ranging | Vol=low | Conf=20.6%

@@ -1,6 +1,6 @@
 {
-  "balance": 39.58083067,
-  "initial_balance": 39.58083067,
+  "balance": 40.01389719,
+  "initial_balance": 40.01389719,
   "bot_active": true,
   "kill_switch": false,
   "max_trades_per_day": 50,
@@ -14,18 +14,30 @@
       "pnl": -0.201818,
       "strategy": "4brain_combined",
       "timestamp": "2026-03-01T11:08:55.459354"
+    },
+    {
+      "symbol": "BTC/USDT",
+      "entry_price": 69113.48883235,
+      "exit_price": 71774.10955486,
+      "quantity": 0.00017187,
+      "pnl_amount": 0.44494506,
+      "closed_at": "2026-03-01T12:38:02.587806",
+      "opened_at": "2026-03-01T12:13:36.484816",
+      "strategy": "4brain_scalping",
+      "mode": "PAPER"
     }
   ],
   "daily_pnl": 0.0,
-  "trades_today": 0,
-  "total_trades": 0,
-  "total_wins": 0,
+  "trades_today": 2,
+  "total_trades": 1,
+  "total_wins": 1,
   "total_losses": 1,
   "win_streak": 0,
   "loss_streak": 0,
   "consecutive_losses": 0,
   "equity_history": [
-    39.58083067
+    39.58083067,
+    40.01389719
   ],
   "rr_history": [],
   "equity_momentum": null,
@@ -35,10 +47,65 @@
   "kill_switch_time": null,
   "kill_switch_source": null,
   "kill_switch_auto_resume": null,
-  "kill_switch_history": [],
-  "start_of_day_balance": 39.58083067,
-  "peak_balance": 39.58083067,
-  "trades_done_today": 0,
+  "kill_switch_history": [
+    {
+      "action": "DEACTIVATED",
+      "source": "manual",
+      "timestamp": "2026-03-01T12:13:44.474376",
+      "was_active_seconds": 0
+    },
+    {
+      "action": "DEACTIVATED",
+      "source": "telegram",
+      "timestamp": "2026-03-01T12:14:04.600555",
+      "was_active_seconds": 0
+    },
+    {
+      "action": "DEACTIVATED",
+      "source": "manual",
+      "timestamp": "2026-03-01T12:14:11.372982",
+      "was_active_seconds": 0
+    },
+    {
+      "action": "DEACTIVATED",
+      "source": "manual",
+      "timestamp": "2026-03-01T12:15:04.607272",
+      "was_active_seconds": 0
+    },
+    {
+      "action": "DEACTIVATED",
+      "source": "manual",
+      "timestamp": "2026-03-01T12:38:13.891162",
+      "was_active_seconds": 0
+    },
+    {
+      "action": "DEACTIVATED",
+      "source": "telegram",
+      "timestamp": "2026-03-01T12:38:35.198176",
+      "was_active_seconds": 0
+    },
+    {
+      "action": "DEACTIVATED",
+      "source": "manual",
+      "timestamp": "2026-03-01T12:39:32.941992",
+      "was_active_seconds": 0
+    },
+    {
+      "action": "DEACTIVATED",
+      "source": "manual",
+      "timestamp": "2026-03-01T13:01:05.574233",
+      "was_active_seconds": 0
+    },
+    {
+      "action": "DEACTIVATED",
+      "source": "telegram",
+      "timestamp": "2026-03-01T13:01:20.066840",
+      "was_active_seconds": 0
+    }
+  ],
+  "start_of_day_balance": 40.01389719,
+  "peak_balance": 40.01389719,
+  "trades_done_today": 2,
   "last_trade_date": null,
   "total_pnl": -0.20181805,
   "realized_pnl": -0.20181805,
@@ -46,27 +113,129 @@
   "wins": 0,
   "losses": 1,
   "max_drawdown": 0.0,
-  "last_risk": 0.01,
-  "win_amounts": [],
+  "last_risk": 0.0115,
+  "win_amounts": [
+    0.44494506357779257
+  ],
   "loss_amounts": [],
   "cooldown_until": null,
   "cooldown_reason": null,
   "cooldown_trigger": null,
-  "loss_guard_history": [],
+  "loss_guard_history": [
+    {
+      "type": "COOLDOWN_END",
+      "timestamp": "2026-03-01T12:13:44.480527"
+    },
+    {
+      "type": "UNLOCKED",
+      "source": "resume",
+      "timestamp": "2026-03-01T12:13:44.483195"
+    },
+    {
+      "type": "BASELINE_RESET",
+      "source": "telegram",
+      "old_initial": 39.58,
+      "new_initial": 27.69,
+      "timestamp": "2026-03-01T12:14:04.598683"
+    },
+    {
+      "type": "COOLDOWN_END",
+      "timestamp": "2026-03-01T12:14:11.379756"
+    },
+    {
+      "type": "UNLOCKED",
+      "source": "resume",
+      "timestamp": "2026-03-01T12:14:11.382640"
+    },
+    {
+      "type": "COOLDOWN_END",
+      "timestamp": "2026-03-01T12:15:04.614522"
+    },
+    {
+      "type": "UNLOCKED",
+      "source": "resume",
+      "timestamp": "2026-03-01T12:15:04.617410"
+    },
+    {
+      "type": "WIN",
+      "amount": 0.4449,
+      "profit_pct": 3.75,
+      "streak": 2,
+      "daily_pnl": 0.8899,
+      "timestamp": "2026-03-01T12:38:02.590996"
+    },
+    {
+      "type": "COOLDOWN_END",
+      "timestamp": "2026-03-01T12:38:13.898225"
+    },
+    {
+      "type": "UNLOCKED",
+      "source": "resume",
+      "timestamp": "2026-03-01T12:38:13.901299"
+    },
+    {
+      "type": "BASELINE_RESET",
+      "source": "telegram",
+      "old_initial": 27.69,
+      "new_initial": 40.01,
+      "timestamp": "2026-03-01T12:38:35.196005"
+    },
+    {
+      "type": "COOLDOWN_END",
+      "timestamp": "2026-03-01T12:39:32.948403"
+    },
+    {
+      "type": "UNLOCKED",
+      "source": "resume",
+      "timestamp": "2026-03-01T12:39:32.952494"
+    },
+    {
+      "type": "COOLDOWN_END",
+      "timestamp": "2026-03-01T13:01:05.581237"
+    },
+    {
+      "type": "UNLOCKED",
+      "source": "resume",
+      "timestamp": "2026-03-01T13:01:05.584249"
+    },
+    {
+      "type": "BASELINE_RESET",
+      "source": "telegram",
+      "old_initial": 40.01,
+      "new_initial": 40.01,
+      "timestamp": "2026-03-01T13:01:20.064442"
+    }
+  ],
   "last_loss_guard_reset": "2026-03-01",
   "symbol": "BTCUSDT",
   "telegram_chat_id": 6374923090,
-  "paper_price_BTC/USDT": 65995.90424805,
+  "paper_price_BTC/USDT": 73350.13961783,
   "last_daily_reset": "2026-03-01",
-  "trades_per_symbol": {},
+  "trades_per_symbol": {
+    "BTC/USDT": 1
+  },
   "trade_limiter_last_daily_reset": "2026-03-01",
   "trade_limiter_history": [
     {
       "type": "DAILY_RESET",
       "date": "2026-03-01",
       "timestamp": "2026-03-01T11:38:05.442036"
+    },
+    {
+      "symbol": "BTC/USDT",
+      "action": "BUY",
+      "timestamp": "2026-03-01T12:13:36.485096",
+      "daily_count": 2,
+      "hourly_count": 1,
+      "metadata": {}
     }
   ],
   "trades_this_hour": 0,
-  "trade_limiter_last_hour_reset": "2026-03-01-11"
+  "trade_limiter_last_hour_reset": "2026-03-01-13",
+  "last_trade_time": "2026-03-01T12:13:36.485096",
+  "recent_trade_times": [
+    "2026-03-01T12:13:36.485096"
+  ],
+  "pause_reason": null,
+  "emergency_acknowledged": false
 }

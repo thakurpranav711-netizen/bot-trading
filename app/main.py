@@ -211,6 +211,24 @@ async def start_telegram_safe(controller, max_retries: int = 3) -> bool:
 
 async def main():
     """Main async entry point."""
+    # ── Instance lock to prevent duplicate bot processes ──────────
+    lock_file = BASE_DIR / ".bot_lock"
+    if lock_file.exists():
+        logger.error(
+            "❌ FATAL: Another bot instance is already running!\n"
+            "   If this is a crash, delete: %s\n"
+            "   Then restart the bot", 
+            lock_file
+        )
+        sys.exit(1)
+    
+    # Create lock file
+    try:
+        lock_file.write_text(f"PID={os.getpid()}\nStarted={datetime.now()}")
+    except Exception as e:
+        logger.error(f"❌ Failed to create lock file: {e}")
+        sys.exit(1)
+    
     logger.info("🚀 Starting 4-Brain Trading Bot...")
     logger.info(f"📁 Base directory: {BASE_DIR}")
 
@@ -414,6 +432,15 @@ async def main():
             f"Errors={stats['total_errors']} | "
             f"Uptime={stats['uptime_seconds']:.0f}s"
         )
+
+        # Remove lock file
+        lock_file = BASE_DIR / ".bot_lock"
+        try:
+            if lock_file.exists():
+                lock_file.unlink()
+                logger.debug("🔓 Lock file removed")
+        except Exception as e:
+            logger.warning(f"⚠️ Failed to remove lock file: {e}")
 
         logger.info("👋 Bot shutdown complete")
 
