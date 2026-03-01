@@ -1,165 +1,396 @@
-# app/telegram/bot.py
+# app/tg/bot.py
 
-import os
+"""
+Telegram Bot Integration — Production Grade
+
+Provides:
+- Async Telegram bot using python-telegram-bot v20+
+- Command handling via TelegramCommands
+- Authentication via TelegramAuth
+- Notification system (Notifier class)
+- Graceful startup with drop_pending_updates
+- Error handling and logging
+
+Usage:
+    # In main.py:
+    await start_telegram_bot(controller, drop_pending_updates=True)
+"""
+
 import asyncio
-from functools import wraps
 from datetime import datetime
-from dotenv import load_dotenv
+from typing import Optional, List, Dict, Any
 
-from telegram import Update
-from telegram.ext import (
-    ApplicationBuilder,
-    CommandHandler,
-    ContextTypes,
-    MessageHandler,
-    filters,
-)
-
-from .commands import (
-    start_bot_cmd,
-    stop_bot_cmd,
-    set_trades_cmd,
-    status_cmd,
-    panic_stop_cmd,
-)
-from .auth import is_authorized
 from app.utils.logger import get_logger
 
-load_dotenv()
 logger = get_logger(__name__)
 
-
-# =========================
-# TELEGRAM NOTIFIER
-# =========================
-class TelegramNotifier:
-    def __init__(self, app, controller):
-        self.app = app
-        self.controller = controller
-
-    async def send(self, message: str):
-        chat_id = self.controller.state.get("telegram_chat_id")
-        if not chat_id:
-            return
-
-        try:
-            await self.app.bot.send_message(
-                chat_id=chat_id,
-                text=message,
-            )
-        except Exception as e:
-            logger.error(f"❌ Failed to send message: {e}")
-
-
-# =========================
-# AUTH DECORATOR
-# =========================
-def auth_required(handler):
-    @wraps(handler)
-    async def wrapped(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        if not update.effective_user:
-            return
-
-        user_id = update.effective_user.id
-
-        if not is_authorized(update):
-            if update.message:
-                await update.message.reply_text(
-                    f"⛔ Unauthorized\n\n"
-                    f"Your User ID: {user_id}\n\n"
-                    f"Add this ID to TELEGRAM_ALLOWED_USERS in .env"
-                )
-            return
-
-        # Save chat ID in state
-        if update.effective_chat:
-            context.bot_data["chat_id"] = update.effective_chat.id
-
-        return await handler(update, context)
-
-    return wrapped
-
-
-# =========================
-# HANDLER WRAPPER
-# =========================
-def make_handler(func, controller):
-    async def handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        # Save chat id to state
-        if update.effective_chat:
-            controller.state.set(
-                "telegram_chat_id",
-                update.effective_chat.id,
-            )
-
-        try:
-            return await func(update, context, controller)
-        except Exception as e:
-            logger.exception(f"❌ Error in {func.__name__}: {e}")
-            if update.message:
-                await update.message.reply_text("❌ Something went wrong.")
-
-    return auth_required(handler)
-
-
-# =========================
-# ERROR HANDLER
-# =========================
-async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE):
-    logger.error(f"❌ Telegram error: {context.error}")
-
-
-# =========================
-# POST INIT
-# =========================
-async def post_init(app):
-    logger.info("📡 Telegram bot initialized")
-
-
-# =========================
-# BOT STARTER
-# =========================
-async def start_telegram_bot(controller):
-    token = os.getenv("TELEGRAM_BOT_TOKEN")
-    if not token:
-        raise RuntimeError("❌ TELEGRAM_BOT_TOKEN missing")
-
-    logger.info("🔧 Building Telegram application...")
-
-    app = (
-        ApplicationBuilder()
-        .token(token)
-        .post_init(post_init)
-        .build()
+# ── Try importing telegram library ────────────────────────────────
+try:
+    from telegram import Update, Bot
+    from telegram.ext import (
+        Application,
+        CommandHandler,
+        ContextTypes,
+        MessageHandler,
+        filters,
+    )
+    from telegram.constants import ParseMode
+    TELEGRAM_AVAILABLE = True
+except ImportError:
+    TELEGRAM_AVAILABLE = False
+    logger.warning(
+        "⚠️ python-telegram-bot not installed. "
+        "Install with: pip install python-telegram-bot>=20.0"
     )
 
-    # 🔥 Inject Notifier Into Controller
-    notifier = TelegramNotifier(app, controller)
-    controller.notifier = notifier
+import os
 
-    # Register command handlers
-    commands = [
-        ("start_bot", start_bot_cmd),
-        ("stop_bot", stop_bot_cmd),
-        ("set_trades", set_trades_cmd),
-        ("status", status_cmd),
-        ("panic_stop", panic_stop_cmd),
-    ]
 
-    for cmd_name, cmd_func in commands:
-        app.add_handler(
-            CommandHandler(cmd_name, make_handler(cmd_func, controller))
+# ═════════════════════════════════════════════════════════════════
+#  NOTIFIER CLASS
+# ═════════════════════════════════════════════════════════════════
+
+class TelegramNotifier:
+    """
+    Async notification sender for trading events.
+
+    Used by controller to send:
+    - Bot started/stopped messages
+    - Trade executed/closed notifications
+    - Decision engine reports
+    - Status updates
+    - Error alerts
+    - Kill switch activations
+    """
+
+    def __init__(self, bot: "Bot", chat_id: str):
+        self.bot = bot
+        self.chat_id = chat_id
+
+    async def _send(self, text: str, parse_mode: str = ParseMode.HTML) -> bool:
+        """Send a message with error handling."""
+        try:
+            await self.bot.send_message(
+                chat_id=self.chat_id,
+                text=text,
+                parse_mode=parse_mode,
+            )
+            return True
+        except Exception as e:
+            logger.error(f"❌ Telegram send failed: {e}")
+            return False
+
+    # ═══════════════════════════════════════════════════════
+    #  LIFECYCLE NOTIFICATIONS
+    # ═══════════════════════════════════════════════════════
+
+    async def send_bot_started(
+        self,
+        mode: str,
+        balance: float,
+        coins: List[str],
+        interval: int,
+        timestamp: datetime,
+    ):
+        """Send bot started notification."""
+        coins_str = ", ".join(coins) if coins else "None"
+        text = (
+            "🤖 <b>TRADING BOT STARTED</b>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 Mode: <code>{mode}</code>\n"
+            f"💰 Balance: <code>${balance:.2f}</code>\n"
+            f"🪙 Coins: <code>{coins_str}</code>\n"
+            f"⏱️ Interval: <code>{interval}s</code>\n"
+            f"🕐 Time: <code>{timestamp.strftime('%Y-%m-%d %H:%M:%S')} UTC</code>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            "✅ Bot is now actively trading!"
         )
-        logger.info(f"📝 Registered /{cmd_name}")
+        await self._send(text)
 
-    app.add_error_handler(error_handler)
+    async def send_bot_stopped(self, reason: str = "User request"):
+        """Send bot stopped notification."""
+        text = (
+            "🛑 <b>TRADING BOT STOPPED</b>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📝 Reason: <code>{reason}</code>\n"
+            f"🕐 Time: <code>{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC</code>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            "⏸️ Trading has been paused."
+        )
+        await self._send(text)
 
-    # Proper async startup
-    await app.initialize()
-    await app.start()
-    await app.updater.start_polling()
+    # ═══════════════════════════════════════════════════════
+    #  TRADE NOTIFICATIONS
+    # ═══════════════════════════════════════════════════════
 
-    logger.info("🚀 Telegram bot is LIVE and polling...")
+    async def send_trade_executed(
+        self,
+        mode: str,
+        side: str,
+        coin: str,
+        amount: float,
+        price: float,
+        cost: float,
+        fee: float,
+        remaining: float,
+        strategy: str,
+        reason: str,
+        confidence: float,
+    ):
+        """Send trade executed notification."""
+        emoji = "🟢" if side == "BUY" else "🔴"
+        conf_pct = confidence * 100 if confidence <= 1 else confidence
 
-    # Keep running forever
-    await asyncio.Event().wait()
+        text = (
+            f"{emoji} <b>TRADE EXECUTED</b>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 Mode: <code>{mode}</code>\n"
+            f"🪙 Coin: <code>{coin}</code>\n"
+            f"📈 Side: <code>{side}</code>\n"
+            f"📦 Amount: <code>{amount:.6f}</code>\n"
+            f"💵 Price: <code>${price:.2f}</code>\n"
+            f"💰 Cost: <code>${cost:.2f}</code>\n"
+            f"🏷️ Fee: <code>${fee:.4f}</code>\n"
+            f"💼 Remaining: <code>${remaining:.2f}</code>\n"
+            f"🎯 Strategy: <code>{strategy}</code>\n"
+            f"📝 Reason: <code>{reason}</code>\n"
+            f"🎲 Confidence: <code>{conf_pct:.1f}%</code>\n"
+            "━━━━━━━━━━━━━━━━━━━━━"
+        )
+        await self._send(text)
+
+    async def send_trade_closed(
+        self,
+        mode: str,
+        coin: str,
+        entry_price: float,
+        exit_price: float,
+        pnl: float,
+        pnl_pct: float,
+        strategy: str,
+        reason: str,
+    ):
+        """Send trade closed notification."""
+        emoji = "✅" if pnl >= 0 else "❌"
+        pnl_emoji = "📈" if pnl >= 0 else "📉"
+
+        text = (
+            f"{emoji} <b>TRADE CLOSED</b>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 Mode: <code>{mode}</code>\n"
+            f"🪙 Coin: <code>{coin}</code>\n"
+            f"📥 Entry: <code>${entry_price:.2f}</code>\n"
+            f"📤 Exit: <code>${exit_price:.2f}</code>\n"
+            f"{pnl_emoji} PnL: <code>${pnl:+.4f} ({pnl_pct:+.2f}%)</code>\n"
+            f"🎯 Strategy: <code>{strategy}</code>\n"
+            f"📝 Reason: <code>{reason}</code>\n"
+            "━━━━━━━━━━━━━━━━━━━━━"
+        )
+        await self._send(text)
+
+    # ═══════════════════════════════════════════════════════
+    #  DECISION ENGINE REPORT
+    # ═══════════════════════════════════════════════════════
+
+    async def send_decision_report(
+        self,
+        coin: str,
+        price: float,
+        brains: List[Dict],
+        votes_buy: int,
+        votes_sell: int,
+        votes_hold: int,
+        weighted_buy: float,
+        weighted_sell: float,
+        final_signal: str,
+        confidence: str,
+        trade: bool,
+    ):
+        """Send 4-brain decision engine report."""
+        # Build brain details
+        brain_lines = []
+        for b in brains:
+            signal_emoji = {"BUY": "🟢", "SELL": "🔴", "HOLD": "⚪"}.get(
+                b["signal"], "⚪"
+            )
+            brain_lines.append(
+                f"  {b['name']}: {signal_emoji} {b['signal']} "
+                f"({b['confidence_pct']}% × {b['weight_pct']}%)"
+            )
+        brains_str = "\n".join(brain_lines)
+
+        signal_emoji = {"BUY": "🟢", "SELL": "🔴", "HOLD": "⚪"}.get(
+            final_signal, "⚪"
+        )
+        trade_str = "✅ YES" if trade else "❌ NO"
+
+        text = (
+            "🧠 <b>4-BRAIN DECISION ENGINE</b>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            f"🪙 Coin: <code>{coin}</code>\n"
+            f"💵 Price: <code>${price:.2f}</code>\n"
+            "\n"
+            "<b>Brain Signals:</b>\n"
+            f"<code>{brains_str}</code>\n"
+            "\n"
+            "<b>Voting Summary:</b>\n"
+            f"  🟢 Buy: {votes_buy} | 🔴 Sell: {votes_sell} | ⚪ Hold: {votes_hold}\n"
+            f"  📊 Weighted: Buy={weighted_buy:.1f} | Sell={weighted_sell:.1f}\n"
+            "\n"
+            f"<b>Final Decision:</b> {signal_emoji} <code>{final_signal}</code>\n"
+            f"<b>Confidence:</b> <code>{confidence}</code>\n"
+            f"<b>Execute Trade:</b> {trade_str}\n"
+            "━━━━━━━━━━━━━━━━━━━━━"
+        )
+        await self._send(text)
+
+    # ═══════════════════════════════════════════════════════
+    #  STATUS & ALERTS
+    # ═══════════════════════════════════════════════════════
+
+    async def send_status(
+        self,
+        running: bool,
+        mode: str,
+        balance: float,
+        open_trades: int,
+        total_trades_today: int,
+        max_trades: int,
+        pnl_today: float,
+        coins: List[str],
+    ):
+        """Send status update."""
+        status_emoji = "🟢" if running else "🔴"
+        status_text = "RUNNING" if running else "STOPPED"
+        pnl_emoji = "📈" if pnl_today >= 0 else "📉"
+        coins_str = ", ".join(coins) if coins else "None"
+
+        text = (
+            f"{status_emoji} <b>BOT STATUS: {status_text}</b>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 Mode: <code>{mode}</code>\n"
+            f"💰 Balance: <code>${balance:.2f}</code>\n"
+            f"📂 Open Trades: <code>{open_trades}</code>\n"
+            f"📈 Trades Today: <code>{total_trades_today}/{max_trades}</code>\n"
+            f"{pnl_emoji} PnL Today: <code>${pnl_today:+.2f}</code>\n"
+            f"🪙 Coins: <code>{coins_str}</code>\n"
+            f"🕐 Time: <code>{datetime.utcnow().strftime('%H:%M:%S')} UTC</code>\n"
+            "━━━━━━━━━━━━━━━━━━━━━"
+        )
+        await self._send(text)
+
+    async def send_error(self, context: str, error: str):
+        """Send error alert."""
+        text = (
+            "⚠️ <b>ERROR ALERT</b>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📍 Context: <code>{context}</code>\n"
+            f"❌ Error: <code>{error[:500]}</code>\n"
+            f"🕐 Time: <code>{datetime.utcnow().strftime('%H:%M:%S')} UTC</code>\n"
+            "━━━━━━━━━━━━━━━━━━━━━"
+        )
+        await self._send(text)
+
+    async def send_kill_switch(self, reason: str, loss_pct: float):
+        """Send kill switch activation alert."""
+        text = (
+            "🚨 <b>KILL SWITCH ACTIVATED</b>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📝 Reason: <code>{reason}</code>\n"
+            f"📉 Loss: <code>{loss_pct:.2f}%</code>\n"
+            f"🕐 Time: <code>{datetime.utcnow().strftime('%H:%M:%S')} UTC</code>\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            "⛔ All trading has been halted!\n"
+            "Use /resume to restart trading."
+        )
+        await self._send(text)
+
+    async def send_custom(self, message: str):
+        """Send a custom message."""
+        await self._send(message)
+
+
+# ═════════════════════════════════════════════════════════════════
+#  TELEGRAM BOT SETUP
+# ═════════════════════════════════════════════════════════════════
+
+async def start_telegram_bot(
+    controller,
+    drop_pending_updates: bool = True,
+) -> Optional[Application]:
+    """
+    Initialize and start the Telegram bot.
+
+    Args:
+        controller: BotController instance
+        drop_pending_updates: If True, ignore messages received while bot was offline
+
+    Returns:
+        Application instance if successful, None otherwise
+    """
+    if not TELEGRAM_AVAILABLE:
+        logger.error("❌ Telegram library not available")
+        return None
+
+    # Get credentials
+    token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
+    chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+
+    if not token:
+        logger.error("❌ TELEGRAM_BOT_TOKEN not set")
+        return None
+
+    if not chat_id:
+        logger.error("❌ TELEGRAM_CHAT_ID not set")
+        return None
+
+    try:
+        # Create application
+        app = (
+            Application.builder()
+            .token(token)
+            .build()
+        )
+
+        # Create notifier and attach to controller
+        notifier = TelegramNotifier(bot=app.bot, chat_id=chat_id)
+        controller.notifier = notifier
+
+        # Import and setup commands
+        from app.tg.commands import setup_commands
+        setup_commands(app, controller, chat_id)
+
+        # Initialize application
+        await app.initialize()
+
+        # Start polling (non-blocking)
+        await app.start()
+        await app.updater.start_polling(
+            drop_pending_updates=drop_pending_updates,
+            allowed_updates=Update.ALL_TYPES,
+        )
+
+        logger.info(
+            f"✅ Telegram bot started | "
+            f"Chat ID: {chat_id[:4]}...{chat_id[-4:]}"
+        )
+
+        return app
+
+    except Exception as e:
+        logger.exception(f"❌ Telegram bot failed to start: {e}")
+        raise
+
+
+async def stop_telegram_bot(app: Application):
+    """Gracefully stop the Telegram bot."""
+    if not app:
+        return
+
+    try:
+        await app.updater.stop()
+        await app.stop()
+        await app.shutdown()
+        logger.info("✅ Telegram bot stopped")
+    except Exception as e:
+        logger.error(f"❌ Error stopping Telegram bot: {e}")

@@ -1,78 +1,82 @@
-# app/telegram/auth.py
+# app/tg/auth.py
+
+"""
+Telegram Authentication — Production Grade
+
+Provides decorator for command authentication.
+Only allows commands from authorized chat ID.
+"""
 
 import os
-from dotenv import load_dotenv
-from telegram import Update
+import functools
+from typing import Callable
+
 from app.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-# Load env ONCE, from correct location
-load_dotenv("config/.env")
+# ── Try importing telegram ────────────────────────────────────────
+try:
+    from telegram import Update
+    from telegram.ext import ContextTypes
+    TELEGRAM_AVAILABLE = True
+except ImportError:
+    TELEGRAM_AVAILABLE = False
 
 
-def _load_allowed_users():
+def require_auth(func: Callable) -> Callable:
     """
-    Loads allowed Telegram user IDs from env.
+    Decorator that requires command sender to be authorized.
 
-    ENV:
-    TELEGRAM_ALLOWED_USERS=123,456
-
-    If NOT set:
-    → AUTH DISABLED (dev mode)
-    → All users allowed
+    Checks if the message chat ID matches TELEGRAM_CHAT_ID.
     """
+    @functools.wraps(func)
+    async def wrapper(
+        update: Update,
+        context: ContextTypes.DEFAULT_TYPE,
+        *args,
+        **kwargs
+    ):
+        if not update.effective_chat:
+            logger.warning("⚠️ No chat in update")
+            return
 
-    user_ids = os.getenv("TELEGRAM_ALLOWED_USERS")
+        chat_id = str(update.effective_chat.id)
 
-    if not user_ids:
-        logger.warning(
-            "⚠️ TELEGRAM_ALLOWED_USERS not set — AUTH DISABLED (DEV MODE)"
-        )
-        return None  # None = allow all users
+        # Get authorized chat ID from context or env
+        authorized_id = context.bot_data.get("chat_id", "")
+        if not authorized_id:
+            authorized_id = os.getenv("TELEGRAM_CHAT_ID", "")
 
-    allowed = set()
+        if not authorized_id:
+            logger.error("❌ TELEGRAM_CHAT_ID not configured")
+            await update.message.reply_text(
+                "❌ Bot not configured. Missing TELEGRAM_CHAT_ID."
+            )
+            return
 
-    for uid in user_ids.split(","):
-        uid = uid.strip()
-        try:
-            allowed.add(int(uid))
-        except ValueError:
-            logger.warning(f"⚠️ Invalid Telegram user ID in env: {uid}")
+        if chat_id != authorized_id:
+            logger.warning(
+                f"⚠️ Unauthorized access attempt | "
+                f"Chat: {chat_id} | Expected: {authorized_id}"
+            )
+            await update.message.reply_text(
+                "⛔ Unauthorized. This bot is private."
+            )
+            return
 
-    if not allowed:
-        logger.error("❌ TELEGRAM_ALLOWED_USERS parsed but EMPTY")
-    else:
-        logger.info(f"✅ Allowed Telegram users loaded: {allowed}")
+        # Authorized — proceed
+        return await func(update, context, *args, **kwargs)
 
-    return allowed
-
-
-# Load once at import time
-ALLOWED_USERS = _load_allowed_users()
+    return wrapper
 
 
-def is_authorized(update: Update) -> bool:
-    """
-    Authorization check for Telegram updates.
-    """
+def get_authorized_chat_id() -> str:
+    """Get authorized chat ID from environment."""
+    return os.getenv("TELEGRAM_CHAT_ID", "").strip()
 
-    if not update or not update.effective_user:
-        logger.warning("⛔ Update or effective_user missing")
-        return False
 
-    user_id = update.effective_user.id
-
-    # DEV MODE → allow all users
-    if ALLOWED_USERS is None:
-        logger.debug(f"✅ DEV MODE: allowing user {user_id}")
-        return True
-
-    if user_id in ALLOWED_USERS:
-        logger.info(f"✅ Authorized user: {user_id}")
-        return True
-
-    logger.warning(
-        f"⛔ Unauthorized user {user_id} | Allowed: {ALLOWED_USERS}"
-    )
-    return False
+def is_authorized(chat_id: str) -> bool:
+    """Check if a chat ID is authorized."""
+    authorized = get_authorized_chat_id()
+    return chat_id == authorized and bool(authorized)

@@ -1,20 +1,20 @@
 {
-  "bot_active": false,
+  "balance": 100.0,
+  "initial_balance": 100.0,
+  "bot_active": true,
   "kill_switch": false,
-
   "max_trades_per_day": 10,
-  "trades_done_today": 0,
-
-  "balance": 100000.0,
   "positions": {},
-
+  "trade_history": [],
   "daily_pnl": 0.0,
-  "total_pnl": 0.0,
-
-  "current_strategy": "scalping",
-
-  "symbol": "BTCUSDT",
-  "trade_quantity": 0.001,
-
-  "last_trade_day": null
+  "trades_today": 0,
+  "total_trades": 0,
+  "total_wins": 0,
+  "total_losses": 0,
+  "win_streak": 0,
+  "loss_streak": 0,
+  "consecutive_losses": 0,
+  "equity_history": [],
+  "rr_history": [],
+  "equity_momentum": 0.0
 }
