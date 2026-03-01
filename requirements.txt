@@ -1,4 +1,27 @@
+# Core Dependencies
 python-dotenv==1.0.0
 python-telegram-bot==20.3
-alpaca-trade-api==3.2.0
 requests==2.31.0
+
+# Exchange APIs
+alpaca-trade-api==3.2.0
+ccxt==4.5.40
+
+# Data Processing
+numpy==1.24.3
+pandas==2.0.3
+
+# Async Support
+aiohttp==3.13.3
+aiodns==4.0.0
+
+# Utilities
+python-dateutil==2.8.2
+pytz==2023.3.post1
+
+# Logging & Utils
+colorama==0.4.6
+
+# Optional: For better error handling
+tenacity==8.2.3
+
