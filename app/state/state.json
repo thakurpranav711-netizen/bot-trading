@@ -3,7 +3,7 @@
   "initial_balance": 40.01389719,
   "bot_active": true,
   "kill_switch": false,
-  "max_trades_per_day": 50,
+  "max_trades_per_day": 10,
   "positions": {},
   "trade_history": [
     {
@@ -28,7 +28,7 @@
     }
   ],
   "daily_pnl": 0.0,
-  "trades_today": 2,
+  "trades_today": 0,
   "total_trades": 1,
   "total_wins": 1,
   "total_losses": 1,
@@ -44,7 +44,7 @@
   "version": "4.0",
   "risk_locked": false,
   "kill_switch_reason": null,
-  "kill_switch_time": null,
+  "kill_switch_time": "2026-03-04T09:57:52.797780",
   "kill_switch_source": null,
   "kill_switch_auto_resume": null,
   "kill_switch_history": [
@@ -101,11 +101,41 @@
       "source": "telegram",
       "timestamp": "2026-03-01T13:01:20.066840",
       "was_active_seconds": 0
+    },
+    {
+      "action": "DEACTIVATED",
+      "source": "manual",
+      "timestamp": "2026-03-01T13:32:17.436570",
+      "was_active_seconds": 0
+    },
+    {
+      "action": "DEACTIVATED",
+      "source": "telegram",
+      "timestamp": "2026-03-01T13:32:35.672365",
+      "was_active_seconds": 0
+    },
+    {
+      "action": "ACTIVATED",
+      "level": "soft",
+      "reason": "Emergency drawdown exceeded",
+      "source": "system",
+      "loss_pct": 0.0,
+      "timestamp": "2026-03-04T09:57:52.797780",
+      "auto_resume": null,
+      "activation_count_today": 1
+    },
+    {
+      "action": "DEACTIVATED",
+      "previous_level": "soft",
+      "source": "telegram",
+      "timestamp": "2026-03-04T11:07:09.911825",
+      "was_active_seconds": 4157.1,
+      "previous_reason": "Emergency drawdown exceeded"
     }
   ],
   "start_of_day_balance": 40.01389719,
   "peak_balance": 40.01389719,
-  "trades_done_today": 2,
+  "trades_done_today": 0,
   "last_trade_date": null,
   "total_pnl": -0.20181805,
   "realized_pnl": -0.20181805,
@@ -204,17 +234,31 @@
       "old_initial": 40.01,
       "new_initial": 40.01,
       "timestamp": "2026-03-01T13:01:20.064442"
+    },
+    {
+      "type": "COOLDOWN_END",
+      "timestamp": "2026-03-01T13:32:17.443982"
+    },
+    {
+      "type": "UNLOCKED",
+      "source": "resume",
+      "timestamp": "2026-03-01T13:32:17.447057"
+    },
+    {
+      "type": "BASELINE_RESET",
+      "source": "telegram",
+      "old_initial": 40.01,
+      "new_initial": 40.01,
+      "timestamp": "2026-03-01T13:32:35.670079"
     }
   ],
-  "last_loss_guard_reset": "2026-03-01",
+  "last_loss_guard_reset": "2026-03-04",
   "symbol": "BTCUSDT",
   "telegram_chat_id": 6374923090,
-  "paper_price_BTC/USDT": 73350.13961783,
-  "last_daily_reset": "2026-03-01",
-  "trades_per_symbol": {
-    "BTC/USDT": 1
-  },
-  "trade_limiter_last_daily_reset": "2026-03-01",
+  "paper_price_BTC/USDT": 74942.29527934,
+  "last_daily_reset": "2026-03-04",
+  "trades_per_symbol": {},
+  "trade_limiter_last_daily_reset": "2026-03-04",
   "trade_limiter_history": [
     {
       "type": "DAILY_RESET",
@@ -228,14 +272,44 @@
       "daily_count": 2,
       "hourly_count": 1,
       "metadata": {}
+    },
+    {
+      "type": "DAILY_RESET",
+      "date": "2026-03-04",
+      "timestamp": "2026-03-04T11:07:01.076807"
     }
   ],
   "trades_this_hour": 0,
-  "trade_limiter_last_hour_reset": "2026-03-01-13",
+  "trade_limiter_last_hour_reset": "2026-03-04-11",
   "last_trade_time": "2026-03-01T12:13:36.485096",
   "recent_trade_times": [
     "2026-03-01T12:13:36.485096"
   ],
   "pause_reason": null,
-  "emergency_acknowledged": false
+  "emergency_acknowledged": true,
+  "max_consecutive_losses": 5,
+  "best_win_streak": 0,
+  "worst_loss_streak": 0,
+  "largest_win": 0,
+  "largest_loss": 0,
+  "daily_history": [
+    {
+      "date": "2026-03-01",
+      "pnl": 0.0,
+      "trades": 2,
+      "end_balance": 40.01389719
+    }
+  ],
+  "daily_high_balance": 40.01389719,
+  "daily_low_balance": 40.01389719,
+  "kill_switch_level": "none",
+  "kill_switch_attempts": 0,
+  "trade_limiter_loss_count": 0,
+  "loss_guard_locked": false,
+  "loss_guard_lock_reason": null,
+  "loss_guard_cooldown_until": null,
+  "daily_limit_notified": false,
+  "in_recovery_mode": true,
+  "recovery_wins_needed": 2,
+  "paper_price_ETH/USDT": 3469.52394649
 }

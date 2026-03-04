@@ -22858,3 +22858,1802 @@ To fix this, restart the bot in 2-3 minutes or kill all Python processes:
 [2026-03-01 18:31:20,075] [WARNING] [app.orchestrator.controller] 🔄 RISK BASELINE RESET by telegram | New baseline: $40.01 | All locks cleared | Streaks reset
 [2026-03-01 18:52:34,740] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
 [2026-03-01 18:52:34,746] [INFO] [app.market.analyzer] 📊 BTC/USDT | $73034.48 | Trend=sideways | RSI=58.9 | MACD=▲ | Regime=ranging | Vol=low | Conf=20.6%
+[2026-03-01 18:57:35,082] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 18:57:35,087] [INFO] [app.market.analyzer] 📊 BTC/USDT | $73251.73 | Trend=sideways | RSI=58.8 | MACD=▲ | Regime=ranging | Vol=low | Conf=21.8%
+[2026-03-01 19:02:05,621] [INFO] [__main__] 🚀 Starting 4-Brain Trading Bot...
+[2026-03-01 19:02:05,621] [INFO] [__main__] 📁 Base directory: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-01 19:02:05,621] [INFO] [__main__] ⚙️ Config loaded | Mode=PAPER | Coins=['BTC/USDT', 'ETH/USDT'] | Interval=300s | BaseRisk=1.0%
+[2026-03-01 19:02:05,621] [INFO] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=True
+[2026-03-01 19:02:05,621] [INFO] [__main__] 📊 State: Balance=$40.01
+[2026-03-01 19:02:05,621] [INFO] [__main__] 📝 Exchange: Paper Trading
+[2026-03-01 19:02:05,621] [INFO] [__main__] 📈 Analyzer: BTC/USDT
+[2026-03-01 19:02:05,622] [INFO] [__main__] 📈 Strategy: 4brain_scalping | Symbol: BTC/USDT
+[2026-03-01 19:02:05,622] [INFO] [__main__] ✅ All components initialized
+[2026-03-01 19:02:05,622] [INFO] [__main__] ✅ Bot is LIVE | Mode=PAPER | Coins=BTC/USDT,ETH/USDT | Interval=300s
+[2026-03-01 19:02:05,799] [INFO] [app.tg.commands] 📋 Registered 16 Telegram commands
+[2026-03-01 19:02:05,799] [INFO] [app.orchestrator.scheduler] ⏱️ Scheduler started | Interval=300s | IdlePoll=2s
+[2026-03-01 19:02:05,799] [INFO] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-01 19:02:05,799] [INFO] [app.orchestrator.controller] 🔁 Controller cycle starting...
+[2026-03-01 19:02:05,800] [INFO] [app.exchange.paper] 🕯️ Seeded 150 candles for BTC/USDT (start=$73289.26)
+[2026-03-01 19:02:05,802] [INFO] [app.market.analyzer] 📊 BTC/USDT | $73289.26 | Trend=bearish | RSI=56.5 | MACD=▲ | Regime=trending | Vol=low | Conf=27.9%
+[2026-03-01 19:02:06,905] [INFO] [app.tg.bot] ✅ Telegram bot started | Chat ID: 6374...3090
+[2026-03-01 19:02:06,905] [INFO] [__main__] ✅ Telegram bot started
+[2026-03-01 19:02:17,441] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: manual | Was active for 0s | risk_locked cleared
+[2026-03-01 19:02:17,444] [INFO] [app.risk.loss_guard] ✅ Cooldown expired — trading can resume
+[2026-03-01 19:02:17,447] [WARNING] [app.risk.loss_guard] 🔓 Loss guard UNLOCKED by resume | Emergency acknowledged — will not re-trigger until baseline reset
+[2026-03-01 19:02:17,447] [INFO] [app.orchestrator.controller] ▶️ Bot resumed | kill_switch cleared | loss_guard unlocked | risk_locked=False
+[2026-03-01 19:02:35,670] [WARNING] [app.risk.loss_guard] 🔄 Baseline RESET by telegram | Old: $40.01 → New: $40.01 | Emergency now triggers at $34.01 (15% of $40.01)
+[2026-03-01 19:02:35,676] [WARNING] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: telegram | Was active for 0s | risk_locked cleared
+[2026-03-01 19:02:35,678] [INFO] [app.risk.adaptive_risk] 🔄 Risk manager streaks reset
+[2026-03-01 19:02:35,678] [WARNING] [app.orchestrator.controller] 🔄 RISK BASELINE RESET by telegram | New baseline: $40.01 | All locks cleared | Streaks reset
+[2026-03-04 12:23:57,751] [ERROR] [__main__] ❌ FATAL: Another bot instance is already running!
+   If this is a crash, delete: /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+   Then restart the bot
+[2026-03-04 12:24:58,745] [ERROR] [__main__] ❌ FATAL: Another bot instance is already running!
+   If this is a crash, delete: /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+   Then restart the bot
+[2026-03-04 15:19:30.917] [INFO    ] [__main__] 
+[2026-03-04 15:19:30.917] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:19:30.917] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:19:30.917] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:19:30.918] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:19:30.918] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:19:30.918] [INFO    ] [__main__] 🕐 Time: 2026-03-04 09:49:30 UTC
+[2026-03-04 15:19:30.918] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:19:30.918] [INFO    ] [__main__] 
+[2026-03-04 15:19:30.918] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:19:30.918] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:19:30.918] [INFO    ] [__main__] 
+[2026-03-04 15:19:30.918] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:19:30.918] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:19:30.918] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:19:30.918] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:19:30.918] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:19:30.918] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:19:30.918] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:19:30.918] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:19:30.918] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:19:30.918] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:19:30.918] [INFO    ] [__main__] 
+[2026-03-04 15:19:30.918] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:19:30.918] [ERROR   ] [__main__] ❌ Another instance may be running!
+   Lock file: /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+   PID: 3123
+   Started: 2026-03-01 19:02:05.621296
+
+   If this is a stale lock, delete it:
+   rm /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+[2026-03-04 15:21:00.189] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.189] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] 🕐 Time: 2026-03-04 09:51:00 UTC
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:21:00.190] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.190] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:21:00.191] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 15:21:00.191] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.191] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 15:21:00.191] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 15:21:00.191] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 15:21:00.192] [INFO    ] [app.state.manager] 🔄 Daily reset | 2026-03-04 | Start balance=$40.01
+[2026-03-04 15:21:00.192] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=True
+[2026-03-04 15:21:00.192] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 15:21:00.192] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 15:21:00.192] [INFO    ] [__main__]    Active:    True
+[2026-03-04 15:21:00.192] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.193] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 15:21:00.193] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 15:21:00.193] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 15:21:00.193] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 15:21:00.193] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 15:21:00.193] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 15:21:00.193] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.193] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 15:21:00.193] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 15:21:00.193] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 15:21:00.193] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 15:21:00.193] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 15:21:00.193] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.193] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 15:21:00.193] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 15:21:00.193] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 15:21:00.193] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 15:21:00.193] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 15:21:00.193] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.193] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 15:21:00.193] [ERROR   ] [__main__] ❌ Fatal error: BotController.__init__() got an unexpected keyword argument 'emergency_drawdown'
+Traceback (most recent call last):
+  File "/Users/pranavthakur/Desktop/TradingBot/app/main.py", line 755, in main
+    controller = BotController(
+        state_manager=state,
+    ...<13 lines>...
+        slippage_pct=config["slippage_pct"],
+    )
+TypeError: BotController.__init__() got an unexpected keyword argument 'emergency_drawdown'
+[2026-03-04 15:21:00.194] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.194] [INFO    ] [__main__] 🧹 Shutting down...
+[2026-03-04 15:21:00.194] [INFO    ] [app.exchange.paper] 📝 Paper exchange closed
+[2026-03-04 15:21:00.194] [INFO    ] [__main__]    ✅ Exchange closed
+[2026-03-04 15:21:00.194] [DEBUG   ] [__main__] Lock file removed
+[2026-03-04 15:21:00.194] [INFO    ] [__main__] 
+[2026-03-04 15:21:00.194] [INFO    ] [__main__] 👋 Goodbye!
+[2026-03-04 15:21:00.194] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:25:55.320] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.320] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:25:55.320] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:25:55.320] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:25:55.320] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:25:55.320] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:25:55.320] [INFO    ] [__main__] 🕐 Time: 2026-03-04 09:55:55 UTC
+[2026-03-04 15:25:55.321] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:25:55.321] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.321] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:25:55.321] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.321] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:25:55.321] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.321] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:25:55.321] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 15:25:55.321] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.321] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 15:25:55.321] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 15:25:55.322] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 15:25:55.322] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=True
+[2026-03-04 15:25:55.322] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 15:25:55.322] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 15:25:55.322] [INFO    ] [__main__]    Active:    True
+[2026-03-04 15:25:55.322] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.322] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 15:25:55.322] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 15:25:55.322] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 15:25:55.322] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 15:25:55.322] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 15:25:55.322] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 15:25:55.322] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.322] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 15:25:55.322] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 15:25:55.322] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 15:25:55.322] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 15:25:55.322] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 15:25:55.322] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.322] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 15:25:55.322] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 15:25:55.322] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 15:25:55.322] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 15:25:55.322] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 15:25:55.322] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.322] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 15:25:55.322] [ERROR   ] [__main__] ❌ Fatal error: BotController.__init__() got an unexpected keyword argument 'emergency_drawdown'
+Traceback (most recent call last):
+  File "/Users/pranavthakur/Desktop/TradingBot/app/main.py", line 755, in main
+    controller = BotController(
+        state_manager=state,
+    ...<13 lines>...
+        slippage_pct=config["slippage_pct"],
+    )
+TypeError: BotController.__init__() got an unexpected keyword argument 'emergency_drawdown'
+[2026-03-04 15:25:55.323] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.323] [INFO    ] [__main__] 🧹 Shutting down...
+[2026-03-04 15:25:55.323] [INFO    ] [app.exchange.paper] 📝 Paper exchange closed
+[2026-03-04 15:25:55.323] [INFO    ] [__main__]    ✅ Exchange closed
+[2026-03-04 15:25:55.324] [DEBUG   ] [__main__] Lock file removed
+[2026-03-04 15:25:55.324] [INFO    ] [__main__] 
+[2026-03-04 15:25:55.324] [INFO    ] [__main__] 👋 Goodbye!
+[2026-03-04 15:25:55.324] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:27:52.582] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.582] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:27:52.582] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:27:52.582] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:27:52.582] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:27:52.582] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:27:52.582] [INFO    ] [__main__] 🕐 Time: 2026-03-04 09:57:52 UTC
+[2026-03-04 15:27:52.582] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:27:52.583] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.583] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:27:52.583] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.583] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:27:52.583] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.583] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:27:52.583] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 15:27:52.583] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.583] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 15:27:52.583] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 15:27:52.584] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 15:27:52.584] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=True
+[2026-03-04 15:27:52.584] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 15:27:52.584] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 15:27:52.584] [INFO    ] [__main__]    Active:    True
+[2026-03-04 15:27:52.584] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.584] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 15:27:52.584] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 15:27:52.584] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 15:27:52.584] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 15:27:52.584] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 15:27:52.584] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 15:27:52.584] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.584] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 15:27:52.584] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 15:27:52.584] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 15:27:52.584] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 15:27:52.584] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 15:27:52.584] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.584] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 15:27:52.584] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 15:27:52.584] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 15:27:52.584] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 15:27:52.584] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 15:27:52.584] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.584] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 15:27:52.585] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 15:27:52.585] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 15:27:52.585] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 15:27:52.585] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 15:27:52.585] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 15:27:52.585] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 15:27:52.585] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.585] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 15:27:52.585] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 15:27:52.585] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:27:52.585] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.585] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 15:27:52.585] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 15:27:52.585] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 15:27:52.586] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.586] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:27:52.586] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 15:27:52.586] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 15:27:52.586] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 15:27:52.586] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 15:27:52.586] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 15:27:52.586] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 15:27:52.586] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:27:52.586] [INFO    ] [__main__] 
+[2026-03-04 15:27:52.794] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 15:27:52.794] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 15:27:52.794] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 15:27:52.795] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 15:27:52.795] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 15:27:52.797] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 15:27:52.797] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 15:27:52.797] [DEBUG   ] [app.orchestrator.scheduler] 🔁 Cycle #1 starting | 09:57:52 UTC
+[2026-03-04 15:27:52.797] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle Start ══════════
+[2026-03-04 15:27:52.801] [CRITICAL] [app.risk.kill_switch] ⚠️ KILL SWITCH [SOFT] | Reason: Emergency drawdown exceeded | Source: system | Loss: 0.0% | Auto-resume: NEVERmin | Closed: 0 positions
+[2026-03-04 15:27:52.801] [ERROR   ] [app.orchestrator.scheduler] ❌ Cycle #1 error (consecutive: 1/5): 'BotController' object has no attribute '_close_all_positions'
+Traceback (most recent call last):
+  File "/Users/pranavthakur/Desktop/TradingBot/app/orchestrator/scheduler.py", line 448, in _run_cycle_safe
+    cycle_result = await asyncio.to_thread(run_cycle)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/pranavthakur/Desktop/TradingBot/app/orchestrator/controller.py", line 258, in run_cycle
+    self._close_all_positions("Emergency drawdown triggered")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BotController' object has no attribute '_close_all_positions'
+[2026-03-04 15:27:53.702] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 15:27:53.722] [INFO    ] [app.orchestrator.scheduler] ⏳ Next backoff: 5.0s
+[2026-03-04 15:27:53.722] [DEBUG   ] [app.orchestrator.scheduler] ❌ Cycle #1 done in 0.92s
+[2026-03-04 15:27:53.722] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 15:28:15.939] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:28:15.940] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:28:17.734] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: paused → stopping
+[2026-03-04 15:28:17.735] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 15:28:17.735] [INFO    ] [app.orchestrator.controller] 🛑 Bot stopped | Reason=Scheduler shutdown
+[2026-03-04 15:28:17.735] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_stop() completed
+[2026-03-04 15:28:17.736] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: stopping → stopped
+[2026-03-04 15:28:17.736] [INFO    ] [app.orchestrator.scheduler] ══════════════════════════════════════════════════
+📊 SCHEDULER SESSION SUMMARY
+══════════════════════════════════════════════════
+  Uptime:           24s
+  Total cycles:     1
+  Total errors:     1
+  Skipped (mkt):    0
+  Error rate:       100.0%
+  Avg latency:      0.925s
+  Peak latency:     0.925s
+  Recent trades:    0
+══════════════════════════════════════════════════
+[2026-03-04 15:28:40.858] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:28:40.858] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:28:48.889] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:28:48.889] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:30:37.225] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:30:37.226] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:31:06.873] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:31:06.873] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:31:13.787] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:31:13.787] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] 
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:31:55.008] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:01:55 UTC
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] 
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:31:55.008] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] 
+[2026-03-04 15:31:55.008] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:31:55.008] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:31:55.008] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:31:55.009] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:31:55.009] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:31:55.009] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:31:55.009] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:31:55.009] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:31:55.009] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:31:55.009] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:31:55.009] [INFO    ] [__main__] 
+[2026-03-04 15:31:55.009] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:31:55.009] [ERROR   ] [__main__] ❌ Another instance may be running!
+   Lock file: /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+   PID: 28229
+   Started: 2026-03-04T09:57:52.583633+00:00
+
+   If this is a stale lock, delete it:
+   rm /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+[2026-03-04 15:32:47.223] [INFO    ] [__main__] 
+[2026-03-04 15:32:47.223] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:32:47.223] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:32:47.223] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:32:47.223] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:32:47.224] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:32:47.224] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:02:47 UTC
+[2026-03-04 15:32:47.224] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:32:47.224] [INFO    ] [__main__] 
+[2026-03-04 15:32:47.224] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:32:47.224] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:32:47.224] [INFO    ] [__main__] 
+[2026-03-04 15:32:47.224] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:32:47.224] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:32:47.224] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:32:47.224] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:32:47.224] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:32:47.224] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:32:47.224] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:32:47.224] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:32:47.224] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:32:47.224] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:32:47.224] [INFO    ] [__main__] 
+[2026-03-04 15:32:47.224] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:32:47.224] [ERROR   ] [__main__] ❌ Another instance may be running!
+   Lock file: /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+   PID: 28229
+   Started: 2026-03-04T09:57:52.583633+00:00
+
+   If this is a stale lock, delete it:
+   rm /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+[2026-03-04 15:33:10.593] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:33:10.594] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:33:52.922] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:33:52.923] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:34:01.014] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:34:01.015] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:34:19.574] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:34:19.574] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:35:00.466] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:35:00.467] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:35:35.033] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:35:35.033] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:35:56.262] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.262] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:35:56.262] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:35:56.262] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:35:56.262] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:35:56.262] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:35:56.262] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:05:56 UTC
+[2026-03-04 15:35:56.262] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:35:56.262] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.262] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:35:56.262] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:35:56.262] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.263] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:35:56.263] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:35:56.263] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:35:56.263] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:35:56.263] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:35:56.263] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:35:56.263] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:35:56.263] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:35:56.263] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:35:56.263] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:35:56.263] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.263] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:35:56.263] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 15:35:56.263] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.263] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 15:35:56.263] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 15:35:56.264] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 15:35:56.264] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 15:35:56.264] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 15:35:56.264] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 15:35:56.264] [INFO    ] [__main__]    Active:    False
+[2026-03-04 15:35:56.264] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.264] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 15:35:56.264] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 15:35:56.264] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 15:35:56.264] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 15:35:56.264] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 15:35:56.264] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 15:35:56.264] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.264] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 15:35:56.264] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 15:35:56.264] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 15:35:56.264] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 15:35:56.264] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 15:35:56.264] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.264] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 15:35:56.264] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 15:35:56.264] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 15:35:56.264] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 15:35:56.265] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 15:35:56.265] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.265] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 15:35:56.265] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 15:35:56.265] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 15:35:56.265] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 15:35:56.265] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 15:35:56.265] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 15:35:56.265] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 15:35:56.265] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.265] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 15:35:56.266] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 15:35:56.266] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:35:56.266] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.266] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 15:35:56.266] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 15:35:56.266] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 15:35:56.266] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.266] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:35:56.266] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 15:35:56.266] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 15:35:56.266] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 15:35:56.266] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 15:35:56.266] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 15:35:56.266] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 15:35:56.266] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:35:56.266] [INFO    ] [__main__] 
+[2026-03-04 15:35:56.396] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 15:35:56.397] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 15:35:56.397] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 15:35:56.397] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 15:35:56.397] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 15:35:56.399] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 15:35:56.399] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 15:35:56.399] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 15:35:57.254] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 15:36:53.751] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:36:53.751] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:37:14.689] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:37:14.690] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:37:55.573] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:37:55.574] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:39:02.047] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.047] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:39:02.047] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:39:02.047] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:39:02.047] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:39:02.047] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:39:02.047] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:09:02 UTC
+[2026-03-04 15:39:02.047] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:39:02.047] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.047] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:39:02.047] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:39:02.048] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.048] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:39:02.048] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:39:02.048] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:39:02.048] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:39:02.048] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:39:02.048] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:39:02.048] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:39:02.048] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:39:02.048] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:39:02.048] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:39:02.048] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.048] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:39:02.048] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 15:39:02.048] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.048] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 15:39:02.048] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 15:39:02.049] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 15:39:02.049] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 15:39:02.049] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 15:39:02.049] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 15:39:02.049] [INFO    ] [__main__]    Active:    False
+[2026-03-04 15:39:02.049] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.049] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 15:39:02.049] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 15:39:02.049] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 15:39:02.049] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 15:39:02.049] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 15:39:02.049] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 15:39:02.049] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.049] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 15:39:02.049] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 15:39:02.049] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 15:39:02.049] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 15:39:02.049] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 15:39:02.049] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.049] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 15:39:02.049] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 15:39:02.049] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 15:39:02.050] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 15:39:02.050] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 15:39:02.050] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.050] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 15:39:02.050] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 15:39:02.050] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 15:39:02.050] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 15:39:02.050] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 15:39:02.050] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 15:39:02.050] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 15:39:02.050] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.051] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 15:39:02.051] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 15:39:02.051] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:39:02.051] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.051] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 15:39:02.051] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 15:39:02.051] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 15:39:02.051] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.051] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:39:02.051] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 15:39:02.051] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 15:39:02.051] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 15:39:02.051] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 15:39:02.051] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 15:39:02.051] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 15:39:02.051] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:39:02.051] [INFO    ] [__main__] 
+[2026-03-04 15:39:02.218] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 15:39:02.218] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 15:39:02.218] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 15:39:02.218] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 15:39:02.218] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 15:39:02.220] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 15:39:02.220] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 15:39:02.220] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 15:39:03.035] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 15:41:02.524] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:41:02.525] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:41:44.514] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:41:44.514] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:42:22.000] [INFO    ] [__main__] 
+[2026-03-04 15:42:22.000] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:12:22 UTC
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] 
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] 
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:42:22.001] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] 
+[2026-03-04 15:42:22.001] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:42:22.002] [ERROR   ] [__main__] ❌ Another instance may be running!
+   Lock file: /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+   PID: 29503
+   Started: 2026-03-04T10:09:02.048563+00:00
+
+   If this is a stale lock, delete it:
+   rm /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+[2026-03-04 15:42:46.630] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:42:46.630] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:43:11.503] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.503] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:43:11.503] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:43:11.503] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:43:11.504] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:43:11.504] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:43:11.504] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:13:11 UTC
+[2026-03-04 15:43:11.504] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:43:11.504] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.504] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:43:11.504] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:43:11.504] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.504] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:43:11.504] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:43:11.504] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:43:11.504] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:43:11.504] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:43:11.504] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:43:11.504] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:43:11.504] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:43:11.504] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:43:11.504] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:43:11.504] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.505] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:43:11.505] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 15:43:11.505] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.505] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 15:43:11.505] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 15:43:11.505] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 15:43:11.505] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 15:43:11.505] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 15:43:11.505] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 15:43:11.505] [INFO    ] [__main__]    Active:    False
+[2026-03-04 15:43:11.505] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.505] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 15:43:11.505] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 15:43:11.505] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 15:43:11.506] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 15:43:11.506] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 15:43:11.506] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 15:43:11.506] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.506] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 15:43:11.506] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 15:43:11.506] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 15:43:11.506] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 15:43:11.506] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 15:43:11.506] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.506] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 15:43:11.506] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 15:43:11.506] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 15:43:11.506] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 15:43:11.506] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 15:43:11.506] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.506] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 15:43:11.506] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 15:43:11.506] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 15:43:11.506] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 15:43:11.507] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 15:43:11.507] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 15:43:11.507] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 15:43:11.507] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.507] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 15:43:11.507] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 15:43:11.507] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:43:11.507] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.507] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 15:43:11.507] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 15:43:11.507] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 15:43:11.507] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.507] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:43:11.507] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 15:43:11.507] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 15:43:11.507] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 15:43:11.508] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 15:43:11.508] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 15:43:11.508] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 15:43:11.508] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:43:11.508] [INFO    ] [__main__] 
+[2026-03-04 15:43:11.642] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 15:43:11.643] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 15:43:11.643] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 15:43:11.643] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 15:43:11.643] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 15:43:11.643] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 15:43:11.643] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 15:43:11.643] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 15:43:12.997] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 15:44:01.756] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:44:01.756] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:45:38.410] [WARNING ] [__main__] ⚠️ Received signal: SIGINT
+[2026-03-04 15:45:38.410] [INFO    ] [app.orchestrator.scheduler] 🛑 Scheduler stop requested | reason=Signal SIGINT
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:46:02.908] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:16:02 UTC
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:46:02.908] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.908] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:46:02.909] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:46:02.909] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:46:02.909] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:46:02.909] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:46:02.909] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:46:02.909] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:46:02.909] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:46:02.909] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:46:02.909] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:46:02.909] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.909] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:46:02.909] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 15:46:02.909] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.909] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 15:46:02.909] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 15:46:02.910] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 15:46:02.910] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 15:46:02.910] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 15:46:02.910] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 15:46:02.910] [INFO    ] [__main__]    Active:    False
+[2026-03-04 15:46:02.910] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.910] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 15:46:02.910] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 15:46:02.910] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 15:46:02.910] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 15:46:02.910] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 15:46:02.910] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 15:46:02.910] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.910] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 15:46:02.910] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 15:46:02.910] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 15:46:02.910] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 15:46:02.910] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 15:46:02.910] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.910] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 15:46:02.910] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 15:46:02.910] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 15:46:02.910] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 15:46:02.911] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 15:46:02.911] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.911] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 15:46:02.911] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 15:46:02.911] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 15:46:02.911] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 15:46:02.911] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 15:46:02.911] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 15:46:02.911] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 15:46:02.911] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.911] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 15:46:02.911] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 15:46:02.912] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:46:02.912] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.912] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 15:46:02.912] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 15:46:02.912] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 15:46:02.912] [INFO    ] [__main__] 
+[2026-03-04 15:46:02.912] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:46:02.912] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 15:46:02.912] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 15:46:02.912] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 15:46:02.912] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 15:46:02.912] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 15:46:02.912] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 15:46:02.912] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:46:02.912] [INFO    ] [__main__] 
+[2026-03-04 15:46:03.074] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 15:46:03.074] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 15:46:03.074] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 15:46:03.074] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 15:46:03.074] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 15:46:03.075] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 15:46:03.075] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 15:46:03.075] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 15:46:04.054] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 15:49:42.966] [INFO    ] [__main__] 
+[2026-03-04 15:49:42.967] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:49:42.967] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:49:42.967] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:49:42.968] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:49:42.968] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:49:42.968] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:19:42 UTC
+[2026-03-04 15:49:42.968] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:49:42.968] [INFO    ] [__main__] 
+[2026-03-04 15:49:42.968] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:49:42.968] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:49:42.969] [INFO    ] [__main__] 
+[2026-03-04 15:49:42.969] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:49:42.969] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:49:42.969] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:49:42.969] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:49:42.970] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:49:42.970] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:49:42.970] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:49:42.970] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:49:42.970] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:49:42.970] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:49:42.970] [INFO    ] [__main__] 
+[2026-03-04 15:49:42.970] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:49:42.971] [ERROR   ] [__main__] ❌ Another instance may be running!
+   Lock file: /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+   PID: 31101
+   Started: 2026-03-04T10:16:02.909465+00:00
+
+   If this is a stale lock, delete it:
+   rm /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:50:22.961] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:20:22 UTC
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:50:22.961] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.961] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:50:22.961] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:50:22.961] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:50:22.961] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:50:22.962] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:50:22.962] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:50:22.962] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:50:22.962] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:50:22.962] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:50:22.962] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:50:22.962] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.962] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:50:22.962] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 15:50:22.962] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.962] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 15:50:22.962] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 15:50:22.962] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 15:50:22.962] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 15:50:22.962] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 15:50:22.962] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 15:50:22.962] [INFO    ] [__main__]    Active:    False
+[2026-03-04 15:50:22.963] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.963] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 15:50:22.963] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 15:50:22.963] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 15:50:22.963] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 15:50:22.963] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 15:50:22.963] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 15:50:22.963] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.963] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 15:50:22.963] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 15:50:22.963] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 15:50:22.963] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 15:50:22.963] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 15:50:22.963] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.963] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 15:50:22.963] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 15:50:22.963] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 15:50:22.963] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 15:50:22.963] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 15:50:22.963] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.963] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 15:50:22.963] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 15:50:22.963] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 15:50:22.963] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 15:50:22.964] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 15:50:22.964] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 15:50:22.964] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 15:50:22.964] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.964] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 15:50:22.964] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 15:50:22.964] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:50:22.964] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.964] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 15:50:22.964] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 15:50:22.964] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 15:50:22.964] [INFO    ] [__main__] 
+[2026-03-04 15:50:22.964] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:50:22.964] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 15:50:22.964] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 15:50:22.965] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 15:50:22.965] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 15:50:22.965] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 15:50:22.965] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 15:50:22.965] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:50:22.965] [INFO    ] [__main__] 
+[2026-03-04 15:50:23.103] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 15:50:23.103] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 15:50:23.103] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 15:50:23.103] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 15:50:23.103] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 15:50:23.104] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 15:50:23.104] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 15:50:23.104] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 15:50:23.867] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 15:56:32.044] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:26:32 UTC
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 15:56:32.044] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.044] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 15:56:32.044] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 15:56:32.044] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 15:56:32.044] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 15:56:32.044] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 15:56:32.044] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 15:56:32.044] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 15:56:32.044] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 15:56:32.045] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:56:32.045] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 15:56:32.045] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.045] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 15:56:32.045] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 15:56:32.045] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.045] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 15:56:32.045] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 15:56:32.045] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 15:56:32.045] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 15:56:32.046] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 15:56:32.046] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 15:56:32.046] [INFO    ] [__main__]    Active:    False
+[2026-03-04 15:56:32.046] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.046] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 15:56:32.046] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 15:56:32.046] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 15:56:32.046] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 15:56:32.046] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 15:56:32.046] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 15:56:32.046] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.046] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 15:56:32.046] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 15:56:32.046] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 15:56:32.046] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 15:56:32.046] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 15:56:32.046] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.046] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 15:56:32.046] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 15:56:32.046] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 15:56:32.046] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 15:56:32.046] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 15:56:32.046] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.046] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 15:56:32.046] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 15:56:32.046] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 15:56:32.046] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 15:56:32.047] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 15:56:32.047] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 15:56:32.047] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 15:56:32.047] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.047] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 15:56:32.047] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 15:56:32.047] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 15:56:32.047] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.047] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 15:56:32.047] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 15:56:32.047] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 15:56:32.047] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.048] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:56:32.048] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 15:56:32.048] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 15:56:32.048] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 15:56:32.048] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 15:56:32.048] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 15:56:32.048] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 15:56:32.048] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 15:56:32.048] [INFO    ] [__main__] 
+[2026-03-04 15:56:32.241] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 15:56:32.241] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 15:56:32.242] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 15:56:32.242] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 15:56:32.242] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 15:56:32.244] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 15:56:32.244] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 15:56:32.244] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 15:56:33.321] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 16:02:45.120] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:32:45 UTC
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:02:45.121] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.121] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 16:02:45.122] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 16:02:45.122] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.122] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 16:02:45.122] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 16:02:45.122] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 16:02:45.122] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 16:02:45.122] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 16:02:45.122] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 16:02:45.122] [INFO    ] [__main__]    Active:    False
+[2026-03-04 16:02:45.122] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.122] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 16:02:45.122] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 16:02:45.122] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 16:02:45.122] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 16:02:45.123] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 16:02:45.123] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 16:02:45.123] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.123] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 16:02:45.123] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 16:02:45.123] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 16:02:45.123] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 16:02:45.123] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 16:02:45.123] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.123] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 16:02:45.123] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 16:02:45.123] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 16:02:45.123] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 16:02:45.123] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 16:02:45.123] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.123] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 16:02:45.123] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 16:02:45.123] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 16:02:45.123] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 16:02:45.124] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 16:02:45.124] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 16:02:45.124] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 16:02:45.124] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.124] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 16:02:45.124] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 16:02:45.124] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:02:45.124] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.124] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 16:02:45.124] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 16:02:45.124] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 16:02:45.124] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.124] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:02:45.124] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 16:02:45.124] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 16:02:45.124] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 16:02:45.124] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 16:02:45.124] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 16:02:45.124] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 16:02:45.124] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:02:45.124] [INFO    ] [__main__] 
+[2026-03-04 16:02:45.297] [INFO    ] [app.tg.bot] 🔄 Clearing Telegram webhook and pending updates...
+[2026-03-04 16:02:45.298] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 16:02:45.298] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 16:02:45.299] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 16:02:45.299] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 16:02:45.299] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 16:02:45.299] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 16:02:45.928] [DEBUG   ] [app.tg.bot] Cleared Telegram webhook and pending updates
+[2026-03-04 16:02:46.932] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 16:02:47.321] [DEBUG   ] [app.tg.bot] Telegram polling started successfully
+[2026-03-04 16:02:47.322] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] 
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 16:07:47.684] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:37:47 UTC
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] 
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 16:07:47.684] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] 
+[2026-03-04 16:07:47.684] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 16:07:47.684] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 16:07:47.685] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 16:07:47.685] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 16:07:47.685] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 16:07:47.685] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 16:07:47.685] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 16:07:47.685] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 16:07:47.685] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:07:47.685] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 16:07:47.685] [INFO    ] [__main__] 
+[2026-03-04 16:07:47.685] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 16:07:47.685] [ERROR   ] [__main__] ❌ Another instance may be running!
+   Lock file: /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+   PID: 33156
+   Started: 2026-03-04T10:32:45.121994+00:00
+
+   If this is a stale lock, delete it:
+   rm /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+[2026-03-04 16:10:50.994] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.994] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:10:50.994] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 16:10:50.994] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 16:10:50.994] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:10:50.994] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 16:10:50.994] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:40:50 UTC
+[2026-03-04 16:10:50.994] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 16:10:50.994] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.994] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 16:10:50.994] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 16:10:50.994] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.995] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 16:10:50.995] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 16:10:50.995] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 16:10:50.995] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 16:10:50.995] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 16:10:50.995] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 16:10:50.995] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 16:10:50.995] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 16:10:50.995] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:10:50.995] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 16:10:50.995] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.995] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 16:10:50.995] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 16:10:50.995] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.995] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 16:10:50.995] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 16:10:50.996] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 16:10:50.996] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 16:10:50.996] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 16:10:50.996] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 16:10:50.996] [INFO    ] [__main__]    Active:    False
+[2026-03-04 16:10:50.996] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.996] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 16:10:50.996] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 16:10:50.996] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 16:10:50.996] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 16:10:50.996] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 16:10:50.996] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 16:10:50.996] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.996] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 16:10:50.996] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 16:10:50.996] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 16:10:50.996] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 16:10:50.996] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 16:10:50.996] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.996] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 16:10:50.996] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 16:10:50.996] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 16:10:50.996] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 16:10:50.996] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 16:10:50.996] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.996] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 16:10:50.996] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 16:10:50.996] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 16:10:50.997] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 16:10:50.997] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 16:10:50.997] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 16:10:50.997] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 16:10:50.997] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.997] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 16:10:50.997] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 16:10:50.997] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:10:50.997] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.997] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 16:10:50.997] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 16:10:50.997] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 16:10:50.997] [INFO    ] [__main__] 
+[2026-03-04 16:10:50.998] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:10:50.998] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 16:10:50.998] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 16:10:50.998] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 16:10:50.998] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 16:10:50.998] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 16:10:50.998] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 16:10:50.998] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:10:50.998] [INFO    ] [__main__] 
+[2026-03-04 16:10:51.172] [INFO    ] [app.tg.bot] 🔄 Clearing Telegram webhook and pending updates...
+[2026-03-04 16:10:51.174] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 16:10:51.174] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 16:10:51.174] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 16:10:51.175] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 16:10:51.175] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 16:10:51.175] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 16:10:52.272] [DEBUG   ] [app.tg.bot] Cleared Telegram webhook and pending updates
+[2026-03-04 16:10:53.280] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 16:10:53.933] [DEBUG   ] [app.tg.bot] Telegram polling started successfully
+[2026-03-04 16:10:53.934] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 16:16:44.513] [INFO    ] [__main__] 
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:46:44 UTC
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] 
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] 
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:16:44.514] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] 
+[2026-03-04 16:16:44.514] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 16:16:44.515] [ERROR   ] [__main__] ❌ Another instance may be running!
+   Lock file: /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+   PID: 34228
+   Started: 2026-03-04T10:40:50.995437+00:00
+
+   If this is a stale lock, delete it:
+   rm /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 16:17:20.312] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:47:20 UTC
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 16:17:20.312] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.312] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 16:17:20.312] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 16:17:20.312] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 16:17:20.312] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 16:17:20.312] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 16:17:20.312] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 16:17:20.313] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 16:17:20.313] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 16:17:20.313] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:17:20.313] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 16:17:20.313] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.313] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 16:17:20.313] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 16:17:20.313] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.313] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 16:17:20.313] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 16:17:20.313] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 16:17:20.313] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 16:17:20.313] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 16:17:20.314] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 16:17:20.314] [INFO    ] [__main__]    Active:    False
+[2026-03-04 16:17:20.314] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.314] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 16:17:20.314] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 16:17:20.314] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 16:17:20.314] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 16:17:20.314] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 16:17:20.314] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 16:17:20.314] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.314] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 16:17:20.314] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 16:17:20.314] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 16:17:20.314] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 16:17:20.314] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 16:17:20.314] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.314] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 16:17:20.314] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 16:17:20.314] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 16:17:20.314] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 16:17:20.314] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 16:17:20.314] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.314] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 16:17:20.314] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 16:17:20.314] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 16:17:20.314] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 16:17:20.315] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 16:17:20.315] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 16:17:20.315] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 16:17:20.315] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.315] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 16:17:20.315] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 16:17:20.315] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:17:20.315] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.315] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 16:17:20.315] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 16:17:20.315] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 16:17:20.315] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.315] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:17:20.315] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 16:17:20.315] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 16:17:20.315] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 16:17:20.315] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 16:17:20.315] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 16:17:20.316] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 16:17:20.316] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:17:20.316] [INFO    ] [__main__] 
+[2026-03-04 16:17:20.514] [INFO    ] [app.tg.bot] 🔄 Clearing Telegram webhook and pending updates...
+[2026-03-04 16:17:20.516] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 16:17:20.516] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 16:17:20.516] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 16:17:20.517] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 16:17:20.517] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 16:17:20.517] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 16:17:21.588] [DEBUG   ] [app.tg.bot] Cleared Telegram webhook and pending updates
+[2026-03-04 16:17:22.596] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 16:17:22.990] [DEBUG   ] [app.tg.bot] Telegram polling started successfully
+[2026-03-04 16:17:22.991] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 16:23:48.512] [INFO    ] [__main__] 
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:53:48 UTC
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] 
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] 
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:23:48.513] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] 
+[2026-03-04 16:23:48.513] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 16:23:48.514] [ERROR   ] [__main__] ❌ Another instance may be running!
+   Lock file: /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+   PID: 35705
+   Started: 2026-03-04T10:47:20.313222+00:00
+
+   If this is a stale lock, delete it:
+   rm /Users/pranavthakur/Desktop/TradingBot/.bot_lock
+[2026-03-04 16:26:26.959] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] 🕐 Time: 2026-03-04 10:56:26 UTC
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:26:26.960] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.960] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 16:26:26.961] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 16:26:26.961] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.961] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 16:26:26.961] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 16:26:26.961] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 16:26:26.961] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 16:26:26.961] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 16:26:26.961] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 16:26:26.961] [INFO    ] [__main__]    Active:    False
+[2026-03-04 16:26:26.961] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.961] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 16:26:26.961] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 16:26:26.961] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 16:26:26.962] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 16:26:26.962] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 16:26:26.962] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 16:26:26.962] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.962] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 16:26:26.962] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 16:26:26.962] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 16:26:26.962] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 16:26:26.962] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 16:26:26.962] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.962] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 16:26:26.962] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 16:26:26.962] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 16:26:26.962] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 16:26:26.962] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 16:26:26.962] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.962] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 16:26:26.962] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 16:26:26.962] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 16:26:26.962] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 16:26:26.963] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 16:26:26.963] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 16:26:26.963] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 16:26:26.963] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.963] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 16:26:26.963] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 16:26:26.963] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:26:26.963] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.963] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 16:26:26.963] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 16:26:26.963] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 16:26:26.963] [INFO    ] [__main__] 
+[2026-03-04 16:26:26.963] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:26:26.963] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 16:26:26.963] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 16:26:26.963] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 16:26:26.963] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 16:26:26.963] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 16:26:26.963] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 16:26:26.963] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:26:26.963] [INFO    ] [__main__] 
+[2026-03-04 16:26:27.140] [INFO    ] [app.tg.bot] 🔄 Clearing Telegram webhook and pending updates...
+[2026-03-04 16:26:27.142] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 16:26:27.142] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 16:26:27.142] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 16:26:27.142] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 16:26:27.142] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 16:26:27.143] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 16:26:28.254] [DEBUG   ] [app.tg.bot] Cleared Telegram webhook and pending updates
+[2026-03-04 16:26:29.263] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 16:26:29.760] [DEBUG   ] [app.tg.bot] Telegram polling started successfully
+[2026-03-04 16:26:29.761] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 16:36:16.208] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.208] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:36:16.208] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 16:36:16.208] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 16:36:16.208] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:36:16.208] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 16:36:16.208] [INFO    ] [__main__] 🕐 Time: 2026-03-04 11:06:16 UTC
+[2026-03-04 16:36:16.209] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 16:36:16.209] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.209] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 16:36:16.209] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.209] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 16:36:16.209] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.209] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 16:36:16.209] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 16:36:16.209] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.209] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 16:36:16.210] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 16:36:16.210] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 16:36:16.210] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=False
+[2026-03-04 16:36:16.210] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 16:36:16.210] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 16:36:16.210] [INFO    ] [__main__]    Active:    False
+[2026-03-04 16:36:16.210] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.210] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 16:36:16.210] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 16:36:16.210] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 16:36:16.210] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 16:36:16.210] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 16:36:16.210] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 16:36:16.210] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.210] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 16:36:16.210] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 16:36:16.210] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 16:36:16.210] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 16:36:16.210] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 16:36:16.210] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.210] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 16:36:16.211] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 16:36:16.211] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 16:36:16.211] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 16:36:16.211] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 16:36:16.211] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.211] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 16:36:16.211] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 AI disabled (no ANTHROPIC_API_KEY)
+[2026-03-04 16:36:16.211] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 16:36:16.211] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 16:36:16.211] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 16:36:16.211] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 16:36:16.211] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 16:36:16.211] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.212] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 16:36:16.212] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 16:36:16.212] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:36:16.212] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.212] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 16:36:16.212] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 16:36:16.212] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 16:36:16.212] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.212] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:36:16.212] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 16:36:16.212] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 16:36:16.212] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 16:36:16.212] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 16:36:16.212] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 16:36:16.212] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 16:36:16.212] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:36:16.212] [INFO    ] [__main__] 
+[2026-03-04 16:36:16.413] [INFO    ] [app.tg.bot] 🔄 Clearing Telegram webhook and pending updates...
+[2026-03-04 16:36:16.415] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 16:36:16.415] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 16:36:16.415] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 16:36:16.416] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 16:36:16.416] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 16:36:16.416] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: running → paused
+[2026-03-04 16:36:21.428] [DEBUG   ] [app.tg.bot] Cleared Telegram webhook and pending updates
+[2026-03-04 16:36:22.436] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 16:36:23.162] [DEBUG   ] [app.tg.bot] Telegram polling started successfully
+[2026-03-04 16:36:23.162] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 16:36:45.475] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_start
+[2026-03-04 16:37:01.069] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_status
+[2026-03-04 16:37:01.077] [INFO    ] [app.risk.trade_limiter] 🔄 TradeLimiter daily reset | 2026-03-04
+[2026-03-04 16:37:09.907] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_unlock
+[2026-03-04 16:37:09.920] [WARNING ] [app.risk.kill_switch] ✅ Kill switch DEACTIVATED | Source: telegram | Was SOFT for 4157s
+[2026-03-04 16:37:09.926] [WARNING ] [app.risk.loss_guard] 🔓 LossGuard unlocked | Source: telegram | Balance=$40.01 | DD=0.0% | Recovery mode: True
+[2026-03-04 16:37:09.927] [WARNING ] [app.orchestrator.controller] 🔓 FULL RISK UNLOCK by telegram
+[2026-03-04 16:37:10.448] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: paused → running
+[2026-03-04 16:37:10.449] [DEBUG   ] [app.orchestrator.scheduler] 🔁 Cycle #1 starting | 11:07:10 UTC
+[2026-03-04 16:37:10.450] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle Start ══════════
+[2026-03-04 16:37:10.450] [DEBUG   ] [app.exchange.paper] 🔄 Paper exchange cycle started — price cache cleared
+[2026-03-04 16:37:10.450] [INFO    ] [app.orchestrator.controller] 📊 Phase 1: Market Analysis
+[2026-03-04 16:37:10.454] [INFO    ] [app.exchange.paper] 🕯️ Seeded 150 5m candles for BTC/USDT (start=$72782.89)
+[2026-03-04 16:37:10.463] [INFO    ] [app.market.analyzer] 📊 BTC/USDT | $72,782.89 | SIDEWAYS | RSI=59.7 | MACD=▲ | ADX=21.0 | Vol=low | Signal=HOLD (25%)
+[2026-03-04 16:37:10.464] [INFO    ] [app.orchestrator.controller]    ✅ BTC/USDT: $72782.89 | Trend=sideways | RSI=59.7 | Regime=ranging | AI=N/A
+[2026-03-04 16:37:10.467] [INFO    ] [app.exchange.paper] 🕯️ Seeded 150 5m candles for ETH/USDT (start=$3401.55)
+[2026-03-04 16:37:10.473] [INFO    ] [app.market.analyzer] 📊 ETH/USDT | $3,401.55 | SIDEWAYS | RSI=63.1 | MACD=▼ | ADX=44.7 | Vol=low | Signal=HOLD (25%)
+[2026-03-04 16:37:10.473] [INFO    ] [app.orchestrator.controller]    ✅ ETH/USDT: $3401.55 | Trend=sideways | RSI=63.1 | Regime=ranging | AI=N/A
+[2026-03-04 16:37:10.473] [INFO    ] [app.orchestrator.controller] 📂 Phase 2: Position Management
+[2026-03-04 16:37:10.473] [INFO    ] [app.orchestrator.controller]    No open positions
+[2026-03-04 16:37:10.474] [INFO    ] [app.orchestrator.controller] 🎯 Phase 3: Entry Evaluation
+[2026-03-04 16:37:10.474] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:37:10.474] [DEBUG   ] [app.strategies.scalping] ⛔ Precondition failed: Volatility too high (0.0357)
+[2026-03-04 16:37:10.474] [DEBUG   ] [app.orchestrator.controller]    BTC/USDT: Strategy declined entry
+[2026-03-04 16:37:10.474] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:37:10.474] [DEBUG   ] [app.orchestrator.controller]    ETH/USDT: No trade signal (BUY / LOW)
+[2026-03-04 16:37:10.474] [INFO    ] [app.orchestrator.controller] 📱 Phase 4: Reports
+[2026-03-04 16:37:10.474] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:37:10.474] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:37:10.474] [INFO    ] [app.orchestrator.controller] ✅ Cycle complete in 0.02s
+[2026-03-04 16:37:10.474] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle End ══════════
+[2026-03-04 16:37:10.475] [DEBUG   ] [app.orchestrator.scheduler] ✅ Cycle #1 done in 0.03s
+[2026-03-04 16:38:51.507] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_balance
+[2026-03-04 16:39:09.591] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_trades
+[2026-03-04 16:39:54.093] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_performance
+[2026-03-04 16:40:27.164] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_buy
+[2026-03-04 16:40:56.026] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_buy
+[2026-03-04 16:41:25.664] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_sell
+[2026-03-04 16:41:45.308] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_sell
+[2026-03-04 16:42:10.829] [DEBUG   ] [app.orchestrator.scheduler] 🔁 Cycle #2 starting | 11:12:10 UTC
+[2026-03-04 16:42:10.830] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle Start ══════════
+[2026-03-04 16:42:10.830] [DEBUG   ] [app.exchange.paper] 🔄 Paper exchange cycle started — price cache cleared
+[2026-03-04 16:42:10.830] [INFO    ] [app.orchestrator.controller] 📊 Phase 1: Market Analysis
+[2026-03-04 16:42:10.831] [DEBUG   ] [app.exchange.paper] 🕯️ Generated 1 5m candle(s) for BTC/USDT
+[2026-03-04 16:42:10.833] [INFO    ] [app.market.analyzer] 📊 BTC/USDT | $75,602.65 | BULLISH | RSI=61.8 | MACD=▲ | ADX=21.0 | Vol=low | Signal=BUY (40%)
+[2026-03-04 16:42:10.833] [INFO    ] [app.orchestrator.controller]    ✅ BTC/USDT: $75602.65 | Trend=bullish | RSI=61.8 | Regime=trending | AI=N/A
+[2026-03-04 16:42:10.834] [DEBUG   ] [app.exchange.paper] 🕯️ Generated 1 5m candle(s) for ETH/USDT
+[2026-03-04 16:42:10.836] [INFO    ] [app.market.analyzer] 📊 ETH/USDT | $3,438.43 | BULLISH | RSI=59.5 | MACD=▼ | ADX=40.7 | Vol=low | Signal=HOLD (30%)
+[2026-03-04 16:42:10.836] [INFO    ] [app.orchestrator.controller]    ✅ ETH/USDT: $3438.43 | Trend=bullish | RSI=59.5 | Regime=trending | AI=N/A
+[2026-03-04 16:42:10.837] [INFO    ] [app.orchestrator.controller] 📂 Phase 2: Position Management
+[2026-03-04 16:42:10.837] [INFO    ] [app.orchestrator.controller]    No open positions
+[2026-03-04 16:42:10.837] [INFO    ] [app.orchestrator.controller] 🎯 Phase 3: Entry Evaluation
+[2026-03-04 16:42:10.837] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:42:10.837] [DEBUG   ] [app.strategies.scalping] ⛔ Precondition failed: Volatility too high (0.0358)
+[2026-03-04 16:42:10.837] [DEBUG   ] [app.orchestrator.controller]    BTC/USDT: Strategy declined entry
+[2026-03-04 16:42:10.837] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:42:10.837] [DEBUG   ] [app.orchestrator.controller]    ETH/USDT: No trade signal (HOLD / LOW)
+[2026-03-04 16:42:10.837] [INFO    ] [app.orchestrator.controller] 📱 Phase 4: Reports
+[2026-03-04 16:42:10.837] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:42:10.837] [INFO    ] [app.orchestrator.controller] ✅ Cycle complete in 0.01s
+[2026-03-04 16:42:10.837] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle End ══════════
+[2026-03-04 16:42:10.837] [DEBUG   ] [app.orchestrator.scheduler] ✅ Cycle #2 done in 0.01s
+[2026-03-04 16:42:19.470] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_start
+[2026-03-04 16:47:11.175] [INFO    ] [app.orchestrator.scheduler] 💓 Heartbeat | state=running | cycles=2 | errors=0 | err_rate=0.0% | avg_latency=0.017s | uptime=10m 54s
+[2026-03-04 16:47:11.178] [DEBUG   ] [app.orchestrator.scheduler] 🔁 Cycle #3 starting | 11:17:11 UTC
+[2026-03-04 16:47:11.178] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle Start ══════════
+[2026-03-04 16:47:11.179] [DEBUG   ] [app.exchange.paper] 🔄 Paper exchange cycle started — price cache cleared
+[2026-03-04 16:47:11.179] [INFO    ] [app.orchestrator.controller] 📊 Phase 1: Market Analysis
+[2026-03-04 16:47:11.182] [DEBUG   ] [app.exchange.paper] 🕯️ Generated 1 5m candle(s) for BTC/USDT
+[2026-03-04 16:47:11.190] [INFO    ] [app.market.analyzer] 📊 BTC/USDT | $75,645.99 | BULLISH | RSI=59.3 | MACD=▲ | ADX=20.9 | Vol=low | Signal=BUY (40%)
+[2026-03-04 16:47:11.190] [INFO    ] [app.orchestrator.controller]    ✅ BTC/USDT: $75645.99 | Trend=bullish | RSI=59.3 | Regime=trending | AI=N/A
+[2026-03-04 16:47:11.191] [DEBUG   ] [app.exchange.paper] 🕯️ Generated 1 5m candle(s) for ETH/USDT
+[2026-03-04 16:47:11.199] [INFO    ] [app.market.analyzer] 📊 ETH/USDT | $3,435.17 | BULLISH | RSI=57.3 | MACD=▼ | ADX=34.7 | Vol=low | Signal=HOLD (30%)
+[2026-03-04 16:47:11.199] [INFO    ] [app.orchestrator.controller]    ✅ ETH/USDT: $3435.17 | Trend=bullish | RSI=57.3 | Regime=trending | AI=N/A
+[2026-03-04 16:47:11.200] [INFO    ] [app.orchestrator.controller] 📂 Phase 2: Position Management
+[2026-03-04 16:47:11.200] [INFO    ] [app.orchestrator.controller]    No open positions
+[2026-03-04 16:47:11.200] [INFO    ] [app.orchestrator.controller] 🎯 Phase 3: Entry Evaluation
+[2026-03-04 16:47:11.200] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:47:11.200] [DEBUG   ] [app.strategies.scalping] ⛔ Precondition failed: Volatility too high (0.0362)
+[2026-03-04 16:47:11.200] [DEBUG   ] [app.orchestrator.controller]    BTC/USDT: Strategy declined entry
+[2026-03-04 16:47:11.200] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:47:11.200] [DEBUG   ] [app.orchestrator.controller]    ETH/USDT: No trade signal (HOLD / LOW)
+[2026-03-04 16:47:11.200] [INFO    ] [app.orchestrator.controller] 📱 Phase 4: Reports
+[2026-03-04 16:47:11.201] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:47:11.201] [INFO    ] [app.orchestrator.controller] ✅ Cycle complete in 0.02s
+[2026-03-04 16:47:11.201] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle End ══════════
+[2026-03-04 16:47:11.201] [DEBUG   ] [app.orchestrator.scheduler] ✅ Cycle #3 done in 0.02s
+[2026-03-04 16:52:11.530] [DEBUG   ] [app.orchestrator.scheduler] 🔁 Cycle #4 starting | 11:22:11 UTC
+[2026-03-04 16:52:11.531] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle Start ══════════
+[2026-03-04 16:52:11.532] [DEBUG   ] [app.exchange.paper] 🔄 Paper exchange cycle started — price cache cleared
+[2026-03-04 16:52:11.532] [INFO    ] [app.orchestrator.controller] 📊 Phase 1: Market Analysis
+[2026-03-04 16:52:11.535] [DEBUG   ] [app.exchange.paper] 🕯️ Generated 1 5m candle(s) for BTC/USDT
+[2026-03-04 16:52:11.542] [INFO    ] [app.market.analyzer] 📊 BTC/USDT | $75,601.92 | BULLISH | RSI=56.0 | MACD=▲ | ADX=11.0 | Vol=low | Signal=BUY (40%)
+[2026-03-04 16:52:11.542] [INFO    ] [app.orchestrator.controller]    ✅ BTC/USDT: $75601.92 | Trend=bullish | RSI=56.0 | Regime=ranging | AI=N/A
+[2026-03-04 16:52:11.543] [DEBUG   ] [app.exchange.paper] 🕯️ Generated 1 5m candle(s) for ETH/USDT
+[2026-03-04 16:52:11.549] [INFO    ] [app.market.analyzer] 📊 ETH/USDT | $3,456.24 | BULLISH | RSI=62.3 | MACD=▼ | ADX=45.1 | Vol=low | Signal=HOLD (35%)
+[2026-03-04 16:52:11.549] [INFO    ] [app.orchestrator.controller]    ✅ ETH/USDT: $3456.24 | Trend=bullish | RSI=62.3 | Regime=trending | AI=N/A
+[2026-03-04 16:52:11.549] [INFO    ] [app.orchestrator.controller] 📂 Phase 2: Position Management
+[2026-03-04 16:52:11.549] [INFO    ] [app.orchestrator.controller]    No open positions
+[2026-03-04 16:52:11.549] [INFO    ] [app.orchestrator.controller] 🎯 Phase 3: Entry Evaluation
+[2026-03-04 16:52:11.549] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:52:11.549] [DEBUG   ] [app.orchestrator.controller]    BTC/USDT: No trade signal (BUY / LOW)
+[2026-03-04 16:52:11.550] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:52:11.550] [DEBUG   ] [app.orchestrator.controller]    ETH/USDT: No trade signal (HOLD / LOW)
+[2026-03-04 16:52:11.550] [INFO    ] [app.orchestrator.controller] 📱 Phase 4: Reports
+[2026-03-04 16:52:11.550] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:52:11.550] [INFO    ] [app.orchestrator.controller] ✅ Cycle complete in 0.02s
+[2026-03-04 16:52:11.550] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle End ══════════
+[2026-03-04 16:52:11.550] [DEBUG   ] [app.orchestrator.scheduler] ✅ Cycle #4 done in 0.02s
+[2026-03-04 16:53:57.639] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.639] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:53:57.639] [INFO    ] [__main__] 🤖 AUTONOMOUS AI TRADING BOT
+[2026-03-04 16:53:57.639] [INFO    ] [__main__]    Version: 2.0.0
+[2026-03-04 16:53:57.639] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:53:57.639] [INFO    ] [__main__] 📁 Base: /Users/pranavthakur/Desktop/TradingBot
+[2026-03-04 16:53:57.639] [INFO    ] [__main__] 🕐 Time: 2026-03-04 11:23:57 UTC
+[2026-03-04 16:53:57.639] [INFO    ] [__main__] 📄 Env:  /Users/pranavthakur/Desktop/TradingBot/config/.env
+[2026-03-04 16:53:57.639] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.640] [INFO    ] [__main__] 🔍 Validating configuration...
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    ✅ Configuration valid
+[2026-03-04 16:53:57.640] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.640] [INFO    ] [__main__] 📋 Configuration:
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    Mode:         PAPER
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    Exchange:     AUTO
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    Coins:        BTC/USDT, ETH/USDT
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    Interval:     300s (5m)
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    Base Risk:    1.0%
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    Daily DD:     5.0%
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    Emergency DD: 15.0%
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    Telegram:     True
+[2026-03-04 16:53:57.640] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.640] [INFO    ] [__main__] 🔒 Checking instance lock...
+[2026-03-04 16:53:57.640] [INFO    ] [__main__]    ✅ Lock acquired
+[2026-03-04 16:53:57.640] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.640] [INFO    ] [__main__] 💾 Initializing state manager...
+[2026-03-04 16:53:57.640] [DEBUG   ] [app.state.manager] 📂 Defaults loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/defaults.json
+[2026-03-04 16:53:57.641] [DEBUG   ] [app.state.manager] 📂 State loaded: /Users/pranavthakur/Desktop/TradingBot/app/state/state.json
+[2026-03-04 16:53:57.641] [INFO    ] [app.state.manager] ✅ StateManager ready | Balance=$40.01 | Positions=0 | Active=True
+[2026-03-04 16:53:57.641] [INFO    ] [__main__]    Balance:   $40.01
+[2026-03-04 16:53:57.641] [INFO    ] [__main__]    Positions: 0
+[2026-03-04 16:53:57.641] [INFO    ] [__main__]    Active:    True
+[2026-03-04 16:53:57.641] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.641] [INFO    ] [__main__] 💱 Initializing exchange...
+[2026-03-04 16:53:57.641] [INFO    ] [app.exchange.factory] 🏭 Exchange Factory | Mode=PAPER | Type=AUTO
+[2026-03-04 16:53:57.641] [INFO    ] [app.exchange.factory] 📝 PAPER mode with AUTO — using Paper exchange for safety
+[2026-03-04 16:53:57.641] [INFO    ] [app.exchange.paper] ✅ PaperExchange initialized | Spread=0.020% | Slippage=0.050% | Fee=0.10%
+[2026-03-04 16:53:57.641] [INFO    ] [app.exchange.factory] 📝 Created PaperExchange | Balance=$40.01
+[2026-03-04 16:53:57.641] [INFO    ] [__main__]    ✅ Connected: PAPER (PAPER)
+[2026-03-04 16:53:57.641] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.641] [INFO    ] [__main__] 📊 Initializing market analyzers...
+[2026-03-04 16:53:57.641] [DEBUG   ] [__main__] Created analyzer for BTC/USDT
+[2026-03-04 16:53:57.641] [DEBUG   ] [__main__] Created analyzer for ETH/USDT
+[2026-03-04 16:53:57.641] [INFO    ] [__main__]    ✅ BTC/USDT
+[2026-03-04 16:53:57.641] [INFO    ] [__main__]    ✅ ETH/USDT
+[2026-03-04 16:53:57.641] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.641] [INFO    ] [__main__] 🎯 Initializing strategy...
+[2026-03-04 16:53:57.641] [INFO    ] [app.strategies.base] 📊 Strategy initialized | 4brain_scalping v2.1.0 | BTC/USDT | MinConf=0.55 | MinRR=1.5
+[2026-03-04 16:53:57.641] [INFO    ] [app.strategies.scalping] 📊 ScalpingStrategy v2.1.0 initialized | BTC/USDT | RR=2.0 | ATR×1.2
+[2026-03-04 16:53:57.642] [INFO    ] [__main__]    Strategy: 4brain_scalping
+[2026-03-04 16:53:57.642] [INFO    ] [__main__]    R/R Ratio: 2.0:1
+[2026-03-04 16:53:57.642] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.642] [INFO    ] [__main__] 🎮 Initializing controller...
+[2026-03-04 16:53:57.642] [INFO    ] [app.orchestrator.controller] 🧠 Brain 4 AI enabled (GROQ API)
+[2026-03-04 16:53:57.642] [INFO    ] [app.risk.adaptive_risk] 🎯 AdaptiveRiskManager initialized | Base=1.0% | Range=[0.3%, 3.0%]
+[2026-03-04 16:53:57.642] [INFO    ] [app.risk.loss_guard] 🛡️ LossGuard initialized | DailyDD=5.0% | Emergency=15.0% | MaxConsec=3 | Cooldown=30min
+[2026-03-04 16:53:57.642] [INFO    ] [app.risk.trade_limiter] ⏱️ TradeLimiter initialized | Daily=10 | Hourly=3 | Symbol=3 | Interval=60s | MaxPositions=3
+[2026-03-04 16:53:57.642] [INFO    ] [app.orchestrator.controller] 🎮 Controller initialized | Mode=PAPER | Coins=2 | Interval=300s
+[2026-03-04 16:53:57.642] [INFO    ] [__main__]    ✅ Controller ready
+[2026-03-04 16:53:57.642] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.643] [INFO    ] [__main__] ⏰ Initializing scheduler...
+[2026-03-04 16:53:57.643] [INFO    ] [__main__]    Interval:     300s
+[2026-03-04 16:53:57.643] [INFO    ] [__main__]    Market Aware: False
+[2026-03-04 16:53:57.643] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.643] [DEBUG   ] [__main__] Signal handlers registered
+[2026-03-04 16:53:57.643] [INFO    ] [__main__] 📱 Starting Telegram bot...
+[2026-03-04 16:53:57.643] [INFO    ] [__main__] 🚀 Starting scheduler...
+[2026-03-04 16:53:57.643] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.643] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:53:57.643] [INFO    ] [__main__] ✅ BOT IS LIVE!
+[2026-03-04 16:53:57.643] [INFO    ] [__main__]    Mode:     PAPER
+[2026-03-04 16:53:57.643] [INFO    ] [__main__]    Coins:    BTC/USDT, ETH/USDT
+[2026-03-04 16:53:57.643] [INFO    ] [__main__]    Interval: 5m
+[2026-03-04 16:53:57.643] [INFO    ] [__main__]    Balance:  $40.01
+[2026-03-04 16:53:57.643] [INFO    ] [__main__]    Startup:  0.00s
+[2026-03-04 16:53:57.643] [INFO    ] [__main__] ════════════════════════════════════════════════════════════
+[2026-03-04 16:53:57.643] [INFO    ] [__main__] 
+[2026-03-04 16:53:57.828] [INFO    ] [app.tg.bot] 🔄 Clearing Telegram webhook and pending updates...
+[2026-03-04 16:53:57.830] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: idle → starting
+[2026-03-04 16:53:57.830] [INFO    ] [app.orchestrator.scheduler] ⏱️ Scheduler started | interval=300s | idle_poll=2s | market_aware=False | exchange=crypto | jitter=0.0s | adaptive=False
+[2026-03-04 16:53:57.830] [INFO    ] [app.orchestrator.controller] 🤖 Bot started | Mode=PAPER | Balance=$40.01 | Coins=['BTC/USDT', 'ETH/USDT']
+[2026-03-04 16:53:57.830] [DEBUG   ] [app.orchestrator.scheduler] ✅ Lifecycle on_start() completed
+[2026-03-04 16:53:57.831] [INFO    ] [app.orchestrator.scheduler] 📋 Scheduler state: starting → running
+[2026-03-04 16:53:57.831] [DEBUG   ] [app.orchestrator.scheduler] 🔁 Cycle #1 starting | 11:23:57 UTC
+[2026-03-04 16:53:57.831] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle Start ══════════
+[2026-03-04 16:53:57.831] [DEBUG   ] [app.exchange.paper] 🔄 Paper exchange cycle started — price cache cleared
+[2026-03-04 16:53:57.831] [INFO    ] [app.orchestrator.controller] 📊 Phase 1: Market Analysis
+[2026-03-04 16:53:57.832] [INFO    ] [app.exchange.paper] 🕯️ Seeded 150 5m candles for BTC/USDT (start=$75418.85)
+[2026-03-04 16:53:57.835] [INFO    ] [app.market.analyzer] 📊 BTC/USDT | $75,418.85 | SIDEWAYS | RSI=34.5 | MACD=▼ | ADX=30.6 | Vol=low | Signal=HOLD (30%)
+[2026-03-04 16:53:58.372] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 API error: 401
+[2026-03-04 16:53:58.373] [INFO    ] [app.orchestrator.controller]    ✅ BTC/USDT: $75418.85 | Trend=sideways | RSI=34.5 | Regime=ranging | AI=N/A
+[2026-03-04 16:53:58.374] [INFO    ] [app.exchange.paper] 🕯️ Seeded 150 5m candles for ETH/USDT (start=$3439.21)
+[2026-03-04 16:53:58.377] [INFO    ] [app.market.analyzer] 📊 ETH/USDT | $3,439.21 | SIDEWAYS | RSI=51.5 | MACD=▲ | ADX=11.1 | Vol=low | Signal=HOLD (25%)
+[2026-03-04 16:53:58.537] [DEBUG   ] [app.tg.bot] Cleared Telegram webhook and pending updates
+[2026-03-04 16:53:58.809] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 API error: 401
+[2026-03-04 16:53:58.812] [INFO    ] [app.orchestrator.controller]    ✅ ETH/USDT: $3439.21 | Trend=sideways | RSI=51.5 | Regime=ranging | AI=N/A
+[2026-03-04 16:53:58.812] [INFO    ] [app.orchestrator.controller] 📂 Phase 2: Position Management
+[2026-03-04 16:53:58.812] [INFO    ] [app.orchestrator.controller]    No open positions
+[2026-03-04 16:53:58.813] [INFO    ] [app.orchestrator.controller] 🎯 Phase 3: Entry Evaluation
+[2026-03-04 16:53:58.813] [DEBUG   ] [app.strategies.scalping] ⛔ Precondition failed: Volatility too high (0.0225)
+[2026-03-04 16:53:58.813] [DEBUG   ] [app.orchestrator.controller]    BTC/USDT: Strategy declined entry
+[2026-03-04 16:53:58.813] [DEBUG   ] [app.orchestrator.controller]    ETH/USDT: No trade signal (HOLD / LOW)
+[2026-03-04 16:53:58.813] [INFO    ] [app.orchestrator.controller] 📱 Phase 4: Reports
+[2026-03-04 16:53:58.813] [INFO    ] [app.orchestrator.controller] ✅ Cycle complete in 0.98s
+[2026-03-04 16:53:58.814] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle End ══════════
+[2026-03-04 16:53:58.814] [DEBUG   ] [app.orchestrator.scheduler] ✅ Cycle #1 done in 0.98s
+[2026-03-04 16:53:59.542] [INFO    ] [app.tg.commands] Registered 27 Telegram commands (14 admin-only)
+[2026-03-04 16:54:00.217] [DEBUG   ] [app.tg.bot] Telegram polling started successfully
+[2026-03-04 16:54:00.217] [INFO    ] [app.tg.bot] ✅ Telegram bot started | chat=6374...90
+[2026-03-04 16:54:12.339] [DEBUG   ] [app.tg.auth] ✅ Auth passed | chat=6374923090 | user=Pranav | role=admin | handler=cmd_start
+[2026-03-04 16:58:59.157] [DEBUG   ] [app.orchestrator.scheduler] 🔁 Cycle #2 starting | 11:28:59 UTC
+[2026-03-04 16:58:59.160] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle Start ══════════
+[2026-03-04 16:58:59.160] [DEBUG   ] [app.exchange.paper] 🔄 Paper exchange cycle started — price cache cleared
+[2026-03-04 16:58:59.160] [INFO    ] [app.orchestrator.controller] 📊 Phase 1: Market Analysis
+[2026-03-04 16:58:59.162] [DEBUG   ] [app.exchange.paper] 🕯️ Generated 1 5m candle(s) for BTC/USDT
+[2026-03-04 16:58:59.171] [INFO    ] [app.market.analyzer] 📊 BTC/USDT | $74,976.84 | BEARISH | RSI=35.2 | MACD=▼ | ADX=30.6 | Vol=low | Signal=SELL (45%)
+[2026-03-04 16:58:59.762] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 API error: 401
+[2026-03-04 16:58:59.764] [INFO    ] [app.orchestrator.controller]    ✅ BTC/USDT: $74976.84 | Trend=bearish | RSI=35.2 | Regime=trending | AI=N/A
+[2026-03-04 16:58:59.766] [DEBUG   ] [app.exchange.paper] 🕯️ Generated 1 5m candle(s) for ETH/USDT
+[2026-03-04 16:58:59.775] [INFO    ] [app.market.analyzer] 📊 ETH/USDT | $3,477.53 | SIDEWAYS | RSI=47.4 | MACD=▲ | ADX=21.8 | Vol=low | Signal=HOLD (15%)
+[2026-03-04 16:59:00.211] [WARNING ] [app.orchestrator.controller] ⚠️ Brain 4 API error: 401
+[2026-03-04 16:59:00.212] [INFO    ] [app.orchestrator.controller]    ✅ ETH/USDT: $3477.53 | Trend=sideways | RSI=47.4 | Regime=ranging | AI=N/A
+[2026-03-04 16:59:00.212] [INFO    ] [app.orchestrator.controller] 📂 Phase 2: Position Management
+[2026-03-04 16:59:00.212] [INFO    ] [app.orchestrator.controller]    No open positions
+[2026-03-04 16:59:00.212] [INFO    ] [app.orchestrator.controller] 🎯 Phase 3: Entry Evaluation
+[2026-03-04 16:59:00.212] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:59:00.212] [DEBUG   ] [app.orchestrator.controller]    BTC/USDT: No trade signal (HOLD / LOW)
+[2026-03-04 16:59:00.212] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:59:00.213] [DEBUG   ] [app.orchestrator.controller]    ETH/USDT: No trade signal (HOLD / LOW)
+[2026-03-04 16:59:00.213] [INFO    ] [app.orchestrator.controller] 📱 Phase 4: Reports
+[2026-03-04 16:59:00.213] [DEBUG   ] [app.orchestrator.controller] ⚠️ No event loop — notification skipped
+[2026-03-04 16:59:00.213] [INFO    ] [app.orchestrator.controller] ✅ Cycle complete in 1.05s
+[2026-03-04 16:59:00.213] [INFO    ] [app.orchestrator.controller] 🔁 ══════════ Trading Cycle End ══════════
+[2026-03-04 16:59:00.213] [DEBUG   ] [app.orchestrator.scheduler] ✅ Cycle #2 done in 1.06s
