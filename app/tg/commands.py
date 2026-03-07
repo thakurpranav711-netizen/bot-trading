@@ -773,21 +773,30 @@ async def cmd_market(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     try:
-        analyzers = getattr(controller, "analyzers", {})
-        if not analyzers:
-            await _reply(update, "📊 No market analyzers configured")
+        # FIXED: Use market_states from controller instead of calling get_snapshot()
+        market_states = getattr(controller, "market_states", {})
+        
+        if not market_states:
+            await _reply(update, "📊 No market data available yet\n\nWait for first trading cycle to complete.")
             return
 
         lines = [f"📊 <b>MARKET SNAPSHOT</b>", SEPARATOR]
 
-        for symbol, analyzer in analyzers.items():
+        for symbol, market in market_states.items():
             try:
-                snapshot = analyzer.get_snapshot()
-                price = snapshot.get("price", 0)
-                trend = snapshot.get("trend", "unknown")
-                rsi = snapshot.get("rsi", 0)
-                regime = snapshot.get("regime", "unknown")
-                volatility = snapshot.get("volatility", "unknown")
+                price = market.price
+                trend = market.trend
+                rsi = market.rsi if market.rsi else 0
+                regime = getattr(market, 'regime', 'unknown') or 'unknown'
+                volatility = getattr(market, 'volatility_regime', 'unknown') or 'unknown'
+
+                # Get AI prediction if available
+                ai_prediction = getattr(market, 'ai_prediction', None)
+                ai_signal = "N/A"
+                ai_conf = 0
+                if ai_prediction:
+                    ai_signal = ai_prediction.get("signal", "N/A")
+                    ai_conf = ai_prediction.get("confidence", 0)
 
                 trend_emoji = {
                     "bullish": "📈", "bearish": "📉", "sideways": "➡️"
@@ -799,7 +808,8 @@ async def cmd_market(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     f"  📈 Trend: <code>{trend.capitalize()}</code>\n"
                     f"  📐 RSI: <code>{rsi:.1f}</code>\n"
                     f"  🔄 Regime: <code>{regime.capitalize()}</code>\n"
-                    f"  🌪️ Vol: <code>{volatility.capitalize()}</code>"
+                    f"  🌪️ Vol: <code>{volatility.capitalize()}</code>\n"
+                    f"  🤖 AI: <code>{ai_signal} ({ai_conf}%)</code>"
                 )
             except Exception as ex:
                 lines.append(
@@ -1223,10 +1233,9 @@ async def cmd_reset_risk(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
             return
 
-        lg_result = result.get("loss_guard", {})
-        new_baseline = result.get("new_baseline", 0)
-        old_initial = lg_result.get("old_initial", 0)
-        emergency_threshold = lg_result.get("emergency_threshold", 0)
+        new_baseline = result.get("new_initial", 0)
+        old_initial = result.get("old_initial", 0)
+        emergency_threshold = result.get("emergency_threshold", 0)
 
         text = (
             f"🔄 <b>RISK BASELINE RESET</b>\n"
@@ -1273,16 +1282,16 @@ async def cmd_set_risk(update: Update, context: ContextTypes.DEFAULT_TYPE):
             # Show current settings
             base_risk = ar.base_risk_pct if ar else 0
             max_risk = ar.max_risk_pct if ar else 0
-            daily_limit = lg.daily_drawdown_limit_pct if lg else 0
+            daily_limit = getattr(lg, 'max_daily_loss_pct', 0) if lg else 0
             emergency = lg.emergency_drawdown_pct if lg else 0
 
             text = (
                 f"⚙️ <b>RISK PARAMETERS</b>\n"
                 f"{SEPARATOR}\n"
-                f"📏 Base Risk: <code>{base_risk:.2f}%</code>\n"
-                f"📈 Max Risk: <code>{max_risk:.2f}%</code>\n"
-                f"📉 Daily Limit: <code>{daily_limit:.1f}%</code>\n"
-                f"🚨 Emergency: <code>{emergency:.1f}%</code>\n"
+                f"📏 Base Risk: <code>{base_risk*100:.2f}%</code>\n"
+                f"📈 Max Risk: <code>{max_risk*100:.2f}%</code>\n"
+                f"📉 Daily Limit: <code>{daily_limit*100:.1f}%</code>\n"
+                f"🚨 Emergency: <code>{emergency*100:.1f}%</code>\n"
                 f"{SEPARATOR}\n"
                 f"💡 Usage: /set_risk [param] [value]\n"
                 f"Params: base_risk, max_risk, daily_limit"
@@ -1315,11 +1324,14 @@ async def cmd_set_risk(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 f"✅ Max risk set to <code>{value:.2f}%</code>"
             )
         elif param == "daily_limit" and lg:
-            lg.daily_drawdown_limit_pct = value / 100
-            await _reply(
-                update,
-                f"✅ Daily limit set to <code>{value:.1f}%</code>"
-            )
+            if hasattr(lg, 'max_daily_loss_pct'):
+                lg.max_daily_loss_pct = value / 100
+                await _reply(
+                    update,
+                    f"✅ Daily limit set to <code>{value:.1f}%</code>"
+                )
+            else:
+                await _reply(update, "❌ Daily limit parameter not available")
         else:
             await _reply(
                 update,

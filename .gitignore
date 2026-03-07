@@ -1,2 +1,9 @@
-config/.env
+venv/
+__pycache__/
+*.pyc
+.env
+.bot_lock
+logs/
+data/
+.DS_Storeconfig/.env
 config/.env

@@ -1,315 +1,293 @@
 {
-  "balance": 40.01389719,
-  "initial_balance": 40.01389719,
+  "___SECTION___ACCOUNT___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "balance": 70.24448992,
+  "initial_balance": 69.95231455,
+  "currency": "USDT",
+  "pnl_currency": "INR",
+  "usd_to_inr_rate": 83.0,
+  "___SECTION___BOT_STATE___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
   "bot_active": true,
   "kill_switch": false,
-  "max_trades_per_day": 10,
-  "positions": {},
+  "paper_trading": true,
+  "last_start_time": null,
+  "last_stop_time": null,
+  "last_activity": null,
+  "___SECTION___RISK_MANAGEMENT___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "risk_per_trade_pct": 2.0,
+  "max_position_size_pct": 10.0,
+  "max_open_positions": 3,
+  "max_trades_per_day": 15,
+  "min_trade_probability": 60.0,
+  "default_stop_loss_pct": 2.0,
+  "default_take_profit_pct": 3.0,
+  "trailing_stop_enabled": true,
+  "trailing_stop_pct": 1.5,
+  "___SECTION___DAILY_LIMITS___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "daily_loss_limit_inr": 1500.0,
+  "daily_loss_limit_enabled": true,
+  "daily_profit_target_inr": 3000.0,
+  "daily_profit_target_enabled": false,
+  "daily_loss_halt_date": null,
+  "daily_loss_halt_notified": false,
+  "___SECTION___POSITIONS___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "positions": {
+    "BTC/USDT": {
+      "symbol": "BTC/USDT",
+      "side": "long",
+      "action": "BUY",
+      "quantity": 0.00044023,
+      "entry_price": 68479.02062621,
+      "avg_price": 68479.02062621,
+      "opened_at": "2026-03-07T16:22:05.104933",
+      "entry_time": "2026-03-07T16:22:05.104898+00:00",
+      "updated_at": "2026-03-07T16:22:05.104933",
+      "add_count": 1,
+      "highest_price": 68479.02062621,
+      "lowest_price": 68479.02062621,
+      "stop_loss": 67338.2255534,
+      "take_profit": 70896.74966801,
+      "entry_probability": 0.808,
+      "confidence": 0.808,
+      "unrealized_pnl": 0.0,
+      "unrealized_pnl_pct": 0.0,
+      "strategy": "4brain_scalping",
+      "fees_paid": 0.03014652,
+      "order_id": "PAPER-B-000001",
+      "mode": "PAPER"
+    }
+  },
+  "pending_orders": {},
+  "position_history": [],
+  "___SECTION___DAILY_STATS___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "daily_pnl": 0.0,
+  "daily_pnl_inr": 39.19,
+  "trades_today": 3,
+  "wins_today": 0,
+  "losses_today": 0,
+  "daily_volume": 0.0,
+  "daily_fees": 0.0,
+  "daily_start_balance": 100.0,
+  "trading_day_date": null,
+  "___SECTION___TOTAL_STATS___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "total_pnl": 0.0,
+  "total_pnl_inr": 0.0,
+  "total_trades": 3,
+  "total_wins": 2,
+  "total_losses": 2,
+  "total_volume": 0.0,
+  "total_fees": 0.0,
+  "best_trade_pnl": 0.0,
+  "worst_trade_pnl": 0.0,
+  "avg_trade_pnl": 0.0,
+  "avg_win": 0.0,
+  "avg_loss": 0.0,
+  "___SECTION___STREAKS___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "win_streak": 0,
+  "loss_streak": 3,
+  "max_win_streak": 0,
+  "max_loss_streak": 0,
+  "consecutive_losses": 2,
+  "consecutive_wins": 0,
+  "___SECTION___TRADE_HISTORY___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
   "trade_history": [
     {
       "symbol": "BTC/USDT",
-      "entry_price": 66799.04283,
-      "exit_price": 0,
-      "quantity": 0.000449,
-      "pnl": -0.201818,
-      "strategy": "4brain_combined",
-      "timestamp": "2026-03-01T11:08:55.459354"
-    },
-    {
-      "symbol": "BTC/USDT",
-      "entry_price": 69113.48883235,
-      "exit_price": 71774.10955486,
-      "quantity": 0.00017187,
-      "pnl_amount": 0.44494506,
-      "closed_at": "2026-03-01T12:38:02.587806",
-      "opened_at": "2026-03-01T12:13:36.484816",
+      "side": "long",
+      "entry_price": 66988.7698632,
+      "exit_price": 68195.42969972,
+      "quantity": 0.0004481,
+      "pnl_amount": 0.5101459,
+      "pnl_amount_inr": 42.34,
+      "pnl_percent": 1.7,
+      "closed_at": "2026-03-07T14:37:53.995786",
+      "opened_at": "2026-03-07T14:22:42.278622",
+      "hold_duration_minutes": 15,
       "strategy": "4brain_scalping",
-      "mode": "PAPER"
+      "reason": "manual",
+      "mode": "PAPER",
+      "entry_probability": 0.787,
+      "exit_probability": 0.0,
+      "stop_loss": 67055.75863306319,
+      "take_profit": 68957.45264926,
+      "hit_stop_loss": false,
+      "hit_take_profit": false
+    },
+    {
+      "symbol": "ETH/USDT",
+      "side": "long",
+      "entry_price": 3384.53165998,
+      "exit_price": 3381.79036323,
+      "quantity": 0.00620266,
+      "pnl_amount": -0.03797943,
+      "pnl_amount_inr": -3.15,
+      "pnl_percent": -0.18,
+      "closed_at": "2026-03-07T14:37:54.004962",
+      "opened_at": "2026-03-07T14:27:38.652186",
+      "hold_duration_minutes": 10,
+      "strategy": "4brain_scalping",
+      "reason": "manual",
+      "mode": "PAPER",
+      "entry_probability": 0.911,
+      "exit_probability": 0.0,
+      "stop_loss": 3315.66930419,
+      "take_profit": 3515.28612964,
+      "hit_stop_loss": false,
+      "hit_take_profit": false
     }
   ],
-  "daily_pnl": 0.0,
-  "trades_today": 0,
-  "total_trades": 1,
-  "total_wins": 1,
-  "total_losses": 1,
-  "win_streak": 0,
-  "loss_streak": 0,
-  "consecutive_losses": 0,
+  "recent_trades": [],
+  "max_trade_history": 100,
+  "___SECTION___EQUITY_TRACKING___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
   "equity_history": [
-    39.58083067,
-    40.01389719
-  ],
-  "rr_history": [],
-  "equity_momentum": null,
-  "version": "4.0",
-  "risk_locked": false,
-  "kill_switch_reason": null,
-  "kill_switch_time": "2026-03-04T09:57:52.797780",
-  "kill_switch_source": null,
-  "kill_switch_auto_resume": null,
-  "kill_switch_history": [
     {
-      "action": "DEACTIVATED",
-      "source": "manual",
-      "timestamp": "2026-03-01T12:13:44.474376",
-      "was_active_seconds": 0
+      "timestamp": "2026-03-07T14:37:53.995924",
+      "balance": 79.466,
+      "pnl": 0.5101,
+      "pnl_inr": 42.34,
+      "trade_number": 2
     },
     {
-      "action": "DEACTIVATED",
-      "source": "telegram",
-      "timestamp": "2026-03-01T12:14:04.600555",
-      "was_active_seconds": 0
-    },
-    {
-      "action": "DEACTIVATED",
-      "source": "manual",
-      "timestamp": "2026-03-01T12:14:11.372982",
-      "was_active_seconds": 0
-    },
-    {
-      "action": "DEACTIVATED",
-      "source": "manual",
-      "timestamp": "2026-03-01T12:15:04.607272",
-      "was_active_seconds": 0
-    },
-    {
-      "action": "DEACTIVATED",
-      "source": "manual",
-      "timestamp": "2026-03-01T12:38:13.891162",
-      "was_active_seconds": 0
-    },
-    {
-      "action": "DEACTIVATED",
-      "source": "telegram",
-      "timestamp": "2026-03-01T12:38:35.198176",
-      "was_active_seconds": 0
-    },
-    {
-      "action": "DEACTIVATED",
-      "source": "manual",
-      "timestamp": "2026-03-01T12:39:32.941992",
-      "was_active_seconds": 0
-    },
-    {
-      "action": "DEACTIVATED",
-      "source": "manual",
-      "timestamp": "2026-03-01T13:01:05.574233",
-      "was_active_seconds": 0
-    },
-    {
-      "action": "DEACTIVATED",
-      "source": "telegram",
-      "timestamp": "2026-03-01T13:01:20.066840",
-      "was_active_seconds": 0
-    },
-    {
-      "action": "DEACTIVATED",
-      "source": "manual",
-      "timestamp": "2026-03-01T13:32:17.436570",
-      "was_active_seconds": 0
-    },
-    {
-      "action": "DEACTIVATED",
-      "source": "telegram",
-      "timestamp": "2026-03-01T13:32:35.672365",
-      "was_active_seconds": 0
-    },
-    {
-      "action": "ACTIVATED",
-      "level": "soft",
-      "reason": "Emergency drawdown exceeded",
-      "source": "system",
-      "loss_pct": 0.0,
-      "timestamp": "2026-03-04T09:57:52.797780",
-      "auto_resume": null,
-      "activation_count_today": 1
-    },
-    {
-      "action": "DEACTIVATED",
-      "previous_level": "soft",
-      "source": "telegram",
-      "timestamp": "2026-03-04T11:07:09.911825",
-      "was_active_seconds": 4157.1,
-      "previous_reason": "Emergency drawdown exceeded"
+      "timestamp": "2026-03-07T14:37:54.005100",
+      "balance": 100.4212,
+      "pnl": -0.038,
+      "pnl_inr": -3.15,
+      "trade_number": 2
     }
   ],
-  "start_of_day_balance": 40.01389719,
-  "peak_balance": 40.01389719,
-  "trades_done_today": 0,
-  "last_trade_date": null,
-  "total_pnl": -0.20181805,
-  "realized_pnl": -0.20181805,
-  "unrealized_pnl": 0.0,
-  "wins": 0,
-  "losses": 1,
+  "equity_momentum": 0.0,
+  "max_equity": 100.0,
+  "min_equity": 100.0,
   "max_drawdown": 0.0,
-  "last_risk": 0.0115,
-  "win_amounts": [
-    0.44494506357779257
+  "max_drawdown_pct": 0.0,
+  "current_drawdown": 0.0,
+  "current_drawdown_pct": 0.0,
+  "___SECTION___RISK_REWARD___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "rr_history": [],
+  "avg_risk_reward": 0.0,
+  "target_risk_reward": 1.5,
+  "___SECTION___PROBABILITY_TRACKING___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "signals_evaluated": 0,
+  "signals_above_threshold": 0,
+  "signals_rejected": 0,
+  "avg_entry_probability": 0.0,
+  "probability_accuracy": 0.0,
+  "probability_history": [],
+  "___SECTION___HOURLY_ANALYSIS___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "hourly_analysis_enabled": true,
+  "hourly_analysis_interval": 3600,
+  "last_hourly_analysis": null,
+  "hourly_analysis_count": 0,
+  "___SECTION___MARKET_STATE___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "current_market_trend": "neutral",
+  "market_volatility": "normal",
+  "last_market_update": null,
+  "watched_symbols": [
+    "BTC/USDT",
+    "ETH/USDT"
   ],
-  "loss_amounts": [],
+  "___SECTION___NOTIFICATIONS___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "notifications_enabled": true,
+  "trade_notifications": true,
+  "analysis_notifications": true,
+  "error_notifications": true,
+  "daily_summary_enabled": true,
+  "daily_summary_time": "23:55",
+  "___SECTION___SESSION___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "session_id": null,
+  "session_start": null,
+  "session_trades": 0,
+  "session_pnl": 0.0,
+  "session_pnl_inr": 0.0,
+  "___SECTION___METADATA___": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+  "version": "2.1.0",
+  "created_at": null,
+  "updated_at": "2026-03-07T16:22:03.742926+00:00",
+  "last_backup": null,
+  "start_of_day_balance": 100.42115569,
+  "trades_done_today": 2,
+  "max_consecutive_losses": 7,
+  "best_win_streak": 1,
+  "worst_loss_streak": 1,
+  "largest_win": 0.510145902744614,
+  "largest_loss": -0.037979431699354665,
+  "daily_history": [],
+  "last_risk": null,
   "cooldown_until": null,
-  "cooldown_reason": null,
-  "cooldown_trigger": null,
-  "loss_guard_history": [
-    {
-      "type": "COOLDOWN_END",
-      "timestamp": "2026-03-01T12:13:44.480527"
-    },
-    {
-      "type": "UNLOCKED",
-      "source": "resume",
-      "timestamp": "2026-03-01T12:13:44.483195"
-    },
-    {
-      "type": "BASELINE_RESET",
-      "source": "telegram",
-      "old_initial": 39.58,
-      "new_initial": 27.69,
-      "timestamp": "2026-03-01T12:14:04.598683"
-    },
-    {
-      "type": "COOLDOWN_END",
-      "timestamp": "2026-03-01T12:14:11.379756"
-    },
-    {
-      "type": "UNLOCKED",
-      "source": "resume",
-      "timestamp": "2026-03-01T12:14:11.382640"
-    },
-    {
-      "type": "COOLDOWN_END",
-      "timestamp": "2026-03-01T12:15:04.614522"
-    },
-    {
-      "type": "UNLOCKED",
-      "source": "resume",
-      "timestamp": "2026-03-01T12:15:04.617410"
-    },
-    {
-      "type": "WIN",
-      "amount": 0.4449,
-      "profit_pct": 3.75,
-      "streak": 2,
-      "daily_pnl": 0.8899,
-      "timestamp": "2026-03-01T12:38:02.590996"
-    },
-    {
-      "type": "COOLDOWN_END",
-      "timestamp": "2026-03-01T12:38:13.898225"
-    },
-    {
-      "type": "UNLOCKED",
-      "source": "resume",
-      "timestamp": "2026-03-01T12:38:13.901299"
-    },
-    {
-      "type": "BASELINE_RESET",
-      "source": "telegram",
-      "old_initial": 27.69,
-      "new_initial": 40.01,
-      "timestamp": "2026-03-01T12:38:35.196005"
-    },
-    {
-      "type": "COOLDOWN_END",
-      "timestamp": "2026-03-01T12:39:32.948403"
-    },
-    {
-      "type": "UNLOCKED",
-      "source": "resume",
-      "timestamp": "2026-03-01T12:39:32.952494"
-    },
-    {
-      "type": "COOLDOWN_END",
-      "timestamp": "2026-03-01T13:01:05.581237"
-    },
-    {
-      "type": "UNLOCKED",
-      "source": "resume",
-      "timestamp": "2026-03-01T13:01:05.584249"
-    },
-    {
-      "type": "BASELINE_RESET",
-      "source": "telegram",
-      "old_initial": 40.01,
-      "new_initial": 40.01,
-      "timestamp": "2026-03-01T13:01:20.064442"
-    },
-    {
-      "type": "COOLDOWN_END",
-      "timestamp": "2026-03-01T13:32:17.443982"
-    },
-    {
-      "type": "UNLOCKED",
-      "source": "resume",
-      "timestamp": "2026-03-01T13:32:17.447057"
-    },
-    {
-      "type": "BASELINE_RESET",
-      "source": "telegram",
-      "old_initial": 40.01,
-      "new_initial": 40.01,
-      "timestamp": "2026-03-01T13:32:35.670079"
-    }
+  "last_daily_reset": "2026-03-07",
+  "last_loss_guard_reset": "2026-03-07",
+  "last_trade_time": "2026-03-07T16:22:05.106479",
+  "daily_loss_halt": false,
+  "daily_loss_halt_reason": null,
+  "in_recovery_mode": true,
+  "recovery_wins_needed": 2,
+  "daily_high_balance": 100.0,
+  "daily_low_balance": 100.0,
+  "daily_loss_inr": 0.037979431699354665,
+  "daily_loss_date": "2026-03-07",
+  "daily_limit_hit": false,
+  "paper_price_BTC/USDT": 69729.92984743,
+  "paper_price_ETH/USDT": 3308.04599214,
+  "trades_this_hour": 1,
+  "trades_per_symbol": {
+    "BTC/USDT": 2,
+    "ETH/USDT": 1
+  },
+  "trade_limiter_loss_count": 0,
+  "trade_limiter_last_daily_reset": "2026-03-07",
+  "trade_limiter_last_hour_reset": "2026-03-07-16",
+  "trade_limiter_cooldown": null,
+  "recent_trade_times": [
+    "2026-03-07T16:22:05.106479"
   ],
-  "last_loss_guard_reset": "2026-03-04",
-  "symbol": "BTCUSDT",
-  "telegram_chat_id": 6374923090,
-  "paper_price_BTC/USDT": 74942.29527934,
-  "last_daily_reset": "2026-03-04",
-  "trades_per_symbol": {},
-  "trade_limiter_last_daily_reset": "2026-03-04",
   "trade_limiter_history": [
     {
       "type": "DAILY_RESET",
-      "date": "2026-03-01",
-      "timestamp": "2026-03-01T11:38:05.442036"
+      "date": "2026-03-07",
+      "previous_trades": 0,
+      "timestamp": "2026-03-07T14:22:42.273480"
     },
     {
+      "type": "TRADE_OPENED",
       "symbol": "BTC/USDT",
       "action": "BUY",
-      "timestamp": "2026-03-01T12:13:36.485096",
+      "risk_amount_inr": 0.0,
+      "timestamp": "2026-03-07T14:22:42.279943",
       "daily_count": 2,
       "hourly_count": 1,
+      "remaining_budget_inr": 1500.0,
       "metadata": {}
     },
     {
-      "type": "DAILY_RESET",
-      "date": "2026-03-04",
-      "timestamp": "2026-03-04T11:07:01.076807"
-    }
-  ],
-  "trades_this_hour": 0,
-  "trade_limiter_last_hour_reset": "2026-03-04-11",
-  "last_trade_time": "2026-03-01T12:13:36.485096",
-  "recent_trade_times": [
-    "2026-03-01T12:13:36.485096"
-  ],
-  "pause_reason": null,
-  "emergency_acknowledged": true,
-  "max_consecutive_losses": 5,
-  "best_win_streak": 0,
-  "worst_loss_streak": 0,
-  "largest_win": 0,
-  "largest_loss": 0,
-  "daily_history": [
+      "type": "TRADE_OPENED",
+      "symbol": "ETH/USDT",
+      "action": "BUY",
+      "risk_amount_inr": 0.0,
+      "timestamp": "2026-03-07T14:27:38.653184",
+      "daily_count": 5,
+      "hourly_count": 2,
+      "remaining_budget_inr": 1500.0,
+      "metadata": {}
+    },
     {
-      "date": "2026-03-01",
-      "pnl": 0.0,
-      "trades": 2,
-      "end_balance": 40.01389719
+      "type": "TRADE_OPENED",
+      "symbol": "BTC/USDT",
+      "action": "BUY",
+      "risk_amount_inr": 0.0,
+      "timestamp": "2026-03-07T16:22:05.106479",
+      "daily_count": 2,
+      "hourly_count": 1,
+      "remaining_budget_inr": 1499.9620205683007,
+      "metadata": {}
     }
   ],
-  "daily_high_balance": 40.01389719,
-  "daily_low_balance": 40.01389719,
-  "kill_switch_level": "none",
-  "kill_switch_attempts": 0,
-  "trade_limiter_loss_count": 0,
+  "risk_locked": false,
+  "pause_reason": null,
+  "daily_limit_locked": false,
+  "daily_limit_lock_time": null,
   "loss_guard_locked": false,
   "loss_guard_lock_reason": null,
   "loss_guard_cooldown_until": null,
   "daily_limit_notified": false,
-  "in_recovery_mode": true,
-  "recovery_wins_needed": 2,
-  "paper_price_ETH/USDT": 3469.52394649
+  "daily_dd_pct_notified": true,
+  "emergency_acknowledged": false
 }

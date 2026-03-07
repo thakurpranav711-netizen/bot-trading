@@ -19,14 +19,14 @@ Two modes controlled by TRADING_MODE env var:
 The controller never knows which mode is active —
 it always gets standardized receipts back.
 
-FIXES vs original:
-- _rejection() method was missing — bot crashed on any rejected order
-- Added lot size / min notional validation before live orders
-- Added retry logic for transient network errors
-- Fixed precision rounding using ccxt amount_to_precision()
-- Added connection health monitoring + auto-reconnect
+Features:
+- Trade entry time tracking for duration calculation
+- Enhanced exit receipts with P/L, duration, percentages
+- INR display support (configurable conversion rate)
+- Lot size / min notional validation
+- Retry logic for transient network errors
+- Connection health monitoring + auto-reconnect
 - Short sell support via allow_short flag
-- Configurable candle timeframe
 """
 
 import os
@@ -70,6 +70,9 @@ DEFAULT_SEED = 100.0
 MAX_RETRIES = 3
 RETRY_BACKOFF_SEC = 2
 
+# ── Default INR conversion rate (approximate) ─────────────────────
+DEFAULT_USD_TO_INR = 83.0
+
 
 def _normalize_symbol(symbol: str) -> str:
     """Normalize to BASE/QUOTE format."""
@@ -94,7 +97,15 @@ class BinanceExchange(ExchangeClient):
 
     Both modes return identical receipt formats so controller
     code works without any changes.
+    
+    Features:
+    - Trade entry time tracking for duration calculation
+    - Enhanced receipts with P/L percentage and duration
+    - INR conversion support for display
     """
+
+    # Exchange identifier
+    EXCHANGE_NAME = "BINANCE"
 
     # ── Simulation parameters ─────────────────────────────────────
     SIM_SPREAD_PCT       = 0.0005    # 0.05% spread
@@ -114,6 +125,8 @@ class BinanceExchange(ExchangeClient):
         sandbox: bool = False,
         candle_timeframe: str = "5m",
         allow_short: bool = False,
+        usd_to_inr: float = None,
+        use_inr_display: bool = True,
     ):
         """
         Initialize Binance exchange client.
@@ -125,6 +138,8 @@ class BinanceExchange(ExchangeClient):
             sandbox:          Use Binance testnet
             candle_timeframe: OHLCV timeframe (default "5m")
             allow_short:      Allow short selling (default False)
+            usd_to_inr:       USD to INR conversion rate (for display)
+            use_inr_display:  Whether to include INR values in receipts
         """
         self.state = state_manager
         self._live = False
@@ -132,8 +147,15 @@ class BinanceExchange(ExchangeClient):
         self.candle_timeframe = candle_timeframe
         self.allow_short = allow_short
 
+        # INR conversion
+        self.usd_to_inr = usd_to_inr or DEFAULT_USD_TO_INR
+        self.use_inr_display = use_inr_display
+
         # ── Per-cycle price cache ─────────────────────────────────
         self._price_cache: Dict[str, float] = {}
+
+        # ── Trade entry time tracking ─────────────────────────────
+        self._trade_entry_times: Dict[str, datetime] = {}
 
         # ── Simulation candle state ───────────────────────────────
         self._candle_cache: Dict[str, List[Dict]] = {}
@@ -165,6 +187,9 @@ class BinanceExchange(ExchangeClient):
                 f"(missing: {', '.join(missing)})"
             )
 
+        # Set MODE
+        self.MODE = "LIVE" if self._live else "SIMULATION"
+
     def _init_live(self, key: str, secret: str, sandbox: bool) -> None:
         """Initialize live ccxt connection with test."""
         try:
@@ -193,7 +218,7 @@ class BinanceExchange(ExchangeClient):
             logger.info(
                 f"✅ Binance LIVE connected | "
                 f"Sandbox={sandbox} | "
-                f"USDT Balance=${usdt_free:.2f}"
+                f"USDT Balance=${usdt_free:.2f} (₹{usdt_free * self.usd_to_inr:.2f})"
             )
 
             # Sync state balance with actual exchange balance
@@ -217,6 +242,80 @@ class BinanceExchange(ExchangeClient):
     @property
     def mode_label(self) -> str:
         return "LIVE" if self._live else "SIMULATION"
+
+    # ═════════════════════════════════════════════════════
+    #  INR CONVERSION HELPERS
+    # ═════════════════════════════════════════════════════
+
+    def to_inr(self, usd_amount: float) -> float:
+        """Convert USD to INR."""
+        return usd_amount * self.usd_to_inr
+
+    def update_inr_rate(self, new_rate: float) -> None:
+        """Update USD to INR conversion rate."""
+        self.usd_to_inr = new_rate
+        logger.info(f"💱 INR rate updated: 1 USD = ₹{new_rate:.2f}")
+
+    # ═════════════════════════════════════════════════════
+    #  TRADE ENTRY TIME TRACKING
+    # ═════════════════════════════════════════════════════
+
+    def record_trade_entry(self, symbol: str) -> None:
+        """Record trade entry time for duration calculation."""
+        symbol = _normalize_symbol(symbol)
+        self._trade_entry_times[symbol] = datetime.utcnow()
+        logger.debug(f"📝 Trade entry time recorded | {symbol}")
+
+    def get_trade_duration(self, symbol: str) -> Tuple[float, str]:
+        """
+        Get trade duration for a symbol.
+        
+        Returns:
+            (duration_seconds, formatted_duration)
+        """
+        symbol = _normalize_symbol(symbol)
+        
+        # First check our tracking
+        if symbol in self._trade_entry_times:
+            start = self._trade_entry_times[symbol]
+            duration = (datetime.utcnow() - start).total_seconds()
+            return duration, self._format_duration(duration)
+        
+        # Fallback to position entry time in state
+        position = self.state.get_position(symbol)
+        if position:
+            entry_time = position.get("entry_time")
+            if entry_time:
+                try:
+                    if isinstance(entry_time, str):
+                        start = datetime.fromisoformat(entry_time)
+                    else:
+                        start = entry_time
+                    duration = (datetime.utcnow() - start).total_seconds()
+                    return duration, self._format_duration(duration)
+                except:
+                    pass
+        
+        return 0, "Unknown"
+
+    def clear_trade_entry(self, symbol: str) -> None:
+        """Clear trade entry time after exit."""
+        symbol = _normalize_symbol(symbol)
+        self._trade_entry_times.pop(symbol, None)
+
+    def _format_duration(self, seconds: float) -> str:
+        """Format duration in human-readable format."""
+        if seconds < 60:
+            return f"{seconds:.0f}s"
+        elif seconds < 3600:
+            minutes = seconds / 60
+            return f"{minutes:.1f}m"
+        elif seconds < 86400:
+            hours = seconds / 3600
+            return f"{hours:.1f}h"
+        else:
+            days = seconds / 86400
+            return f"{days:.1f}d"
 
     # ═════════════════════════════════════════════════════
     #  CYCLE MANAGEMENT
@@ -303,18 +402,25 @@ class BinanceExchange(ExchangeClient):
 
         LIVE: real order via ccxt with lot size validation.
         SIM:  simulated with spread/slippage.
-        Does NOT modify balance — controller handles state.
+        
+        Also records trade entry time for duration tracking.
         """
         symbol = _normalize_symbol(symbol)
 
         if quantity <= 0:
             return self._rejection(symbol, "BUY", "Invalid quantity ≤ 0")
 
-        return (
+        result = (
             self._live_buy(symbol, quantity)
             if self._live
             else self._sim_buy(symbol, quantity)
         )
+
+        # Record entry time if successful
+        if result.get("status") == "FILLED":
+            self.record_trade_entry(symbol)
+
+        return result
 
     def sell(self, symbol: str, quantity: float) -> Dict:
         """
@@ -322,18 +428,25 @@ class BinanceExchange(ExchangeClient):
 
         LIVE: real order via ccxt with lot size validation.
         SIM:  simulated with spread/slippage.
-        Does NOT modify balance — controller handles state.
+        
+        Includes duration calculation in the receipt.
         """
         symbol = _normalize_symbol(symbol)
 
         if quantity <= 0:
             return self._rejection(symbol, "SELL", "Invalid quantity ≤ 0")
 
-        return (
+        result = (
             self._live_sell(symbol, quantity)
             if self._live
             else self._sim_sell(symbol, quantity)
         )
+
+        # Clear entry time tracking
+        if result.get("status") == "FILLED":
+            self.clear_trade_entry(symbol)
+
+        return result
 
     # ═════════════════════════════════════════════════════
     #  ACCOUNT
@@ -355,6 +468,10 @@ class BinanceExchange(ExchangeClient):
 
         return float(self.state.get("balance", 0) or 0)
 
+    def get_balance_inr(self) -> float:
+        """Get balance in INR."""
+        return self.to_inr(self.get_balance())
+
     def get_open_positions(self) -> Dict:
         return self.state.get_all_positions()
 
@@ -366,16 +483,34 @@ class BinanceExchange(ExchangeClient):
             * p.get("entry_price", p.get("avg_price", 0))
             for p in positions.values()
         )
-        return {
-            "balance": round(balance, 2),
+
+        summary = {
+            "balance_usd": round(balance, 2),
+            "balance_inr": round(self.to_inr(balance), 2),
             "open_positions": len(positions),
-            "exposure": round(exposure, 2),
+            "exposure_usd": round(exposure, 2),
+            "exposure_inr": round(self.to_inr(exposure), 2),
             "mode": self.mode_label,
             "live": self._live,
+            "exchange": self.EXCHANGE_NAME,
         }
 
+        # Add unrealized P/L
+        total_unrealized = 0
+        for symbol, pos in positions.items():
+            entry = pos.get("entry_price", pos.get("avg_price", 0))
+            qty = pos.get("quantity", 0)
+            current = self.get_price(symbol)
+            unrealized = (current - entry) * qty
+            total_unrealized += unrealized
+
+        summary["unrealized_pnl_usd"] = round(total_unrealized, 4)
+        summary["unrealized_pnl_inr"] = round(self.to_inr(total_unrealized), 2)
+
+        return summary
+
     # ═════════════════════════════════════════════════════
-    #  ORDER RECEIPT BUILDER (FIXED — was missing entirely)
+    #  ORDER RECEIPT BUILDERS
     # ═════════════════════════════════════════════════════
 
     def _rejection(
@@ -386,10 +521,6 @@ class BinanceExchange(ExchangeClient):
     ) -> Dict:
         """
         Build a standardized REJECTED order receipt.
-
-        CRITICAL FIX: This method was called in 10+ places
-        throughout the class but was never defined, causing
-        AttributeError crashes on any order rejection.
         """
         logger.warning(
             f"❌ Order REJECTED | {symbol} {action} | Reason: {reason}"
@@ -398,14 +529,17 @@ class BinanceExchange(ExchangeClient):
             "status": "REJECTED",
             "symbol": symbol,
             "action": action,
+            "side": action,
             "price": 0.0,
             "quantity": 0.0,
+            "filled_qty": 0.0,
             "cost": 0.0,
             "fee": 0.0,
             "order_id": "",
             "reason": reason,
             "timestamp": datetime.utcnow().isoformat(),
             "mode": self.mode_label,
+            "exchange": self.EXCHANGE_NAME,
         }
 
     def _filled_receipt(
@@ -416,23 +550,63 @@ class BinanceExchange(ExchangeClient):
         quantity: float,
         fee: float,
         order_id: str,
+        entry_price: float = 0.0,
+        duration_seconds: float = 0.0,
+        duration_str: str = "",
         extra: Dict = None,
     ) -> Dict:
-        """Build a standardized FILLED order receipt."""
+        """Build a standardized FILLED order receipt with enhanced details."""
+        cost = round(price * quantity, 8)
+
         receipt = {
             "status": "FILLED",
             "symbol": symbol,
             "action": action,
+            "side": action,
+            "order_type": "MARKET",
             "price": price,
             "quantity": quantity,
-            "cost": round(price * quantity, 8),
+            "filled_qty": quantity,
+            "cost": cost,
             "fee": fee,
+            "fee_currency": "USDT",
             "order_id": order_id,
             "timestamp": datetime.utcnow().isoformat(),
             "mode": self.mode_label,
+            "exchange": self.EXCHANGE_NAME,
         }
+
+        # Add INR values if enabled
+        if self.use_inr_display:
+            receipt["price_inr"] = round(self.to_inr(price), 4)
+            receipt["cost_inr"] = round(self.to_inr(cost), 2)
+            receipt["fee_inr"] = round(self.to_inr(fee), 4)
+
+        # Add P/L info for SELL orders
+        if action.upper() == "SELL" and entry_price > 0:
+            gross_pnl = (price - entry_price) * quantity
+            net_pnl = gross_pnl - fee
+            pnl_pct = (gross_pnl / (entry_price * quantity) * 100) if entry_price > 0 else 0
+
+            receipt["entry_price"] = entry_price
+            receipt["gross_pnl"] = round(gross_pnl, 8)
+            receipt["net_pnl"] = round(net_pnl, 8)
+            receipt["pnl_pct"] = round(pnl_pct, 2)
+            receipt["proceeds"] = cost
+
+            if self.use_inr_display:
+                receipt["entry_price_inr"] = round(self.to_inr(entry_price), 4)
+                receipt["gross_pnl_inr"] = round(self.to_inr(gross_pnl), 2)
+                receipt["net_pnl_inr"] = round(self.to_inr(net_pnl), 2)
+
+            # Add duration
+            if duration_seconds > 0:
+                receipt["duration_seconds"] = round(duration_seconds, 1)
+                receipt["duration"] = duration_str or self._format_duration(duration_seconds)
+
         if extra:
             receipt.update(extra)
+
         return receipt
 
     # ═════════════════════════════════════════════════════
@@ -480,7 +654,7 @@ class BinanceExchange(ExchangeClient):
             if min_notional and notional < min_notional:
                 return (
                     False,
-                    f"Notional ${notional:.4f} < min ${min_notional}",
+                    f"Notional ${notional:.4f} (₹{self.to_inr(notional):.2f}) < min ${min_notional}",
                     qty,
                 )
 
@@ -619,11 +793,13 @@ class BinanceExchange(ExchangeClient):
                 order_id = str(order.get("id", ""))
 
                 self._consecutive_errors = 0
+
+                # Log with INR
                 logger.info(
                     f"💰🟢 LIVE BUY | {symbol} | "
-                    f"Qty={filled_qty} @ ${fill_price:.6f} | "
-                    f"Cost=${cost:.4f} | Fee=${fee:.4f} | "
-                    f"ID={order_id}"
+                    f"Qty={filled_qty} @ ${fill_price:.6f} (₹{self.to_inr(fill_price):.2f}) | "
+                    f"Cost=${cost:.4f} (₹{self.to_inr(cost):.2f}) | "
+                    f"Fee=${fee:.4f} | ID={order_id}"
                 )
 
                 return self._filled_receipt(
@@ -664,11 +840,23 @@ class BinanceExchange(ExchangeClient):
         return self._rejection(symbol, "BUY", "Max retries exceeded")
 
     def _live_sell(self, symbol: str, quantity: float) -> Dict:
-        """Execute real market SELL on Binance with lot size validation."""
+        """Execute real market SELL on Binance with enhanced exit receipt."""
         price = self.get_price(symbol)
         valid, reason, qty = self._validate_lot_size(symbol, quantity, price)
         if not valid:
             return self._rejection(symbol, "SELL", reason)
+
+        # Get position info for P/L calculation
+        position = self.state.get_position(symbol)
+        entry_price = 0.0
+        if position:
+            entry_price = float(
+                position.get("entry_price") or
+                position.get("avg_price") or 0
+            )
+
+        # Get duration
+        duration_seconds, duration_str = self.get_trade_duration(symbol)
 
         for attempt in range(MAX_RETRIES):
             try:
@@ -695,36 +883,31 @@ class BinanceExchange(ExchangeClient):
                 else:
                     status = "REJECTED"
 
-                # Calculate gross PnL from state position
-                position = self.state.get_position(symbol)
-                gross_pnl = 0.0
-                entry_price = 0.0
-                if position:
-                    entry_price = float(
-                        position.get("entry_price")
-                        or position.get("avg_price")
-                        or fill_price
-                    )
-                    gross_pnl = round(
-                        (fill_price - entry_price) * filled_qty, 8
-                    )
+                # Calculate P/L
+                gross_pnl = (fill_price - entry_price) * filled_qty if entry_price > 0 else 0
+                net_pnl = gross_pnl - fee
+                pnl_pct = (gross_pnl / (entry_price * filled_qty) * 100) if entry_price > 0 else 0
 
                 order_id = str(order.get("id", ""))
 
                 self._consecutive_errors = 0
+
+                # Log with INR and duration
+                pnl_emoji = "🟢" if net_pnl >= 0 else "🔴"
                 logger.info(
-                    f"💰🔴 LIVE SELL | {symbol} | "
-                    f"Qty={filled_qty} @ ${fill_price:.6f} | "
-                    f"PnL=${gross_pnl:+.4f} | Fee=${fee:.4f} | "
-                    f"ID={order_id}"
+                    f"💰{pnl_emoji} LIVE SELL | {symbol} | "
+                    f"Qty={filled_qty} @ ${fill_price:.6f} (₹{self.to_inr(fill_price):.2f}) | "
+                    f"PnL=${net_pnl:+.4f} (₹{self.to_inr(net_pnl):+.2f}) ({pnl_pct:+.2f}%) | "
+                    f"Duration={duration_str} | ID={order_id}"
                 )
 
                 return self._filled_receipt(
                     symbol, "SELL", fill_price, filled_qty, fee, order_id,
+                    entry_price=entry_price,
+                    duration_seconds=duration_seconds,
+                    duration_str=duration_str,
                     extra={
                         "proceeds": proceeds,
-                        "gross_pnl": gross_pnl,
-                        "entry_price": entry_price,
                         "mode": "LIVE",
                     },
                 )
@@ -874,8 +1057,8 @@ class BinanceExchange(ExchangeClient):
         if cost + fee > balance:
             logger.warning(
                 f"❌ SIM BUY rejected | {symbol} | "
-                f"Cost=${cost:.4f} + Fee=${fee:.4f} > "
-                f"Balance=${balance:.2f}"
+                f"Cost=${cost:.4f} (₹{self.to_inr(cost):.2f}) + "
+                f"Fee=${fee:.4f} > Balance=${balance:.2f}"
             )
             return self._rejection(symbol, "BUY", "Insufficient balance")
 
@@ -884,8 +1067,9 @@ class BinanceExchange(ExchangeClient):
 
         logger.info(
             f"📝🟢 SIM BUY | {symbol} | "
-            f"Qty={quantity} @ ${fill_price:.6f} | "
-            f"Cost=${cost:.4f} | Fee=${fee:.4f}"
+            f"Qty={quantity} @ ${fill_price:.6f} (₹{self.to_inr(fill_price):.2f}) | "
+            f"Cost=${cost:.4f} (₹{self.to_inr(cost):.2f}) | "
+            f"Fee=${fee:.4f}"
         )
 
         return self._filled_receipt(
@@ -894,7 +1078,7 @@ class BinanceExchange(ExchangeClient):
         )
 
     def _sim_sell(self, symbol: str, quantity: float) -> Dict:
-        """Simulated SELL with spread + slippage."""
+        """Simulated SELL with spread + slippage + enhanced exit receipt."""
         position = self.state.get_position(symbol)
         if not position:
             return self._rejection(symbol, "SELL", "No open position found")
@@ -920,25 +1104,83 @@ class BinanceExchange(ExchangeClient):
             or fill_price
         )
         gross_pnl = round((fill_price - entry) * actual_qty, 8)
+        net_pnl = gross_pnl - fee
+        pnl_pct = (gross_pnl / (entry * actual_qty) * 100) if entry > 0 else 0
+
+        # Get duration
+        duration_seconds, duration_str = self.get_trade_duration(symbol)
 
         self._order_counter += 1
         order_id = f"SIM-S-{self._order_counter:04d}"
 
+        pnl_emoji = "🟢" if net_pnl >= 0 else "🔴"
         logger.info(
-            f"📝🔴 SIM SELL | {symbol} | "
-            f"Qty={actual_qty} @ ${fill_price:.6f} | "
-            f"PnL=${gross_pnl:+.4f} | Fee=${fee:.4f}"
+            f"📝{pnl_emoji} SIM SELL | {symbol} | "
+            f"Qty={actual_qty} @ ${fill_price:.6f} (₹{self.to_inr(fill_price):.2f}) | "
+            f"PnL=${net_pnl:+.4f} (₹{self.to_inr(net_pnl):+.2f}) ({pnl_pct:+.2f}%) | "
+            f"Duration={duration_str}"
         )
 
         return self._filled_receipt(
             symbol, "SELL", fill_price, actual_qty, fee, order_id,
+            entry_price=entry,
+            duration_seconds=duration_seconds,
+            duration_str=duration_str,
             extra={
                 "proceeds": proceeds,
-                "gross_pnl": gross_pnl,
-                "entry_price": entry,
                 "mode": "SIMULATION",
             },
         )
+
+    # ═════════════════════════════════════════════════════
+    #  POSITION CLOSING (for kill switch integration)
+    # ═════════════════════════════════════════════════════
+
+    def close_position(
+        self,
+        symbol: str,
+        reason: str = "Manual close",
+    ) -> Dict:
+        """
+        Close a position with full exit receipt.
+        
+        Used by kill switch and loss guard for emergency closing.
+        """
+        symbol = _normalize_symbol(symbol)
+        position = self.state.get_position(symbol)
+
+        if not position:
+            return self._rejection(symbol, "SELL", "No position to close")
+
+        quantity = position.get("quantity", 0)
+        if quantity <= 0:
+            return self._rejection(symbol, "SELL", "Position quantity is zero")
+
+        result = self.sell(symbol, quantity)
+
+        # Add reason to receipt
+        if result.get("status") == "FILLED":
+            result["close_reason"] = reason
+
+        return result
+
+    def close_all_positions(
+        self,
+        reason: str = "Close all positions",
+    ) -> List[Dict]:
+        """
+        Close all open positions with full exit receipts.
+        
+        Used by kill switch for emergency closing.
+        """
+        results = []
+        positions = self.get_open_positions()
+
+        for symbol in list(positions.keys()):
+            result = self.close_position(symbol, reason)
+            results.append(result)
+
+        return results
 
     # ═════════════════════════════════════════════════════
     #  TESTING / SEEDING
@@ -949,7 +1191,7 @@ class BinanceExchange(ExchangeClient):
         symbol = _normalize_symbol(symbol)
         self.state.set(f"paper_price_{symbol}", price)
         self._price_cache[symbol] = price
-        logger.info(f"🌱 Price seeded | {symbol} = ${price}")
+        logger.info(f"🌱 Price seeded | {symbol} = ${price} (₹{self.to_inr(price):.2f})")
 
     def reset_candles(self, symbol: str) -> None:
         """Clear candle cache for a symbol."""
@@ -991,7 +1233,7 @@ class BinanceExchange(ExchangeClient):
         errors = self._consecutive_errors
         return (
             f"<BinanceExchange({self.mode_label}) | "
-            f"Balance=${balance:.2f} | "
+            f"Balance=${balance:.2f} (₹{self.to_inr(balance):.0f}) | "
             f"Positions={positions} | "
             f"Errors={errors}>"
         )

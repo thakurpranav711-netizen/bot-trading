@@ -585,6 +585,18 @@ class PaperExchange(ExchangeClient):
     ) -> Dict:
         """
         Simulate a market/limit SELL order.
+
+        Handles TWO distinct cases:
+        ─────────────────────────────
+        Case 1 — CLOSE LONG: An existing BUY position is open.
+          Validates quantity ≤ position size.
+           Calculates PnL from entry price.
+
+        Case 2 — OPEN SHORT: No position exists (or action == SELL).
+        Treated as a synthetic short entry.
+        Requires sufficient balance as margin collateral.
+        PnL is calculated on exit (in buy() when closing short).
+
         Returns receipt. Does NOT modify state.
         """
         symbol = _normalize_symbol(symbol)
@@ -594,17 +606,34 @@ class PaperExchange(ExchangeClient):
             self._stats["rejected_orders"] += 1
             return self._rejection(symbol, "SELL", "Invalid quantity")
 
-        # Check position
+        # ── Detect position context ───────────────────────────────
         position = None
         if self.state:
             position = self.state.get_position(symbol)
-            if not position:
-                self._stats["rejected_orders"] += 1
-                logger.warning(f"❌ PAPER SELL rejected | {symbol} | No position")
-                return self._rejection(symbol, "SELL", "No open position")
 
+        is_close_long = (
+            position is not None
+            and position.get("action", "BUY").upper() == "BUY"
+        )
+        is_open_short = not is_close_long  # No position, or existing position is already SHORT
+
+        # ── Handle limit orders ───────────────────────────────────
+        if order_type.upper() == "LIMIT":
+            return self._create_limit_order(symbol, "SELL", quantity, price)
+
+        # ── Market price ──────────────────────────────────────────
+        mid_price = self.get_price(symbol)
+        bid_price = mid_price * (1 - self.spread_pct)
+        slip = bid_price * self.slippage_pct * random.uniform(0.2, 1.0)
+        fill_price = round(max(bid_price - slip, 1e-8), 8)
+
+        # ══════════════════════════════════════════════════════════
+        #  CASE 1: CLOSE LONG
+        # ══════════════════════════════════════════════════════════
+        if is_close_long:
             pos_qty = position.get("quantity", 0)
-            if quantity > pos_qty * 1.001:  # Float tolerance
+
+            if quantity > pos_qty * 1.001:  # float tolerance
                 self._stats["rejected_orders"] += 1
                 logger.warning(
                     f"❌ PAPER SELL rejected | {symbol} | "
@@ -612,63 +641,91 @@ class PaperExchange(ExchangeClient):
                 )
                 return self._rejection(symbol, "SELL", f"Quantity exceeds position ({pos_qty:.6f})")
 
-            quantity = min(quantity, pos_qty)  # Clamp
+            quantity = min(quantity, pos_qty)  # clamp
 
-        # Handle limit orders
-        if order_type.upper() == "LIMIT":
-            return self._create_limit_order(symbol, "SELL", quantity, price)
+            proceeds = round(fill_price * quantity, 8)
+            fee = round(proceeds * self.fee_pct, 8)
 
-        # Market order execution
-        mid_price = self.get_price(symbol)
-
-        # Apply spread (sell at bid)
-        bid_price = mid_price * (1 - self.spread_pct)
-
-        # Apply random slippage
-        slip = bid_price * self.slippage_pct * random.uniform(0.2, 1.0)
-        fill_price = round(max(bid_price - slip, 1e-8), 8)
-
-        proceeds = round(fill_price * quantity, 8)
-        fee = round(proceeds * self.fee_pct, 8)
-
-        # Calculate PnL
-        gross_pnl = 0.0
-        if position:
             entry_price = position.get("entry_price", position.get("avg_price", fill_price))
             gross_pnl = round((fill_price - entry_price) * quantity, 8)
+            net_pnl = round(gross_pnl - fee, 8)
 
-        net_pnl = round(gross_pnl - fee, 8)
+            self._order_counter += 1
+            order_id = f"PAPER-S-{self._order_counter:06d}"
 
-        # Generate order
+            self._stats["filled_orders"] += 1
+            self._stats["total_volume"] += proceeds
+            self._stats["total_fees"] += fee
+
+            receipt = self._success_receipt(
+                symbol=symbol,
+                action="SELL",
+                price=fill_price,
+                quantity=quantity,
+                fee=fee,
+                order_id=order_id,
+                mode="PAPER",
+                exchange="PAPER",
+                proceeds=proceeds,
+                gross_pnl=gross_pnl,
+                net_pnl=net_pnl,
+            )
+            self._order_history.append(receipt)
+
+            logger.info(
+                f"📝🔴 PAPER SELL (Close Long) | {symbol} | "
+                f"Qty={quantity:.6f} @ ${fill_price:.6f} | "
+                f"PnL=${net_pnl:+.4f} | Fee=${fee:.4f}"
+            )
+            return receipt
+
+        # ══════════════════════════════════════════════════════════
+        #  CASE 2: OPEN SHORT
+        # ══════════════════════════════════════════════════════════
+        # For paper shorts we require a margin reserve equal to
+        # the notional value of the position (100% collateral).
+        notional = fill_price * quantity
+        fee = round(notional * self.fee_pct, 8)
+        margin_required = notional + fee  # full collateral
+
+        if self.state:
+            balance = self.state.get("balance", 0)
+            if margin_required > balance:
+                self._stats["rejected_orders"] += 1
+                logger.warning(
+                    f"❌ PAPER SHORT rejected | {symbol} | "
+                    f"Margin=${margin_required:.4f} > Balance=${balance:.2f}"
+                )
+                return self._rejection(symbol, "SELL", f"Insufficient margin (need ${margin_required:.2f}, have ${balance:.2f})")
+
         self._order_counter += 1
-        order_id = f"PAPER-S-{self._order_counter:06d}"
+        order_id = f"PAPER-SS-{self._order_counter:06d}"  # SS = Short Sell
 
         self._stats["filled_orders"] += 1
-        self._stats["total_volume"] += proceeds
+        self._stats["total_volume"] += notional
         self._stats["total_fees"] += fee
 
         receipt = self._success_receipt(
             symbol=symbol,
-            action="SELL",
+            action="SELL",          # keeps controller logic intact
             price=fill_price,
             quantity=quantity,
             fee=fee,
             order_id=order_id,
             mode="PAPER",
             exchange="PAPER",
-            proceeds=proceeds,
-            gross_pnl=gross_pnl,
-            net_pnl=net_pnl,
+            proceeds=notional,      # credited to balance on open
+            gross_pnl=0.0,          # PnL realised on close (buy-to-cover)
+            net_pnl=0.0,
+            is_short_open=True,     # metadata flag — informational only
         )
-
         self._order_history.append(receipt)
 
         logger.info(
-            f"📝🔴 PAPER SELL | {symbol} | "
+            f"📝🔴 PAPER SELL (Open Short) | {symbol} | "
             f"Qty={quantity:.6f} @ ${fill_price:.6f} | "
-            f"PnL=${net_pnl:+.4f} | Fee=${fee:.4f}"
+            f"Margin=${margin_required:.4f} | Fee=${fee:.4f}"
         )
-
         return receipt
 
     def _create_limit_order(

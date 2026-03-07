@@ -14,6 +14,9 @@ Computes all technical indicators and market state:
 - Pattern recognition (candlestick + chart patterns)
 - Multi-timeframe confluence (when data available)
 - Signal generation with confidence scoring
+- **NEW: Probability-based trade signals (60% threshold)**
+- **NEW: Hourly market analysis notifications**
+- **NEW: Exit probability monitoring**
 
 Performance Optimizations:
 - O(n) MACD calculation
@@ -132,6 +135,19 @@ class MarketState:
     signal_strength: float = 0.0         # 0-1
     confidence_score: float = 0.5        # 0-1
 
+    # ── NEW: Probability-Based Trading ────────────────────────────
+    profit_probability: float = 0.0      # 0-100% probability of profit
+    loss_probability: float = 0.0        # 0-100% probability of loss
+    should_enter: bool = False           # True if profit_probability >= 60%
+    should_exit: bool = False            # True if loss_probability > profit_probability
+    entry_recommendation: str = "WAIT"   # "BUY", "SELL", "WAIT"
+    
+    # ── Trade Targets ─────────────────────────────────────────────
+    suggested_entry: float = 0.0
+    suggested_target: float = 0.0
+    suggested_stop_loss: float = 0.0
+    risk_reward_ratio: float = 0.0
+
     # ── Brain Feed Fields ─────────────────────────────────────────
     indicators: Dict = field(default_factory=dict)
     sentiment_score: float = 0.0         # -1 to +1
@@ -140,6 +156,209 @@ class MarketState:
 
     # ── Raw Data (for strategy use) ───────────────────────────────
     candle_count: int = 0
+
+
+# ═══════════════════════════════════════════════════════════════════
+#  TRADE SIGNAL DATA CLASS (NEW)
+# ═══════════════════════════════════════════════════════════════════
+
+@dataclass
+class TradeSignal:
+    """
+    Trade signal with probability-based entry/exit logic.
+    Used for notifications and trade execution.
+    """
+    symbol: str
+    signal_type: str  # "BUY", "SELL", "EXIT", "HOLD"
+    probability: float  # 0-100
+    entry_price: float
+    target_price: float
+    stop_loss: float
+    risk_reward: float
+    confidence: float  # 0-100
+    reasons: List[str]
+    timestamp: str
+    
+    # For exit signals
+    exit_price: float = 0.0
+    pnl_amount: float = 0.0
+    pnl_percent: float = 0.0
+    hold_duration_minutes: int = 0
+    
+    def should_execute(self) -> bool:
+        """Check if signal meets 60% probability threshold."""
+        return self.probability >= 60.0 and self.signal_type in ("BUY", "SELL")
+    
+    def format_entry_notification(self) -> str:
+        """Format entry notification message."""
+        direction_emoji = "🟢" if self.signal_type == "BUY" else "🔴"
+        
+        return (
+            f"{direction_emoji} **TRADE SIGNAL: {self.signal_type}**\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 Symbol: `{self.symbol}`\n"
+            f"💰 Entry Price: `${self.entry_price:,.4f}`\n"
+            f"🎯 Target: `${self.target_price:,.4f}` ({self._calc_target_pct():+.2f}%)\n"
+            f"🛑 Stop Loss: `${self.stop_loss:,.4f}` ({self._calc_sl_pct():+.2f}%)\n"
+            f"📈 Risk/Reward: `1:{self.risk_reward:.2f}`\n"
+            f"🎲 Probability: `{self.probability:.1f}%`\n"
+            f"💪 Confidence: `{self.confidence:.1f}%`\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📝 Reasons:\n" + "\n".join(f"  • {r}" for r in self.reasons[:5])
+        )
+    
+    def format_exit_notification(self) -> str:
+        """Format exit notification message."""
+        pnl_emoji = "✅" if self.pnl_amount >= 0 else "❌"
+        
+        hours = self.hold_duration_minutes // 60
+        mins = self.hold_duration_minutes % 60
+        duration_str = f"{hours}h {mins}m" if hours > 0 else f"{mins}m"
+        
+        return (
+            f"{pnl_emoji} **TRADE CLOSED**\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 Symbol: `{self.symbol}`\n"
+            f"💰 Exit Price: `${self.exit_price:,.4f}`\n"
+            f"📈 P/L: `₹{self.pnl_amount:+,.2f}` ({self.pnl_percent:+.2f}%)\n"
+            f"⏱️ Duration: `{duration_str}`\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━"
+        )
+    
+    def _calc_target_pct(self) -> float:
+        if self.entry_price == 0:
+            return 0.0
+        return ((self.target_price - self.entry_price) / self.entry_price) * 100
+    
+    def _calc_sl_pct(self) -> float:
+        if self.entry_price == 0:
+            return 0.0
+        return ((self.stop_loss - self.entry_price) / self.entry_price) * 100
+
+
+# ═══════════════════════════════════════════════════════════════════
+#  HOURLY ANALYSIS REPORT (NEW)
+# ═══════════════════════════════════════════════════════════════════
+
+@dataclass
+class HourlyAnalysisReport:
+    """
+    Hourly market analysis report for notifications.
+    Sent even when not trading.
+    """
+    symbol: str
+    timestamp: str
+    price: float
+    
+    # Trend
+    trend: str
+    trend_strength: float
+    
+    # Key Indicators
+    rsi: float
+    rsi_signal: str
+    macd_cross: str
+    adx: float
+    
+    # Volatility
+    volatility_regime: str
+    atr_percent: float
+    
+    # Volume
+    volume_pressure: float
+    volume_spike: bool
+    
+    # Opportunities
+    opportunities: List[str]
+    warnings: List[str]
+    
+    # Probability
+    buy_probability: float
+    sell_probability: float
+    
+    def format_notification(self) -> str:
+        """Format hourly analysis notification."""
+        trend_emoji = {
+            "bullish": "🟢",
+            "bearish": "🔴",
+            "sideways": "🟡"
+        }.get(self.trend, "⚪")
+        
+        rsi_emoji = {
+            "oversold": "🟢",
+            "overbought": "🔴",
+            "neutral": "⚪",
+            "bullish": "🟢",
+            "bearish": "🔴"
+        }.get(self.rsi_signal, "⚪")
+        
+        vol_emoji = {
+            "low": "😴",
+            "normal": "📊",
+            "high": "⚡",
+            "extreme": "🔥"
+        }.get(self.volatility_regime, "📊")
+        
+        macd_emoji = "🟢" if self.macd_cross == "bullish" else "🔴" if self.macd_cross == "bearish" else "⚪"
+        
+        msg = (
+            f"📊 **HOURLY MARKET ANALYSIS**\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"🪙 {self.symbol} | `${self.price:,.2f}`\n"
+            f"🕐 {self.timestamp}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            
+            f"**📈 TREND**\n"
+            f"{trend_emoji} Direction: `{self.trend.upper()}`\n"
+            f"💪 Strength: `{self.trend_strength*100:.0f}%`\n\n"
+            
+            f"**📉 INDICATORS**\n"
+            f"{rsi_emoji} RSI: `{self.rsi:.1f}` ({self.rsi_signal})\n"
+            f"{macd_emoji} MACD: `{self.macd_cross}`\n"
+            f"📊 ADX: `{self.adx:.1f}` ({'Strong' if self.adx > 25 else 'Weak'} trend)\n\n"
+            
+            f"**⚡ VOLATILITY**\n"
+            f"{vol_emoji} Regime: `{self.volatility_regime.upper()}`\n"
+            f"📏 ATR: `{self.atr_percent:.2f}%`\n"
+        )
+        
+        # Volume
+        vol_dir = "Buying 🟢" if self.volume_pressure > 0.2 else "Selling 🔴" if self.volume_pressure < -0.2 else "Neutral ⚪"
+        msg += f"📊 Volume: `{vol_dir}`"
+        if self.volume_spike:
+            msg += " ⚠️ SPIKE!"
+        msg += "\n\n"
+        
+        # Probabilities
+        msg += (
+            f"**🎲 PROBABILITIES**\n"
+            f"🟢 BUY Signal: `{self.buy_probability:.0f}%`\n"
+            f"🔴 SELL Signal: `{self.sell_probability:.0f}%`\n\n"
+        )
+        
+        # Opportunities
+        if self.opportunities:
+            msg += f"**💡 OPPORTUNITIES**\n"
+            for opp in self.opportunities[:3]:
+                msg += f"  • {opp}\n"
+            msg += "\n"
+        
+        # Warnings
+        if self.warnings:
+            msg += f"**⚠️ WARNINGS**\n"
+            for warn in self.warnings[:3]:
+                msg += f"  • {warn}\n"
+            msg += "\n"
+        
+        # Recommendation
+        if self.buy_probability >= 60:
+            msg += "🎯 **RECOMMENDATION: LOOK FOR BUY ENTRY**"
+        elif self.sell_probability >= 60:
+            msg += "🎯 **RECOMMENDATION: LOOK FOR SELL/EXIT**"
+        else:
+            msg += "⏳ **RECOMMENDATION: WAIT FOR BETTER SETUP**"
+        
+        return msg
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -155,14 +374,53 @@ class MarketAnalyzer:
         state = analyzer.analyze({"price": 67000, "candles": [...]})
 
     Returns fully populated MarketState with signals.
+    
+    NEW Features:
+        - Probability-based trade signals (60% threshold)
+        - Exit monitoring (loss probability detection)
+        - Hourly analysis report generation
     """
 
     MIN_CANDLES = 50  # Minimum for reliable indicators
     IDEAL_CANDLES = 150  # Ideal for all indicators
+    
+    # Probability thresholds
+    ENTRY_PROBABILITY_THRESHOLD = 60.0  # Minimum probability to enter trade
+    EXIT_PROBABILITY_THRESHOLD = 55.0   # Exit if loss probability exceeds this
 
-    def __init__(self, symbol: str):
+    def __init__(
+        self,
+        symbol: str,
+        min_probability: float = None,  # ✅ NEW - accepts but uses class default if not provided
+        entry_threshold: float = None,  # ✅ NEW - optional override
+        exit_threshold: float = None,   # ✅ NEW - optional override
+    ):
+        """
+        Initialize MarketAnalyzer.
+        
+        Args:
+            symbol: Trading pair (e.g., "BTC/USDT")
+            min_probability: Minimum probability for entry signals (default 60%)
+            entry_threshold: Override for ENTRY_PROBABILITY_THRESHOLD
+            exit_threshold: Override for EXIT_PROBABILITY_THRESHOLD
+        """
         self.symbol = symbol
         self._cache: Dict = {}
+        self._last_analysis_time: Optional[datetime] = None
+        
+        # Apply custom thresholds if provided
+        if min_probability is not None:
+            self.ENTRY_PROBABILITY_THRESHOLD = min_probability * 100 if min_probability <= 1 else min_probability
+        if entry_threshold is not None:
+            self.ENTRY_PROBABILITY_THRESHOLD = entry_threshold * 100 if entry_threshold <= 1 else entry_threshold
+        if exit_threshold is not None:
+            self.EXIT_PROBABILITY_THRESHOLD = exit_threshold * 100 if exit_threshold <= 1 else exit_threshold
+        
+        logger.info(
+            f"📊 MarketAnalyzer initialized | {symbol} | "
+            f"EntryThreshold={self.ENTRY_PROBABILITY_THRESHOLD:.0f}% | "
+            f"ExitThreshold={self.EXIT_PROBABILITY_THRESHOLD:.0f}%"
+        )
 
     # ═══════════════════════════════════════════════════════════════
     #  MAIN ANALYSIS
@@ -176,7 +434,7 @@ class MarketAnalyzer:
             market_data: Dict with 'price' and 'candles' keys
 
         Returns:
-            Fully populated MarketState
+            Fully populated MarketState with probability-based signals
 
         Raises:
             ValueError: If insufficient candle data
@@ -288,6 +546,51 @@ class MarketAnalyzer:
             price_vs_ema=price_vs_ema,
             structure_break=structure_break,
             break_direction=break_dir,
+        )
+
+        # ══════════════════════════════════════════════════════════
+        # NEW: PROBABILITY-BASED TRADING SIGNALS
+        # ══════════════════════════════════════════════════════════
+        
+        profit_probability, loss_probability = self._calculate_probabilities(
+            trend=trend,
+            trend_strength=trend_strength,
+            rsi=rsi,
+            rsi_signal=rsi_signal,
+            macd_cross=macd_cross,
+            macd_hist=macd_hist,
+            bb_percent_b=bb_percent_b,
+            volume_pressure=volume_pressure,
+            adx=adx,
+            momentum_acceleration=momentum_acceleration,
+            structure_break=structure_break,
+            break_direction=break_dir,
+            volatility_regime=volatility_regime,
+            stoch_k=stoch_k,
+            stoch_d=stoch_d,
+        )
+        
+        # Determine if we should enter or exit
+        should_enter = profit_probability >= self.ENTRY_PROBABILITY_THRESHOLD
+        should_exit = loss_probability > profit_probability and loss_probability >= self.EXIT_PROBABILITY_THRESHOLD
+        
+        # Entry recommendation
+        if should_enter and signal == "BUY":
+            entry_recommendation = "BUY"
+        elif should_enter and signal == "SELL":
+            entry_recommendation = "SELL"
+        else:
+            entry_recommendation = "WAIT"
+        
+        # Calculate trade targets
+        suggested_entry = price
+        suggested_target, suggested_stop_loss, risk_reward = self._calculate_trade_targets(
+            price=price,
+            atr=atr,
+            trend=trend,
+            support=support,
+            resistance=resistance,
+            signal=signal,
         )
 
         # ── Brain Feeds ───────────────────────────────────────────
@@ -423,6 +726,19 @@ class MarketAnalyzer:
             signal_strength=round(signal_strength, 4),
             confidence_score=round(confidence_score, 4),
 
+            # NEW: Probability-based fields
+            profit_probability=round(profit_probability, 2),
+            loss_probability=round(loss_probability, 2),
+            should_enter=should_enter,
+            should_exit=should_exit,
+            entry_recommendation=entry_recommendation,
+            
+            # Trade targets
+            suggested_entry=round(suggested_entry, 6),
+            suggested_target=round(suggested_target, 6),
+            suggested_stop_loss=round(suggested_stop_loss, 6),
+            risk_reward_ratio=round(risk_reward, 2),
+
             # Brain feeds
             indicators=indicators,
             sentiment_score=round(sentiment_score, 4),
@@ -439,10 +755,468 @@ class MarketAnalyzer:
             f"{trend.upper()} | RSI={rsi:.1f} | "
             f"MACD={'▲' if macd_hist > 0 else '▼'} | "
             f"ADX={adx:.1f} | Vol={volatility_regime} | "
-            f"Signal={signal} ({signal_strength*100:.0f}%)"
+            f"Signal={signal} ({signal_strength*100:.0f}%) | "
+            f"Prob={profit_probability:.0f}%/{loss_probability:.0f}% | "
+            f"{'✅ ENTER' if should_enter else '⏳ WAIT'}"
         )
 
+        self._last_analysis_time = datetime.utcnow()
         return state
+
+    # ═══════════════════════════════════════════════════════════════
+    #  PROBABILITY CALCULATION (NEW)
+    # ═══════════════════════════════════════════════════════════════
+
+    def _calculate_probabilities(
+        self,
+        trend: str,
+        trend_strength: float,
+        rsi: float,
+        rsi_signal: str,
+        macd_cross: str,
+        macd_hist: float,
+        bb_percent_b: float,
+        volume_pressure: float,
+        adx: float,
+        momentum_acceleration: float,
+        structure_break: bool,
+        break_direction: str,
+        volatility_regime: str,
+        stoch_k: float,
+        stoch_d: float,
+    ) -> Tuple[float, float]:
+        """
+        Calculate profit and loss probabilities based on multiple factors.
+        
+        This uses a weighted scoring system across multiple indicators
+        to estimate the probability of a profitable trade.
+        
+        Returns:
+            Tuple of (profit_probability, loss_probability) as percentages 0-100
+        """
+        bullish_score = 0.0
+        bearish_score = 0.0
+        total_weight = 0.0
+        
+        # ── 1. Trend Alignment (Weight: 20%) ──────────────────────
+        weight = 20.0
+        total_weight += weight
+        if trend == "bullish":
+            bullish_score += weight * (0.5 + trend_strength * 0.5)
+        elif trend == "bearish":
+            bearish_score += weight * (0.5 + trend_strength * 0.5)
+        else:
+            # Sideways - slight negative for both
+            bullish_score += weight * 0.3
+            bearish_score += weight * 0.3
+        
+        # ── 2. RSI Conditions (Weight: 15%) ───────────────────────
+        weight = 15.0
+        total_weight += weight
+        if rsi < 30:  # Oversold - bullish opportunity
+            bullish_score += weight * (1.0 - rsi / 30)
+        elif rsi > 70:  # Overbought - bearish signal
+            bearish_score += weight * ((rsi - 70) / 30)
+        elif 40 <= rsi <= 60:  # Neutral zone
+            bullish_score += weight * 0.4
+            bearish_score += weight * 0.4
+        elif rsi < 40:  # Slightly bearish
+            bearish_score += weight * 0.6
+            bullish_score += weight * 0.3
+        else:  # 60 < rsi < 70 - Slightly bullish
+            bullish_score += weight * 0.6
+            bearish_score += weight * 0.3
+        
+        # ── 3. MACD Cross (Weight: 15%) ───────────────────────────
+        weight = 15.0
+        total_weight += weight
+        if macd_cross == "bullish":
+            bullish_score += weight * 0.9
+        elif macd_cross == "bearish":
+            bearish_score += weight * 0.9
+        elif macd_hist > 0:
+            bullish_score += weight * 0.6
+        elif macd_hist < 0:
+            bearish_score += weight * 0.6
+        else:
+            bullish_score += weight * 0.3
+            bearish_score += weight * 0.3
+        
+        # ── 4. Bollinger Band Position (Weight: 10%) ──────────────
+        weight = 10.0
+        total_weight += weight
+        if bb_percent_b < 0.2:  # Near lower band - potential bounce
+            bullish_score += weight * 0.8
+        elif bb_percent_b > 0.8:  # Near upper band - potential reversal
+            bearish_score += weight * 0.8
+        elif 0.4 <= bb_percent_b <= 0.6:  # Middle - neutral
+            bullish_score += weight * 0.4
+            bearish_score += weight * 0.4
+        elif bb_percent_b < 0.4:
+            bullish_score += weight * 0.6
+            bearish_score += weight * 0.3
+        else:
+            bearish_score += weight * 0.6
+            bullish_score += weight * 0.3
+        
+        # ── 5. Volume Pressure (Weight: 12%) ──────────────────────
+        weight = 12.0
+        total_weight += weight
+        if volume_pressure > 0.3:  # Strong buying
+            bullish_score += weight * 0.9
+        elif volume_pressure < -0.3:  # Strong selling
+            bearish_score += weight * 0.9
+        elif volume_pressure > 0:
+            bullish_score += weight * (0.5 + volume_pressure)
+        else:
+            bearish_score += weight * (0.5 + abs(volume_pressure))
+        
+        # ── 6. ADX Trend Strength (Weight: 10%) ───────────────────
+        weight = 10.0
+        total_weight += weight
+        if adx > 25:  # Strong trend
+            if trend == "bullish":
+                bullish_score += weight * min(1.0, adx / 50)
+            elif trend == "bearish":
+                bearish_score += weight * min(1.0, adx / 50)
+            else:
+                # Strong ADX but sideways trend - breakout possible
+                bullish_score += weight * 0.4
+                bearish_score += weight * 0.4
+        else:  # Weak trend
+            bullish_score += weight * 0.3
+            bearish_score += weight * 0.3
+        
+        # ── 7. Momentum Acceleration (Weight: 8%) ─────────────────
+        weight = 8.0
+        total_weight += weight
+        if momentum_acceleration > 0:
+            bullish_score += weight * min(1.0, 0.5 + momentum_acceleration * 10)
+        else:
+            bearish_score += weight * min(1.0, 0.5 + abs(momentum_acceleration) * 10)
+        
+        # ── 8. Structure Break (Weight: 5%) ───────────────────────
+        weight = 5.0
+        total_weight += weight
+        if structure_break:
+            if break_direction == "up":
+                bullish_score += weight
+            elif break_direction == "down":
+                bearish_score += weight
+        else:
+            bullish_score += weight * 0.3
+            bearish_score += weight * 0.3
+        
+        # ── 9. Stochastic RSI (Weight: 5%) ────────────────────────
+        weight = 5.0
+        total_weight += weight
+        if stoch_k < 20 and stoch_k > stoch_d:  # Oversold with bullish cross
+            bullish_score += weight * 0.9
+        elif stoch_k > 80 and stoch_k < stoch_d:  # Overbought with bearish cross
+            bearish_score += weight * 0.9
+        elif stoch_k > stoch_d:
+            bullish_score += weight * 0.6
+        else:
+            bearish_score += weight * 0.6
+        
+        # ── Calculate Final Probabilities ─────────────────────────
+        # Normalize to 0-100%
+        profit_prob = (bullish_score / total_weight) * 100
+        loss_prob = (bearish_score / total_weight) * 100
+        
+        # Adjust based on volatility regime
+        if volatility_regime == "extreme":
+            # High volatility increases uncertainty
+            profit_prob *= 0.85
+            loss_prob *= 0.85
+        elif volatility_regime == "high":
+            profit_prob *= 0.92
+            loss_prob *= 0.92
+        elif volatility_regime == "low":
+            # Low volatility - less opportunity but more predictable
+            profit_prob *= 0.95
+            loss_prob *= 0.95
+        
+        # Ensure within bounds
+        profit_prob = max(5.0, min(95.0, profit_prob))
+        loss_prob = max(5.0, min(95.0, loss_prob))
+        
+        return profit_prob, loss_prob
+
+    def _calculate_trade_targets(
+        self,
+        price: float,
+        atr: float,
+        trend: str,
+        support: float,
+        resistance: float,
+        signal: str,
+    ) -> Tuple[float, float, float]:
+        """
+        Calculate target price and stop loss based on ATR and support/resistance.
+        
+        Returns:
+            Tuple of (target_price, stop_loss, risk_reward_ratio)
+        """
+        if price == 0 or atr == 0:
+            return price, price, 0.0
+        
+        # Default ATR multipliers
+        stop_multiplier = 1.5
+        target_multiplier = 3.0  # Default 2:1 R/R
+        
+        if signal == "BUY" or trend == "bullish":
+            # Long position
+            stop_loss = max(price - (atr * stop_multiplier), support * 0.995)
+            target = min(price + (atr * target_multiplier), resistance * 0.995)
+            
+            # Ensure stop is below entry
+            if stop_loss >= price:
+                stop_loss = price * 0.98
+            
+            # Ensure target is above entry
+            if target <= price:
+                target = price * 1.04
+                
+        elif signal == "SELL" or trend == "bearish":
+            # Short position / Exit signal
+            stop_loss = min(price + (atr * stop_multiplier), resistance * 1.005)
+            target = max(price - (atr * target_multiplier), support * 1.005)
+            
+            # Ensure stop is above entry
+            if stop_loss <= price:
+                stop_loss = price * 1.02
+            
+            # Ensure target is below entry
+            if target >= price:
+                target = price * 0.96
+        else:
+            # Neutral - use simple ATR-based levels
+            stop_loss = price - (atr * stop_multiplier)
+            target = price + (atr * target_multiplier)
+        
+        # Calculate risk/reward ratio
+        risk = abs(price - stop_loss)
+        reward = abs(target - price)
+        risk_reward = reward / risk if risk > 0 else 0.0
+        
+        return target, stop_loss, risk_reward
+
+    # ═══════════════════════════════════════════════════════════════
+    #  GENERATE TRADE SIGNAL (NEW)
+    # ═══════════════════════════════════════════════════════════════
+
+    def generate_trade_signal(self, market_state: MarketState) -> TradeSignal:
+        """
+        Generate a complete trade signal from market state.
+        
+        This is used by the controller to decide whether to execute a trade
+        and to format notifications.
+        
+        Args:
+            market_state: Analyzed market state
+            
+        Returns:
+            TradeSignal with all details for execution and notification
+        """
+        # Collect reasons for the signal
+        reasons = []
+        
+        if market_state.trend == "bullish":
+            reasons.append(f"Bullish trend (strength: {market_state.trend_strength*100:.0f}%)")
+        elif market_state.trend == "bearish":
+            reasons.append(f"Bearish trend (strength: {market_state.trend_strength*100:.0f}%)")
+        
+        if market_state.rsi < 30:
+            reasons.append(f"RSI oversold ({market_state.rsi:.1f})")
+        elif market_state.rsi > 70:
+            reasons.append(f"RSI overbought ({market_state.rsi:.1f})")
+        
+        if market_state.macd_cross == "bullish":
+            reasons.append("MACD bullish crossover")
+        elif market_state.macd_cross == "bearish":
+            reasons.append("MACD bearish crossover")
+        
+        if market_state.volume_spike:
+            reasons.append("Volume spike detected")
+        
+        if market_state.volume_pressure > 0.3:
+            reasons.append(f"Strong buying pressure ({market_state.volume_pressure*100:.0f}%)")
+        elif market_state.volume_pressure < -0.3:
+            reasons.append(f"Strong selling pressure ({abs(market_state.volume_pressure)*100:.0f}%)")
+        
+        if market_state.structure_break:
+            reasons.append(f"Structure break: {market_state.break_direction}")
+        
+        if market_state.bb_percent_b < 0.2:
+            reasons.append("Price near lower Bollinger Band")
+        elif market_state.bb_percent_b > 0.8:
+            reasons.append("Price near upper Bollinger Band")
+        
+        if market_state.adx > 25:
+            reasons.append(f"Strong trend (ADX: {market_state.adx:.1f})")
+        
+        if not reasons:
+            reasons.append("Multiple indicators aligned")
+        
+        signal = TradeSignal(
+            symbol=market_state.symbol,
+            signal_type=market_state.entry_recommendation,
+            probability=market_state.profit_probability,
+            entry_price=market_state.suggested_entry,
+            target_price=market_state.suggested_target,
+            stop_loss=market_state.suggested_stop_loss,
+            risk_reward=market_state.risk_reward_ratio,
+            confidence=market_state.confidence_score * 100,
+            reasons=reasons,
+            timestamp=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"),
+        )
+        
+        return signal
+
+    def generate_exit_signal(
+        self,
+        market_state: MarketState,
+        entry_price: float,
+        current_pnl: float,
+        hold_duration_minutes: int,
+    ) -> TradeSignal:
+        """
+        Generate exit signal for an open position.
+        
+        Args:
+            market_state: Current market analysis
+            entry_price: Original entry price
+            current_pnl: Current profit/loss in currency
+            hold_duration_minutes: How long position has been held
+            
+        Returns:
+            TradeSignal configured for exit
+        """
+        pnl_percent = ((market_state.price - entry_price) / entry_price * 100) if entry_price > 0 else 0
+        
+        reasons = []
+        
+        if market_state.should_exit:
+            reasons.append(f"Loss probability ({market_state.loss_probability:.0f}%) exceeds profit probability")
+        
+        if market_state.macd_cross == "bearish" and current_pnl > 0:
+            reasons.append("MACD bearish cross - secure profits")
+        
+        if market_state.rsi > 70:
+            reasons.append("RSI overbought - potential reversal")
+        
+        if market_state.trend == "bearish" and current_pnl > 0:
+            reasons.append("Trend turned bearish")
+        
+        if not reasons:
+            reasons.append("Exit conditions met")
+        
+        signal = TradeSignal(
+            symbol=market_state.symbol,
+            signal_type="EXIT",
+            probability=market_state.loss_probability,
+            entry_price=entry_price,
+            target_price=market_state.suggested_target,
+            stop_loss=market_state.suggested_stop_loss,
+            risk_reward=market_state.risk_reward_ratio,
+            confidence=market_state.confidence_score * 100,
+            reasons=reasons,
+            timestamp=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"),
+            exit_price=market_state.price,
+            pnl_amount=current_pnl,
+            pnl_percent=pnl_percent,
+            hold_duration_minutes=hold_duration_minutes,
+        )
+        
+        return signal
+
+    # ═══════════════════════════════════════════════════════════════
+    #  HOURLY ANALYSIS REPORT (NEW)
+    # ═══════════════════════════════════════════════════════════════
+
+    def generate_hourly_report(self, market_state: MarketState) -> HourlyAnalysisReport:
+        """
+        Generate hourly market analysis report.
+        
+        This is called by the scheduler every hour to send market updates
+        even when not actively trading.
+        
+        Args:
+            market_state: Current market analysis
+            
+        Returns:
+            HourlyAnalysisReport ready for notification
+        """
+        # Generate opportunities based on conditions
+        opportunities = []
+        warnings = []
+        
+        # Bullish opportunities
+        if market_state.rsi < 35 and market_state.trend != "bearish":
+            opportunities.append("RSI approaching oversold - watch for bounce")
+        
+        if market_state.bb_percent_b < 0.15:
+            opportunities.append("Price near lower BB - potential reversal zone")
+        
+        if market_state.macd_cross == "bullish":
+            opportunities.append("Fresh MACD bullish crossover")
+        
+        if market_state.structure_break and market_state.break_direction == "up":
+            opportunities.append("Bullish structure break detected")
+        
+        if market_state.volume_pressure > 0.4:
+            opportunities.append("Strong buying volume pressure")
+        
+        if market_state.profit_probability >= 60:
+            opportunities.append(f"BUY signal active ({market_state.profit_probability:.0f}% probability)")
+        
+        # Bearish warnings
+        if market_state.rsi > 65:
+            warnings.append("RSI approaching overbought territory")
+        
+        if market_state.bb_percent_b > 0.85:
+            warnings.append("Price extended - near upper Bollinger Band")
+        
+        if market_state.macd_cross == "bearish":
+            warnings.append("MACD bearish crossover - caution")
+        
+        if market_state.volume_pressure < -0.3:
+            warnings.append("Selling pressure increasing")
+        
+        if market_state.volatility_regime == "extreme":
+            warnings.append("⚠️ Extreme volatility - reduce position sizes")
+        elif market_state.volatility_regime == "high":
+            warnings.append("High volatility conditions")
+        
+        if market_state.loss_probability > market_state.profit_probability:
+            warnings.append("Higher probability of downside - wait for better entry")
+        
+        # Calculate buy/sell probabilities
+        buy_prob = market_state.profit_probability if market_state.signal == "BUY" else market_state.profit_probability * 0.7
+        sell_prob = market_state.loss_probability if market_state.signal == "SELL" else market_state.loss_probability * 0.7
+        
+        report = HourlyAnalysisReport(
+            symbol=market_state.symbol,
+            timestamp=datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
+            price=market_state.price,
+            trend=market_state.trend,
+            trend_strength=market_state.trend_strength,
+            rsi=market_state.rsi,
+            rsi_signal=market_state.rsi_signal,
+            macd_cross=market_state.macd_cross,
+            adx=market_state.adx,
+            volatility_regime=market_state.volatility_regime,
+            atr_percent=market_state.atr_percent,
+            volume_pressure=market_state.volume_pressure,
+            volume_spike=market_state.volume_spike,
+            opportunities=opportunities,
+            warnings=warnings,
+            buy_probability=buy_prob,
+            sell_probability=sell_prob,
+        )
+        
+        return report
 
     # ═══════════════════════════════════════════════════════════════
     #  CORE INDICATORS
@@ -1457,10 +2231,10 @@ class MarketAnalyzer:
         if self._is_three_white_soldiers(opens, closes):
             patterns_found.append(("BUY", 80, "Three White Soldiers"))
 
-        if self._is_double_bottom(lows[-20:]) if len(lows) >= 20 else False:
+        if len(lows) >= 20 and self._is_double_bottom(lows[-20:]):
             patterns_found.append(("BUY", 65, "Double Bottom"))
 
-        if self._is_inverse_head_shoulders(lows[-30:]) if len(lows) >= 30 else False:
+        if len(lows) >= 30 and self._is_inverse_head_shoulders(lows[-30:]):
             patterns_found.append(("BUY", 75, "Inverse H&S"))
 
         # ── Bearish Patterns ──────────────────────────────────────
@@ -1479,10 +2253,10 @@ class MarketAnalyzer:
         if self._is_three_black_crows(opens, closes):
             patterns_found.append(("SELL", 80, "Three Black Crows"))
 
-        if self._is_double_top(highs[-20:]) if len(highs) >= 20 else False:
+        if len(highs) >= 20 and self._is_double_top(highs[-20:]):
             patterns_found.append(("SELL", 65, "Double Top"))
 
-        if self._is_head_shoulders(highs[-30:]) if len(highs) >= 30 else False:
+        if len(highs) >= 30 and self._is_head_shoulders(highs[-30:]):
             patterns_found.append(("SELL", 75, "Head & Shoulders"))
 
         # ── Neutral / Continuation ────────────────────────────────
@@ -1664,8 +2438,158 @@ class MarketAnalyzer:
         return head < left and head < right and abs(left - right) / max(left, right) < 0.05
 
     # ═══════════════════════════════════════════════════════════════
+    #  EXIT MONITORING (NEW)
+    # ═══════════════════════════════════════════════════════════════
+
+    def should_exit_position(
+        self,
+        market_state: MarketState,
+        entry_price: float,
+        current_pnl_pct: float,
+        hold_duration_minutes: int,
+    ) -> Tuple[bool, str, float]:
+        """
+        Monitor if an open position should be exited.
+        
+        Checks multiple exit conditions:
+        1. Loss probability exceeds profit probability
+        2. Stop loss hit
+        3. Target reached
+        4. Trend reversal
+        5. Maximum hold time exceeded
+        
+        Args:
+            market_state: Current market analysis
+            entry_price: Position entry price
+            current_pnl_pct: Current P/L percentage
+            hold_duration_minutes: Minutes since entry
+            
+        Returns:
+            Tuple of (should_exit, reason, urgency_score 0-1)
+        """
+        exit_reasons = []
+        urgency = 0.0
+        
+        # 1. Probability-based exit
+        if market_state.loss_probability > market_state.profit_probability:
+            diff = market_state.loss_probability - market_state.profit_probability
+            if diff > 20:
+                exit_reasons.append(f"High loss probability ({market_state.loss_probability:.0f}%)")
+                urgency = max(urgency, 0.9)
+            elif diff > 10:
+                exit_reasons.append(f"Rising loss probability ({market_state.loss_probability:.0f}%)")
+                urgency = max(urgency, 0.7)
+        
+        # 2. Stop loss check
+        if market_state.price <= market_state.suggested_stop_loss:
+            exit_reasons.append("Stop loss triggered")
+            urgency = max(urgency, 1.0)
+        
+        # 3. Target reached
+        if market_state.price >= market_state.suggested_target and current_pnl_pct > 0:
+            exit_reasons.append("Target price reached")
+            urgency = max(urgency, 0.8)
+        
+        # 4. Trend reversal with profit
+        if current_pnl_pct > 1.0:  # In profit
+            if market_state.trend == "bearish" and market_state.trend_strength > 0.5:
+                exit_reasons.append("Trend reversal - secure profits")
+                urgency = max(urgency, 0.75)
+            
+            if market_state.macd_cross == "bearish":
+                exit_reasons.append("MACD bearish cross - secure profits")
+                urgency = max(urgency, 0.7)
+        
+        # 5. RSI overbought with profit
+        if market_state.rsi > 75 and current_pnl_pct > 0.5:
+            exit_reasons.append("RSI overbought - consider taking profits")
+            urgency = max(urgency, 0.6)
+        
+        # 6. Maximum hold time (optional: 4 hours for scalping)
+        if hold_duration_minutes > 240:
+            exit_reasons.append("Maximum hold time exceeded")
+            urgency = max(urgency, 0.5)
+        
+        # 7. Significant loss
+        if current_pnl_pct < -2.0:
+            exit_reasons.append("Significant loss - cut losses")
+            urgency = max(urgency, 0.85)
+        
+        # 8. Volatility spike (protect capital)
+        if market_state.volatility_regime == "extreme" and current_pnl_pct > 0:
+            exit_reasons.append("Extreme volatility - protect profits")
+            urgency = max(urgency, 0.7)
+        
+        should_exit = len(exit_reasons) > 0 and urgency >= 0.5
+        reason = exit_reasons[0] if exit_reasons else "No exit signal"
+        
+        return should_exit, reason, urgency
+
+    # ═══════════════════════════════════════════════════════════════
+    #  MULTI-SYMBOL ANALYSIS (NEW)
+    # ═══════════════════════════════════════════════════════════════
+
+    def generate_multi_symbol_report(
+        self,
+        market_states: Dict[str, MarketState]
+    ) -> str:
+        """
+        Generate a combined report for multiple symbols.
+        
+        Args:
+            market_states: Dict of symbol -> MarketState
+            
+        Returns:
+            Formatted string for notification
+        """
+        if not market_states:
+            return "📊 No market data available"
+        
+        lines = [
+            "📊 **MULTI-SYMBOL ANALYSIS**",
+            "━" * 30,
+            "",
+        ]
+        
+        # Sort by profit probability (best opportunities first)
+        sorted_states = sorted(
+            market_states.items(),
+            key=lambda x: x[1].profit_probability,
+            reverse=True
+        )
+        
+        for symbol, state in sorted_states:
+            trend_emoji = "🟢" if state.trend == "bullish" else "🔴" if state.trend == "bearish" else "🟡"
+            prob_emoji = "✅" if state.profit_probability >= 60 else "⏳"
+            
+            lines.append(
+                f"{trend_emoji} **{symbol}** | `${state.price:,.2f}`\n"
+                f"   {prob_emoji} Prob: `{state.profit_probability:.0f}%` | "
+                f"RSI: `{state.rsi:.0f}` | "
+                f"ADX: `{state.adx:.0f}`"
+            )
+            
+            if state.should_enter:
+                lines.append(f"   🎯 **{state.entry_recommendation} SIGNAL ACTIVE**")
+            
+            lines.append("")
+        
+        # Best opportunity
+        best = sorted_states[0]
+        if best[1].profit_probability >= 60:
+            lines.append(f"💡 **Best Opportunity:** {best[0]} ({best[1].profit_probability:.0f}%)")
+        else:
+            lines.append("⏳ **No high-probability setups currently**")
+        
+        return "\n".join(lines)
+
+    # ═══════════════════════════════════════════════════════════════
     #  UTILITY
     # ═══════════════════════════════════════════════════════════════
 
     def __repr__(self) -> str:
-        return f"<MarketAnalyzer symbol={self.symbol}>"
+        return (
+            f"<MarketAnalyzer symbol={self.symbol} | "
+            f"EntryThreshold={self.ENTRY_PROBABILITY_THRESHOLD:.0f}% | "
+            f"ExitThreshold={self.EXIT_PROBABILITY_THRESHOLD:.0f}%>"
+        )

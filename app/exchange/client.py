@@ -1,5 +1,84 @@
 # app/exchange/client.py
 
+"""
+Abstract Exchange Interface — Production Grade
+
+Every exchange (Paper, Binance, Alpaca) implements this contract.
+Controller and strategy layer swap exchanges without code changes.
+
+Design Principles:
+─────────────────
+1. SYNC-FIRST: Methods are synchronous but designed to be called
+   via asyncio.to_thread() for non-blocking I/O.
+
+2. IDEMPOTENT PRICING: get_price() caches per symbol per cycle.
+   Repeated calls return the SAME value within one cycle.
+
+3. STATELESS ORDERS: buy()/sell() return receipts only.
+   Controller handles all state mutations.
+
+4. STANDARDIZED RECEIPTS: All order methods return dicts with
+   consistent fields for controller processing.
+
+5. TRADE DURATION TRACKING: Entry times are recorded for
+   calculating trade duration on exit.
+
+6. INR SUPPORT: Optional INR conversion for display in
+   Indian Rupee values.
+
+Receipt Format (BUY):
+─────────────────────
+    {
+        "status":       "FILLED" | "PARTIAL" | "REJECTED",
+        "symbol":       str,
+        "action":       "BUY",
+        "side":         "BUY",
+        "order_type":   "MARKET" | "LIMIT",
+        "price":        float,          # actual fill price (USD)
+        "price_inr":    float,          # price in INR (optional)
+        "quantity":     float,          # requested quantity
+        "filled_qty":   float,          # actual filled quantity
+        "cost":         float,          # price * filled_qty (USD)
+        "cost_inr":     float,          # cost in INR (optional)
+        "fee":          float,          # exchange fee charged (USD)
+        "fee_inr":      float,          # fee in INR (optional)
+        "fee_currency": str,            # fee currency (e.g., "USDT")
+        "order_id":     str,
+        "timestamp":    str,            # ISO format
+        "mode":         str,            # "PAPER" | "LIVE" | "SIMULATION"
+        "exchange":     str,            # "ALPACA" | "BINANCE" | "PAPER"
+    }
+
+Receipt Format (SELL):
+──────────────────────
+    Same as BUY plus:
+        "entry_price":      float,      # original entry price
+        "entry_price_inr":  float,      # entry price in INR (optional)
+        "proceeds":         float,      # price * filled_qty
+        "gross_pnl":        float,      # (exit - entry) * qty
+        "gross_pnl_inr":    float,      # gross P/L in INR (optional)
+        "net_pnl":          float,      # gross_pnl - fees
+        "net_pnl_inr":      float,      # net P/L in INR (optional)
+        "pnl_pct":          float,      # P/L as percentage
+        "duration_seconds": float,      # trade duration in seconds
+        "duration":         str,        # formatted duration ("5m", "2h")
+        "close_reason":     str,        # why trade was closed (optional)
+
+Position Format:
+────────────────
+    {
+        "symbol":         str,
+        "side":           "long" | "short",
+        "quantity":       float,
+        "entry_price":    float,
+        "entry_time":     str,          # ISO format timestamp
+        "current_price":  float,
+        "unrealized_pnl": float,
+        "market_value":   float,
+        "cost_basis":     float,
+    }
+"""
+
 from abc import ABC, abstractmethod
 from typing import Dict, List, Optional, Tuple
 from enum import Enum
@@ -38,64 +117,20 @@ class ExchangeClient(ABC):
     Every exchange (Paper, Binance, Alpaca) implements this contract.
     Controller and strategy layer swap exchanges without code changes.
 
-    Design Principles:
-    ─────────────────
-    1. SYNC-FIRST: Methods are synchronous but designed to be called
-       via asyncio.to_thread() for non-blocking I/O.
-
-    2. IDEMPOTENT PRICING: get_price() caches per symbol per cycle.
-       Repeated calls return the SAME value within one cycle.
-
-    3. STATELESS ORDERS: buy()/sell() return receipts only.
-       Controller handles all state mutations.
-
-    4. STANDARDIZED RECEIPTS: All order methods return dicts with
-       consistent fields for controller processing.
-
-    Receipt Format (BUY):
-    ─────────────────────
-        {
-            "status":       "FILLED" | "PARTIAL" | "REJECTED",
-            "symbol":       str,
-            "action":       "BUY",
-            "side":         "BUY",
-            "order_type":   "MARKET" | "LIMIT",
-            "price":        float,      # actual fill price
-            "quantity":     float,      # requested quantity
-            "filled_qty":   float,      # actual filled quantity
-            "cost":         float,      # price * filled_qty
-            "fee":          float,      # exchange fee charged
-            "fee_currency": str,        # fee currency (e.g., "USDT")
-            "order_id":     str,
-            "timestamp":    str,        # ISO format
-            "mode":         str,        # "PAPER" | "LIVE"
-            "exchange":     str,        # "ALPACA" | "BINANCE" | "PAPER"
-        }
-
-    Receipt Format (SELL):
-    ──────────────────────
-        Same as BUY plus:
-            "proceeds":     float,      # price * filled_qty
-            "gross_pnl":    float,      # (exit - entry) * qty (if entry known)
-            "net_pnl":      float,      # gross_pnl - fees
-
-    Position Format:
-    ────────────────
-        {
-            "symbol":       str,
-            "side":         "long" | "short",
-            "quantity":     float,
-            "entry_price":  float,
-            "current_price": float,
-            "unrealized_pnl": float,
-            "market_value": float,
-            "cost_basis":   float,
-        }
+    Features:
+    - Standardized order receipts with P/L and duration
+    - Trade entry time tracking for duration calculation
+    - INR conversion support for Indian market display
+    - Position management interface
+    - Kill switch integration via close_position methods
     """
 
     # Exchange identifier - override in subclasses
     EXCHANGE_NAME: str = "UNKNOWN"
-    MODE: str = "UNKNOWN"  # "PAPER" or "LIVE"
+    MODE: str = "UNKNOWN"  # "PAPER", "LIVE", or "SIMULATION"
+
+    # Default INR conversion rate
+    DEFAULT_USD_TO_INR: float = 83.0
 
     # ═══════════════════════════════════════════════════════════════
     # MARKET DATA (required)
@@ -112,7 +147,7 @@ class ExchangeClient(ABC):
         - Cache resets at the start of each new cycle (via begin_cycle)
 
         Returns:
-            float: Current price, or 0.0 if unavailable
+            float: Current price in USD, or 0.0 if unavailable
 
         Raises:
             Does NOT raise - returns 0.0 on failure
@@ -162,6 +197,7 @@ class ExchangeClient(ABC):
             {
                 "symbol":       str,
                 "price":        float,
+                "price_inr":    float,      # INR conversion
                 "bid":          float,
                 "ask":          float,
                 "spread":       float,      # ask - bid
@@ -178,6 +214,7 @@ class ExchangeClient(ABC):
         return {
             "symbol": symbol,
             "price": price,
+            "price_inr": self.to_inr(price),
             "bid": price,
             "ask": price,
             "spread": 0.0,
@@ -236,6 +273,7 @@ class ExchangeClient(ABC):
         Note:
             - Does NOT modify balance/positions
             - Controller handles all state mutations
+            - Should call record_trade_entry() on success
         """
 
     @abstractmethod
@@ -256,11 +294,12 @@ class ExchangeClient(ABC):
             price: Limit price (required for LIMIT orders)
 
         Returns:
-            Standardized receipt dict (see class docstring)
+            Standardized receipt dict with P/L and duration (see class docstring)
 
         Note:
             - Does NOT modify balance/positions
             - Controller handles all state mutations
+            - Should include duration from record_trade_entry()
         """
 
     def place_order(
@@ -341,6 +380,106 @@ class ExchangeClient(ABC):
         }
 
     # ═══════════════════════════════════════════════════════════════
+    # TRADE DURATION TRACKING
+    # ═══════════════════════════════════════════════════════════════
+
+    def record_trade_entry(self, symbol: str) -> None:
+        """
+        Record trade entry time for duration calculation.
+        
+        Called automatically by buy() on successful fill.
+        Override in subclasses to implement tracking.
+        
+        Args:
+            symbol: Trading pair
+        """
+        pass
+
+    def get_trade_duration(self, symbol: str) -> Tuple[float, str]:
+        """
+        Get trade duration for a symbol.
+        
+        Args:
+            symbol: Trading pair
+            
+        Returns:
+            (duration_seconds, formatted_duration_string)
+            e.g., (300.5, "5m") or (7200, "2h")
+        """
+        return 0.0, "Unknown"
+
+    def clear_trade_entry(self, symbol: str) -> None:
+        """
+        Clear trade entry time after exit.
+        
+        Called automatically by sell() on successful fill.
+        Override in subclasses to implement tracking.
+        
+        Args:
+            symbol: Trading pair
+        """
+        pass
+
+    @staticmethod
+    def format_duration(seconds: float) -> str:
+        """
+        Format duration in human-readable format.
+        
+        Args:
+            seconds: Duration in seconds
+            
+        Returns:
+            Formatted string like "30s", "5.2m", "2.5h", "1.5d"
+        """
+        if seconds < 60:
+            return f"{seconds:.0f}s"
+        elif seconds < 3600:
+            return f"{seconds / 60:.1f}m"
+        elif seconds < 86400:
+            return f"{seconds / 3600:.1f}h"
+        else:
+            return f"{seconds / 86400:.1f}d"
+
+    # ═══════════════════════════════════════════════════════════════
+    # INR CONVERSION
+    # ═══════════════════════════════════════════════════════════════
+
+    def to_inr(self, usd_amount: float) -> float:
+        """
+        Convert USD amount to INR.
+        
+        Override in subclasses with actual conversion rate.
+        Default uses DEFAULT_USD_TO_INR (83.0).
+        
+        Args:
+            usd_amount: Amount in USD
+            
+        Returns:
+            Amount in INR
+        """
+        return usd_amount * self.DEFAULT_USD_TO_INR
+
+    def get_inr_rate(self) -> float:
+        """
+        Get current USD to INR conversion rate.
+        
+        Returns:
+            Conversion rate (1 USD = X INR)
+        """
+        return self.DEFAULT_USD_TO_INR
+
+    def update_inr_rate(self, new_rate: float) -> None:
+        """
+        Update USD to INR conversion rate.
+        
+        Override in subclasses to implement rate updates.
+        
+        Args:
+            new_rate: New conversion rate
+        """
+        pass
+
+    # ═══════════════════════════════════════════════════════════════
     # ACCOUNT INFO (required)
     # ═══════════════════════════════════════════════════════════════
 
@@ -351,7 +490,19 @@ class ExchangeClient(ABC):
 
         This is the AVAILABLE balance, not including funds locked
         in open orders or positions.
+        
+        Returns:
+            Balance in USD/USDT
         """
+
+    def get_balance_inr(self) -> float:
+        """
+        Return current available balance in INR.
+        
+        Returns:
+            Balance in INR
+        """
+        return self.to_inr(self.get_balance())
 
     def get_total_balance(self) -> float:
         """
@@ -392,8 +543,10 @@ class ExchangeClient(ABC):
                     "side": "long",
                     "quantity": 0.001,
                     "entry_price": 50000.0,
+                    "entry_time": "2024-01-15T10:30:00",
                     "current_price": 51000.0,
                     "unrealized_pnl": 1.0,
+                    "unrealized_pnl_inr": 83.0,
                     "market_value": 51.0,
                     "cost_basis": 50.0,
                 },
@@ -415,14 +568,19 @@ class ExchangeClient(ABC):
         return sum(p.get("market_value", 0.0) for p in positions.values())
 
     def get_unrealized_pnl(self) -> float:
-        """Get total unrealized PnL across all positions."""
+        """Get total unrealized PnL across all positions (USD)."""
         positions = self.get_open_positions()
         return sum(p.get("unrealized_pnl", 0.0) for p in positions.values())
+
+    def get_unrealized_pnl_inr(self) -> float:
+        """Get total unrealized PnL across all positions (INR)."""
+        return self.to_inr(self.get_unrealized_pnl())
 
     def close_position(
         self,
         symbol: str,
-        quantity: Optional[float] = None
+        quantity: Optional[float] = None,
+        reason: str = "Manual close",
     ) -> Dict:
         """
         Close a position (full or partial).
@@ -430,29 +588,44 @@ class ExchangeClient(ABC):
         Args:
             symbol: Position symbol
             quantity: Amount to close (None = close all)
+            reason: Reason for closing (for audit trail)
 
         Returns:
-            Sell order receipt
+            Sell order receipt with P/L and duration
         """
         pos = self.get_position(symbol)
         if not pos:
             return self._rejection(symbol, "SELL", "No position to close")
 
         close_qty = quantity or pos.get("quantity", 0)
-        return self.sell(symbol, close_qty)
+        result = self.sell(symbol, close_qty)
 
-    def close_all_positions(self) -> List[Dict]:
+        # Add close reason to receipt
+        if result.get("status") == "FILLED":
+            result["close_reason"] = reason
+
+        return result
+
+    def close_all_positions(
+        self,
+        reason: str = "Close all positions",
+    ) -> List[Dict]:
         """
         Close all open positions.
+        
+        Used by kill switch for emergency closing.
+
+        Args:
+            reason: Reason for closing (for audit trail)
 
         Returns:
-            List of sell order receipts
+            List of sell order receipts with P/L and duration
         """
         results = []
         for symbol, pos in self.get_open_positions().items():
             qty = pos.get("quantity", 0)
             if qty > 0:
-                result = self.sell(symbol, qty)
+                result = self.close_position(symbol, qty, reason)
                 results.append(result)
         return results
 
@@ -466,13 +639,15 @@ class ExchangeClient(ABC):
 
         Returns:
             {
-                "balance": float,
+                "balance_usd": float,
+                "balance_inr": float,
                 "total_equity": float,
                 "buying_power": float,
                 "open_positions": int,
                 "total_exposure": float,
                 "exposure_pct": float,
-                "unrealized_pnl": float,
+                "unrealized_pnl_usd": float,
+                "unrealized_pnl_inr": float,
                 "mode": str,
                 "exchange": str,
                 "timestamp": str,
@@ -485,13 +660,17 @@ class ExchangeClient(ABC):
         total_equity = balance + exposure
 
         return {
-            "balance": balance,
+            "balance_usd": balance,
+            "balance_inr": self.to_inr(balance),
             "total_equity": total_equity,
+            "total_equity_inr": self.to_inr(total_equity),
             "buying_power": self.get_buying_power(),
             "open_positions": len(positions),
             "total_exposure": exposure,
+            "exposure_inr": self.to_inr(exposure),
             "exposure_pct": (exposure / total_equity * 100) if total_equity > 0 else 0,
-            "unrealized_pnl": unrealized,
+            "unrealized_pnl_usd": unrealized,
+            "unrealized_pnl_inr": self.to_inr(unrealized),
             "mode": self.MODE,
             "exchange": self.EXCHANGE_NAME,
             "timestamp": datetime.utcnow().isoformat(),
@@ -674,24 +853,31 @@ class ExchangeClient(ABC):
             "symbol": symbol,
             "action": action,
             "side": action,
+            "price": 0.0,
+            "quantity": 0.0,
+            "filled_qty": 0.0,
+            "cost": 0.0,
+            "fee": 0.0,
+            "order_id": "",
             "reason": reason,
             "timestamp": datetime.utcnow().isoformat(),
         }
 
-    @staticmethod
     def _success_receipt(
+        self,
         symbol: str,
         action: str,
         price: float,
         quantity: float,
         fee: float = 0.0,
         order_id: str = "",
-        mode: str = "PAPER",
-        exchange: str = "UNKNOWN",
+        entry_price: float = 0.0,
+        duration_seconds: float = 0.0,
+        include_inr: bool = True,
         **extra
     ) -> Dict:
         """
-        Standard success receipt builder.
+        Standard success receipt builder with P/L and duration support.
 
         Usage:
             return self._success_receipt(
@@ -701,8 +887,18 @@ class ExchangeClient(ABC):
                 quantity=0.001,
                 fee=0.05,
                 order_id="12345",
-                mode="PAPER",
-                exchange="PAPER"
+            )
+            
+        For SELL with P/L:
+            return self._success_receipt(
+                symbol="BTC/USDT",
+                action="SELL",
+                price=51000.0,
+                quantity=0.001,
+                fee=0.05,
+                order_id="12346",
+                entry_price=50000.0,
+                duration_seconds=3600,
             )
         """
         cost = price * quantity
@@ -721,13 +917,39 @@ class ExchangeClient(ABC):
             "fee_currency": "USDT",
             "order_id": order_id,
             "timestamp": datetime.utcnow().isoformat(),
-            "mode": mode,
-            "exchange": exchange,
+            "mode": self.MODE,
+            "exchange": self.EXCHANGE_NAME,
         }
 
-        # Add proceeds for SELL orders
+        # Add INR values
+        if include_inr:
+            receipt["price_inr"] = self.to_inr(price)
+            receipt["cost_inr"] = self.to_inr(cost)
+            receipt["fee_inr"] = self.to_inr(fee)
+
+        # Add P/L info for SELL orders
         if action.upper() == "SELL":
             receipt["proceeds"] = cost
+
+            if entry_price > 0:
+                gross_pnl = (price - entry_price) * quantity
+                net_pnl = gross_pnl - fee
+                pnl_pct = (gross_pnl / (entry_price * quantity) * 100) if entry_price > 0 else 0
+
+                receipt["entry_price"] = entry_price
+                receipt["gross_pnl"] = round(gross_pnl, 8)
+                receipt["net_pnl"] = round(net_pnl, 8)
+                receipt["pnl_pct"] = round(pnl_pct, 2)
+
+                if include_inr:
+                    receipt["entry_price_inr"] = self.to_inr(entry_price)
+                    receipt["gross_pnl_inr"] = self.to_inr(gross_pnl)
+                    receipt["net_pnl_inr"] = self.to_inr(net_pnl)
+
+            # Add duration
+            if duration_seconds > 0:
+                receipt["duration_seconds"] = round(duration_seconds, 1)
+                receipt["duration"] = self.format_duration(duration_seconds)
 
         # Merge extra fields
         receipt.update(extra)

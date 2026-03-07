@@ -1,16 +1,27 @@
 # app/main.py
 
 """
-Autonomous AI Trading Bot — Production Grade Entry Point v2
+Autonomous AI Trading Bot — Production Grade Entry Point v2.1
 
 This bot autonomously:
 1. Monitors multiple cryptocurrency/stock markets continuously
 2. Analyzes price movements, trends, and indicators using 4-Brain system
-3. Decides when to BUY or SELL based on AI-powered analysis
+3. Decides when to BUY or SELL based on 60%+ probability threshold
 4. Executes trades via Alpaca (stocks/crypto) or Binance (crypto) API
 5. Manages risk with multi-layer protection (KillSwitch, LossGuard, Adaptive)
-6. Sends real-time notifications via Telegram with 27 commands
-7. Persists state atomically for crash recovery
+6. Enforces ₹1500 daily loss limit with automatic halt
+7. Sends hourly market analysis notifications
+8. Sends real-time trade entry/exit notifications via Telegram
+9. Persists state atomically for crash recovery
+
+NEW Features (v2.1):
+- 60% minimum probability threshold for trade entry
+- ₹1500 daily loss limit with automatic trading halt
+- Automatic resume next day (UTC)
+- Hourly market analysis notifications (even when not trading)
+- Trade entry notifications (symbol, price, target, stop loss, probability)
+- Trade exit notifications (exit price, P/L, duration)
+- Combined hourly analysis (single message, no spam)
 
 Usage:
     python -m app.main
@@ -18,19 +29,11 @@ Usage:
     
     # With options
     python -m app.main --mode paper --interval 60 --debug
+    python -m app.main --daily-limit 2000  # Custom daily loss limit
 
 Environment:
     Configure via config/.env file
     See config/env.sample for all options
-
-Features:
-    • Multi-exchange support (Alpaca, Binance, Paper)
-    • Market-hours awareness (skip trading when closed)
-    • Graceful shutdown with position awareness
-    • Instance lock (prevents duplicate bots)
-    • Comprehensive startup validation
-    • Health monitoring and heartbeat
-    • Crash recovery from persisted state
 """
 
 import argparse
@@ -107,7 +110,7 @@ logger = get_logger(__name__)
 #  VERSION & CONSTANTS
 # ═════════════════════════════════════════════════════════════════
 
-__version__ = "2.0.0"
+__version__ = "2.1.0"
 
 LOCK_FILE = BASE_DIR / ".bot_lock"
 STATE_FILE = BASE_DIR / "app" / "state" / "state.json"
@@ -115,6 +118,12 @@ DEFAULTS_FILE = BASE_DIR / "app" / "state" / "defaults.json"
 
 # Minimum versions for dependencies
 MIN_PYTHON_VERSION = (3, 9)
+
+# Default values for new features
+DEFAULT_MIN_PROBABILITY = 60.0          # 60% minimum for trade entry
+DEFAULT_DAILY_LOSS_LIMIT_INR = 1500.0   # ₹1500 daily loss limit
+DEFAULT_USD_TO_INR_RATE = 83.0          # Conversion rate
+DEFAULT_HOURLY_ANALYSIS_INTERVAL = 3600  # 1 hour in seconds
 
 
 # ═════════════════════════════════════════════════════════════════
@@ -193,44 +202,76 @@ def _load_config(cli_args: Optional[argparse.Namespace] = None) -> Dict[str, Any
         "interval": _env_int("ANALYSIS_INTERVAL", 300),
 
         # ── Risk Management ───────────────────────────────────────
-        "base_risk": _env_float("BASE_RISK", 0.01),
-        "min_risk": _env_float("MIN_RISK", 0.003),
+        "base_risk": _env_float("BASE_RISK", 0.02),  # 2% per trade
+        "min_risk": _env_float("MIN_RISK", 0.005),
         "max_risk": _env_float("MAX_RISK", 0.03),
         "max_daily_drawdown": _env_float("MAX_DAILY_DRAWDOWN", 0.05),
         "emergency_drawdown": _env_float("EMERGENCY_DRAWDOWN", 0.15),
         "max_exposure_pct": _env_float("MAX_EXPOSURE_PCT", 0.30),
         "max_consecutive_losses": _env_int("MAX_CONSECUTIVE_LOSSES", 3),
 
+        # ── NEW: Probability Threshold ────────────────────────────
+        "min_trade_probability": _env_float(
+            "MIN_TRADE_PROBABILITY", DEFAULT_MIN_PROBABILITY
+        ),
+
+        # ── NEW: Daily Loss Limit (INR) ───────────────────────────
+        "daily_loss_limit_inr": _env_float(
+            "DAILY_LOSS_LIMIT_INR", DEFAULT_DAILY_LOSS_LIMIT_INR
+        ),
+        "daily_loss_limit_enabled": _env_bool("DAILY_LOSS_LIMIT_ENABLED", True),
+        "usd_to_inr_rate": _env_float("USD_TO_INR_RATE", DEFAULT_USD_TO_INR_RATE),
+
+        # ── NEW: Hourly Analysis ──────────────────────────────────
+        "hourly_analysis_enabled": _env_bool("HOURLY_ANALYSIS_ENABLED", True),
+        "hourly_analysis_interval": _env_int(
+            "HOURLY_ANALYSIS_INTERVAL", DEFAULT_HOURLY_ANALYSIS_INTERVAL
+        ),
+
         # ── Fees & Slippage ───────────────────────────────────────
         "fee_pct": _env_float("FEE_PCT", 0.001),
         "slippage_pct": _env_float("SLIPPAGE_PCT", 0.0005),
 
         # ── Strategy Parameters ───────────────────────────────────
-        "risk_reward_ratio": _env_float("RISK_REWARD_RATIO", 2.0),
+        "risk_reward_ratio": _env_float("RISK_REWARD_RATIO", 1.5),
         "atr_multiplier": _env_float("ATR_MULTIPLIER", 1.2),
-        "min_confidence": _env_float("MIN_CONFIDENCE", 0.55),
+        "min_confidence": _env_float("MIN_CONFIDENCE", 0.60),  # 60% default
         "min_volatility_pct": _env_float("MIN_VOLATILITY_PCT", 0.002),
         "max_volatility_pct": _env_float("MAX_VOLATILITY_PCT", 0.02),
+
+        # ── Stop Loss & Take Profit ───────────────────────────────
+        "default_stop_loss_pct": _env_float("DEFAULT_STOP_LOSS_PCT", 0.02),
+        "default_take_profit_pct": _env_float("DEFAULT_TAKE_PROFIT_PCT", 0.03),
+        "trailing_stop_enabled": _env_bool("TRAILING_STOP_ENABLED", True),
+        "trailing_stop_pct": _env_float("TRAILING_STOP_PCT", 0.015),
 
         # ── Trade Limits ──────────────────────────────────────────
         "max_trades_per_day": _env_int("MAX_TRADES_PER_DAY", 10),
         "max_trades_per_hour": _env_int("MAX_TRADES_PER_HOUR", 3),
         "min_trade_interval": _env_int("MIN_TRADE_INTERVAL", 60),
+        "max_open_positions": _env_int("MAX_OPEN_POSITIONS", 3),
 
         # ── Scheduler ─────────────────────────────────────────────
         "max_scheduler_errors": _env_int("MAX_SCHED_ERRORS", 5),
         "market_aware": _env_bool("MARKET_AWARE", False),
-        "jitter_seconds": _env_float("JITTER_SECONDS", 0.0),
+        "jitter_seconds": _env_float("JITTER_SECONDS", 5.0),  # ±5s jitter
+        "adaptive_interval": _env_bool("ADAPTIVE_INTERVAL", False),
 
         # ── Initial Balance (Paper Trading) ───────────────────────
         "initial_balance": _env_float("INITIAL_BALANCE", 100.0),
 
         # ── Debug ─────────────────────────────────────────────────
         "debug_mode": _env_bool("DEBUG_MODE", False),
-        
+
         # ── Telegram ──────────────────────────────────────────────
         "telegram_enabled": _env_bool("TELEGRAM_ENABLED", True),
         "telegram_retry_count": _env_int("TELEGRAM_RETRY_COUNT", 3),
+        
+        # ── Notification Settings ─────────────────────────────────
+        "trade_notifications": _env_bool("TRADE_NOTIFICATIONS", True),
+        "analysis_notifications": _env_bool("ANALYSIS_NOTIFICATIONS", True),
+        "error_notifications": _env_bool("ERROR_NOTIFICATIONS", True),
+        "daily_summary_enabled": _env_bool("DAILY_SUMMARY_ENABLED", True),
     }
 
     # Apply CLI overrides
@@ -245,6 +286,12 @@ def _load_config(cli_args: Optional[argparse.Namespace] = None) -> Dict[str, Any
             config["debug_mode"] = True
         if cli_args.no_telegram:
             config["telegram_enabled"] = False
+        if hasattr(cli_args, "daily_limit") and cli_args.daily_limit:
+            config["daily_loss_limit_inr"] = cli_args.daily_limit
+        if hasattr(cli_args, "min_probability") and cli_args.min_probability:
+            config["min_trade_probability"] = cli_args.min_probability
+        if hasattr(cli_args, "no_hourly") and cli_args.no_hourly:
+            config["hourly_analysis_enabled"] = False
 
     return config
 
@@ -280,6 +327,27 @@ def _validate_config(config: Dict[str, Any]) -> tuple:
             f"ANALYSIS_INTERVAL={config['interval']} too short (min 10s)"
         )
 
+    # ── NEW: Probability threshold validation ─────────────────────
+    if not (50.0 <= config["min_trade_probability"] <= 95.0):
+        warnings.append(
+            f"MIN_TRADE_PROBABILITY={config['min_trade_probability']}% "
+            f"outside recommended range (50-95%). Using anyway."
+        )
+
+    # ── NEW: Daily loss limit validation ──────────────────────────
+    if config["daily_loss_limit_enabled"]:
+        if config["daily_loss_limit_inr"] <= 0:
+            warnings.append(
+                "DAILY_LOSS_LIMIT_INR <= 0, disabling daily loss limit"
+            )
+            config["daily_loss_limit_enabled"] = False
+        elif config["daily_loss_limit_inr"] < 100:
+            warnings.append(
+                f"DAILY_LOSS_LIMIT_INR=₹{config['daily_loss_limit_inr']} "
+                f"is very low, consider increasing"
+            )
+
+    # ── Risk/Reward validation ────────────────────────────────────
     if config["risk_reward_ratio"] < 1.0:
         warnings.append(
             f"RISK_REWARD_RATIO={config['risk_reward_ratio']} < 1.0 "
@@ -497,12 +565,18 @@ async def _start_telegram(
 #  COMPONENT FACTORIES
 # ═════════════════════════════════════════════════════════════════
 
-def _create_analyzers(coins: List[str]) -> Dict[str, MarketAnalyzer]:
-    """Create market analyzer for each coin."""
+def _create_analyzers(
+    coins: List[str],
+    config: Dict[str, Any],
+) -> Dict[str, MarketAnalyzer]:
+    """Create market analyzer for each coin with configuration."""
     analyzers = {}
     for coin in coins:
         try:
-            analyzers[coin] = MarketAnalyzer(symbol=coin)
+            analyzers[coin] = MarketAnalyzer(
+                symbol=coin,
+                min_probability=config["min_trade_probability"],
+            )
             logger.debug(f"Created analyzer for {coin}")
         except Exception as e:
             logger.error(f"Failed to create analyzer for {coin}: {e}")
@@ -521,7 +595,56 @@ def _create_strategy(
         min_confidence=config["min_confidence"],
         min_volatility_pct=config["min_volatility_pct"],
         max_volatility_pct=config["max_volatility_pct"],
+        min_probability=config["min_trade_probability"],
+        stop_loss_pct=config["default_stop_loss_pct"],
+        take_profit_pct=config["default_take_profit_pct"],
+        trailing_stop_pct=config["trailing_stop_pct"],
     )
+
+
+def _initialize_state_with_config(
+    state: StateManager,
+    config: Dict[str, Any],
+) -> None:
+    """Initialize state manager with configuration values."""
+    # Set currency conversion
+    state.set("pnl_currency", "INR")
+    state.set("usd_to_inr_rate", config["usd_to_inr_rate"])
+    
+    # Set probability threshold
+    state.set("min_trade_probability", config["min_trade_probability"])
+    
+    # Set daily loss limit
+    state.set("daily_loss_limit_inr", config["daily_loss_limit_inr"])
+    state.set("daily_loss_limit_enabled", config["daily_loss_limit_enabled"])
+    
+    # Set hourly analysis settings
+    state.set("hourly_analysis_enabled", config["hourly_analysis_enabled"])
+    state.set("hourly_analysis_interval", config["hourly_analysis_interval"])
+    
+    # Set notification preferences
+    state.set("trade_notifications", config["trade_notifications"])
+    state.set("analysis_notifications", config["analysis_notifications"])
+    state.set("error_notifications", config["error_notifications"])
+    state.set("daily_summary_enabled", config["daily_summary_enabled"])
+    
+    # Set trading limits
+    state.set("max_trades_per_day", config["max_trades_per_day"])
+    state.set("max_open_positions", config["max_open_positions"])
+    
+    # Set risk parameters
+    state.set("risk_per_trade_pct", config["base_risk"] * 100)
+    state.set("default_stop_loss_pct", config["default_stop_loss_pct"] * 100)
+    state.set("default_take_profit_pct", config["default_take_profit_pct"] * 100)
+    
+    # Set watched symbols
+    state.set("watched_symbols", config["coins"])
+    
+    # Update metadata
+    state.set("version", __version__)
+    state.set("updated_at", datetime.now(timezone.utc).isoformat())
+    
+    logger.debug("State initialized with configuration")
 
 
 # ═════════════════════════════════════════════════════════════════
@@ -531,15 +654,24 @@ def _create_strategy(
 def _parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        description="Autonomous AI Trading Bot",
+        description="Autonomous AI Trading Bot v2.1",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python -m app.main                    # Run with .env config
-  python -m app.main --mode paper       # Force paper trading
-  python -m app.main --interval 60      # 1-minute cycles
-  python -m app.main --debug            # Enable debug logging
-  python -m app.main --no-telegram      # Disable Telegram
+  python -m app.main                        # Run with .env config
+  python -m app.main --mode paper           # Force paper trading
+  python -m app.main --interval 60          # 1-minute cycles
+  python -m app.main --debug                # Enable debug logging
+  python -m app.main --no-telegram          # Disable Telegram
+  python -m app.main --daily-limit 2000     # Set ₹2000 daily loss limit
+  python -m app.main --min-probability 65   # Set 65% min probability
+  python -m app.main --no-hourly            # Disable hourly analysis
+
+New Features:
+  • 60% minimum probability threshold for trades
+  • ₹1500 daily loss limit (configurable)
+  • Hourly market analysis notifications
+  • Trade entry/exit notifications with full details
         """,
     )
 
@@ -577,6 +709,29 @@ Examples:
         action="store_true",
         help="Check configuration and exit",
     )
+    
+    # NEW: Daily loss limit argument
+    parser.add_argument(
+        "--daily-limit",
+        type=float,
+        metavar="INR",
+        help=f"Daily loss limit in INR (default: ₹{DEFAULT_DAILY_LOSS_LIMIT_INR})",
+    )
+    
+    # NEW: Minimum probability argument
+    parser.add_argument(
+        "--min-probability",
+        type=float,
+        metavar="PCT",
+        help=f"Minimum trade probability %% (default: {DEFAULT_MIN_PROBABILITY}%%)",
+    )
+    
+    # NEW: Disable hourly analysis
+    parser.add_argument(
+        "--no-hourly",
+        action="store_true",
+        help="Disable hourly market analysis notifications",
+    )
 
     return parser.parse_args()
 
@@ -602,18 +757,48 @@ def _print_banner(config: Dict[str, Any]) -> None:
 def _print_config_summary(config: Dict[str, Any]) -> None:
     """Print configuration summary."""
     logger.info("📋 Configuration:")
-    logger.info(f"   Mode:         {config['mode']}")
-    logger.info(f"   Exchange:     {config['exchange']}")
-    logger.info(f"   Coins:        {', '.join(config['coins'])}")
+    logger.info(f"   Mode:              {config['mode']}")
+    logger.info(f"   Exchange:          {config['exchange']}")
+    logger.info(f"   Coins:             {', '.join(config['coins'])}")
     logger.info(
-        f"   Interval:     {config['interval']}s "
+        f"   Interval:          {config['interval']}s "
         f"({format_duration(config['interval'])})"
     )
-    logger.info(f"   Base Risk:    {config['base_risk']*100:.1f}%")
-    logger.info(f"   Daily DD:     {config['max_daily_drawdown']*100:.1f}%")
-    logger.info(f"   Emergency DD: {config['emergency_drawdown']*100:.1f}%")
-    logger.info(f"   Market Aware: {config['market_aware']}")
-    logger.info(f"   Telegram:     {config['telegram_enabled']}")
+    logger.info("")
+    
+    # NEW: Probability & Risk settings
+    logger.info("🎯 Trading Rules:")
+    logger.info(f"   Min Probability:   {config['min_trade_probability']}%")
+    logger.info(f"   Risk per Trade:    {config['base_risk']*100:.1f}%")
+    logger.info(f"   Risk/Reward:       {config['risk_reward_ratio']}:1")
+    logger.info(f"   Stop Loss:         {config['default_stop_loss_pct']*100:.1f}%")
+    logger.info(f"   Take Profit:       {config['default_take_profit_pct']*100:.1f}%")
+    logger.info("")
+    
+    # NEW: Daily limits
+    logger.info("💰 Daily Limits:")
+    if config["daily_loss_limit_enabled"]:
+        logger.info(f"   Loss Limit:        ₹{config['daily_loss_limit_inr']:,.0f}")
+    else:
+        logger.info("   Loss Limit:        Disabled")
+    logger.info(f"   Max Trades:        {config['max_trades_per_day']}/day")
+    logger.info(f"   Max Positions:     {config['max_open_positions']}")
+    logger.info(f"   USD→INR Rate:      ₹{config['usd_to_inr_rate']}")
+    logger.info("")
+    
+    # NEW: Notifications
+    logger.info("📱 Notifications:")
+    logger.info(f"   Telegram:          {'✅ Enabled' if config['telegram_enabled'] else '❌ Disabled'}")
+    logger.info(f"   Hourly Analysis:   {'✅ Enabled' if config['hourly_analysis_enabled'] else '❌ Disabled'}")
+    logger.info(f"   Trade Alerts:      {'✅ Enabled' if config['trade_notifications'] else '❌ Disabled'}")
+    logger.info("")
+    
+    # Risk management
+    logger.info("🛡️ Risk Management:")
+    logger.info(f"   Daily Drawdown:    {config['max_daily_drawdown']*100:.1f}%")
+    logger.info(f"   Emergency DD:      {config['emergency_drawdown']*100:.1f}%")
+    logger.info(f"   Max Losses:        {config['max_consecutive_losses']} consecutive")
+    logger.info(f"   Market Aware:      {config['market_aware']}")
     logger.info("")
 
 
@@ -700,19 +885,31 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
     #  INITIALIZE COMPONENTS
     # ══════════════════════════════════════════════════════════════
 
+    # Initialize these outside try block for cleanup access
+    scheduler = None
+    exchange = None
+    controller = None
+    state = None
+
     try:
         # ── State Manager ─────────────────────────────────────────
         logger.info("💾 Initializing state manager...")
 
         state = StateManager(initial_balance=config["initial_balance"])
+        
+        # Initialize state with config values
+        _initialize_state_with_config(state, config)
 
         balance = state.get("balance", 0)
         positions_count = len(state.get_all_positions())
         bot_active = state.get("bot_active", True)
+        daily_pnl = state.get("daily_pnl", 0.0)
+        daily_pnl_inr = daily_pnl * config["usd_to_inr_rate"]
 
-        logger.info(f"   Balance:   ${balance:,.2f}")
-        logger.info(f"   Positions: {positions_count}")
-        logger.info(f"   Active:    {bot_active}")
+        logger.info(f"   Balance:     ${balance:,.2f}")
+        logger.info(f"   Positions:   {positions_count}")
+        logger.info(f"   Active:      {bot_active}")
+        logger.info(f"   Daily P/L:   ₹{daily_pnl_inr:+,.2f}")
         logger.info("")
 
         # ── Exchange ──────────────────────────────────────────────
@@ -733,7 +930,7 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
         # ── Market Analyzers ──────────────────────────────────────
         logger.info("📊 Initializing market analyzers...")
 
-        analyzers = _create_analyzers(config["coins"])
+        analyzers = _create_analyzers(config["coins"], config)
 
         for coin in analyzers:
             logger.info(f"   ✅ {coin}")
@@ -745,8 +942,9 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
         primary_symbol = config["coins"][0]
         strategy = _create_strategy(primary_symbol, config)
 
-        logger.info(f"   Strategy: {strategy.name}")
-        logger.info(f"   R/R Ratio: {config['risk_reward_ratio']}:1")
+        logger.info(f"   Strategy:        {strategy.name}")
+        logger.info(f"   Min Probability: {config['min_trade_probability']}%")
+        logger.info(f"   R/R Ratio:       {config['risk_reward_ratio']}:1")
         logger.info("")
 
         # ── Controller ────────────────────────────────────────────
@@ -768,6 +966,8 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
             max_consecutive_losses=config["max_consecutive_losses"],
             fee_pct=config["fee_pct"],
             slippage_pct=config["slippage_pct"],
+            daily_loss_limit_inr=config["daily_loss_limit_inr"],
+            usd_to_inr_rate=config["usd_to_inr_rate"],
         )
 
         logger.info("   ✅ Controller ready")
@@ -789,16 +989,24 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
             market_aware=config["market_aware"],
             exchange_type=exchange_type,
             jitter_seconds=config["jitter_seconds"],
+            adaptive_interval=config["adaptive_interval"],
+            # NEW: Pass new config values
+            hourly_analysis_enabled=config["hourly_analysis_enabled"],
+            daily_loss_limit_inr=config["daily_loss_limit_inr"],
         )
 
         controller.scheduler = scheduler
 
-        logger.info(f"   Interval:     {config['interval']}s")
-        logger.info(f"   Market Aware: {config['market_aware']}")
+        logger.info(f"   Interval:        {config['interval']}s")
+        logger.info(f"   Jitter:          ±{config['jitter_seconds']}s")
+        logger.info(f"   Hourly Analysis: {'✅ Enabled' if config['hourly_analysis_enabled'] else '❌ Disabled'}")
+        logger.info(f"   Daily Limit:     ₹{config['daily_loss_limit_inr']:,.0f}")
+        logger.info(f"   Market Aware:    {config['market_aware']}")
+        
         if config["market_aware"]:
             mkt = market_status(exchange_type)
             logger.info(
-                f"   Market:       {'🟢 Open' if mkt.is_open else '🔴 Closed'} "
+                f"   Market:          {'🟢 Open' if mkt.is_open else '🔴 Closed'} "
                 f"({mkt.session.value})"
             )
         logger.info("")
@@ -812,7 +1020,8 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
         def handle_shutdown(sig: signal.Signals) -> None:
             sig_name = sig.name if hasattr(sig, "name") else str(sig)
             logger.warning(f"⚠️ Received signal: {sig_name}")
-            scheduler.stop(reason=f"Signal {sig_name}")
+            if scheduler:
+                scheduler.stop(reason=f"Signal {sig_name}")
             shutdown_event.set()
 
         loop = asyncio.get_running_loop()
@@ -829,7 +1038,7 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
         #  START TELEGRAM
         # ══════════════════════════════════════════════════════════
 
-        telegram_ok = False
+        telegram_task = None
         if config["telegram_enabled"]:
             logger.info("📱 Starting Telegram bot...")
             telegram_task = asyncio.create_task(
@@ -841,7 +1050,6 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
             )
         else:
             logger.info("📱 Telegram disabled")
-            telegram_task = None
 
         # ══════════════════════════════════════════════════════════
         #  START SCHEDULER
@@ -862,12 +1070,21 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
         logger.info("")
         logger.info("═" * 60)
         logger.info("✅ BOT IS LIVE!")
-        logger.info(f"   Mode:     {config['mode']}")
-        logger.info(f"   Coins:    {', '.join(config['coins'])}")
-        logger.info(f"   Interval: {format_duration(config['interval'])}")
-        logger.info(f"   Balance:  ${balance:,.2f}")
-        logger.info(f"   Startup:  {startup_timer.elapsed:.2f}s")
+        logger.info(f"   Mode:            {config['mode']}")
+        logger.info(f"   Coins:           {', '.join(config['coins'])}")
+        logger.info(f"   Interval:        {format_duration(config['interval'])}")
+        logger.info(f"   Balance:         ${balance:,.2f}")
+        logger.info(f"   Min Probability: {config['min_trade_probability']}%")
+        logger.info(f"   Daily Limit:     ₹{config['daily_loss_limit_inr']:,.0f}")
+        logger.info(f"   Startup Time:    {startup_timer.elapsed:.2f}s")
         logger.info("═" * 60)
+        logger.info("")
+        logger.info("📌 Trading Rules Active:")
+        logger.info(f"   • Only enter trades with ≥{config['min_trade_probability']}% probability")
+        logger.info(f"   • Stop trading if daily loss reaches ₹{config['daily_loss_limit_inr']:,.0f}")
+        logger.info(f"   • Auto-resume trading next day (00:00 UTC)")
+        if config['hourly_analysis_enabled']:
+            logger.info("   • Hourly market analysis notifications enabled")
         logger.info("")
 
         # ══════════════════════════════════════════════════════════
@@ -906,22 +1123,25 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
         logger.info("🧹 Shutting down...")
 
         # Stop scheduler
-        if "scheduler" in dir() and scheduler.is_running:
+        if scheduler and scheduler.is_running:
             scheduler.stop(reason="Shutdown")
             logger.info("   ✅ Scheduler stopped")
 
         # Close exchange
-        if "exchange" in dir():
+        if exchange:
             try:
                 close_fn = getattr(exchange, "close", None)
                 if close_fn:
-                    close_fn()
+                    if asyncio.iscoroutinefunction(close_fn):
+                        await close_fn()
+                    else:
+                        close_fn()
                 logger.info("   ✅ Exchange closed")
             except Exception as e:
                 logger.warning(f"   ⚠️ Exchange close error: {e}")
 
         # Stop Telegram
-        if "controller" in dir():
+        if controller:
             telegram_app = getattr(controller, "_telegram_app", None)
             if telegram_app:
                 try:
@@ -931,15 +1151,29 @@ async def main(cli_args: Optional[argparse.Namespace] = None) -> int:
                 except Exception as e:
                     logger.warning(f"   ⚠️ Telegram stop error: {e}")
 
+        # Save final state
+        if state:
+            try:
+                state.set("last_stop_time", datetime.now(timezone.utc).isoformat())
+                state.save()
+                logger.info("   ✅ State saved")
+            except Exception as e:
+                logger.warning(f"   ⚠️ State save error: {e}")
+
         # Log final statistics
-        if "scheduler" in dir():
+        if scheduler:
             stats = scheduler.get_stats()
             logger.info("")
             logger.info("📊 Session Statistics:")
-            logger.info(f"   Cycles:   {stats['total_cycles']}")
-            logger.info(f"   Errors:   {stats['total_errors']}")
-            logger.info(f"   Uptime:   {stats['uptime_human']}")
-            logger.info(f"   Avg Lat:  {stats['avg_latency_sec']:.2f}s")
+            logger.info(f"   Cycles:          {stats['total_cycles']}")
+            logger.info(f"   Errors:          {stats['total_errors']}")
+            logger.info(f"   Uptime:          {stats['uptime_human']}")
+            logger.info(f"   Avg Latency:     {stats['avg_latency_sec']:.2f}s")
+            logger.info(f"   Trades:          {stats['recent_trades_executed']}")
+            logger.info(f"   P/L:             ₹{stats['recent_pnl'] * config.get('usd_to_inr_rate', 83):+,.2f}")
+            logger.info(f"   Hourly Reports:  {stats['hourly_analysis_count']}")
+            if stats['daily_loss_halted']:
+                logger.info(f"   ⚠️ Daily loss limit was reached")
 
         # Release lock
         _release_lock()

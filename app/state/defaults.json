@@ -1,20 +1,155 @@
 {
+  "___SECTION___ACCOUNT___": "═══════════════════════════════════════",
+  
   "balance": 100.0,
   "initial_balance": 100.0,
+  "currency": "USDT",
+  "pnl_currency": "INR",
+  "usd_to_inr_rate": 83.0,
+  
+  "___SECTION___BOT_STATE___": "═══════════════════════════════════════",
+  
   "bot_active": true,
   "kill_switch": false,
+  "paper_trading": true,
+  "last_start_time": null,
+  "last_stop_time": null,
+  "last_activity": null,
+  
+  "___SECTION___RISK_MANAGEMENT___": "═══════════════════════════════════════",
+  
+  "risk_per_trade_pct": 2.0,
+  "max_position_size_pct": 10.0,
+  "max_open_positions": 3,
   "max_trades_per_day": 10,
+  "min_trade_probability": 60.0,
+  "default_stop_loss_pct": 2.0,
+  "default_take_profit_pct": 3.0,
+  "trailing_stop_enabled": true,
+  "trailing_stop_pct": 1.5,
+  
+  "___SECTION___DAILY_LIMITS___": "═══════════════════════════════════════",
+  
+  "daily_loss_limit_inr": 1500.0,
+  "daily_loss_limit_enabled": true,
+  "daily_profit_target_inr": 3000.0,
+  "daily_profit_target_enabled": false,
+  "daily_loss_halt_date": null,
+  "daily_loss_halt_notified": false,
+  
+  "___SECTION___POSITIONS___": "═══════════════════════════════════════",
+  
   "positions": {},
-  "trade_history": [],
+  "pending_orders": {},
+  "position_history": [],
+  
+  "___SECTION___DAILY_STATS___": "═══════════════════════════════════════",
+  
   "daily_pnl": 0.0,
+  "daily_pnl_inr": 0.0,
   "trades_today": 0,
+  "wins_today": 0,
+  "losses_today": 0,
+  "daily_volume": 0.0,
+  "daily_fees": 0.0,
+  "daily_start_balance": 100.0,
+  "trading_day_date": null,
+  
+  "___SECTION___TOTAL_STATS___": "═══════════════════════════════════════",
+  
+  "total_pnl": 0.0,
+  "total_pnl_inr": 0.0,
   "total_trades": 0,
   "total_wins": 0,
   "total_losses": 0,
+  "total_volume": 0.0,
+  "total_fees": 0.0,
+  "best_trade_pnl": 0.0,
+  "worst_trade_pnl": 0.0,
+  "avg_trade_pnl": 0.0,
+  "avg_win": 0.0,
+  "avg_loss": 0.0,
+  
+  "___SECTION___STREAKS___": "═══════════════════════════════════════",
+  
   "win_streak": 0,
   "loss_streak": 0,
+  "max_win_streak": 0,
+  "max_loss_streak": 0,
   "consecutive_losses": 0,
+  "consecutive_wins": 0,
+  
+  "___SECTION___TRADE_HISTORY___": "═══════════════════════════════════════",
+  
+  "trade_history": [],
+  "recent_trades": [],
+  "max_trade_history": 100,
+  
+  "___SECTION___EQUITY_TRACKING___": "═══════════════════════════════════════",
+  
   "equity_history": [],
+  "equity_momentum": 0.0,
+  "max_equity": 100.0,
+  "min_equity": 100.0,
+  "max_drawdown": 0.0,
+  "max_drawdown_pct": 0.0,
+  "current_drawdown": 0.0,
+  "current_drawdown_pct": 0.0,
+  
+  "___SECTION___RISK_REWARD___": "═══════════════════════════════════════",
+  
   "rr_history": [],
-  "equity_momentum": 0.0
+  "avg_risk_reward": 0.0,
+  "target_risk_reward": 1.5,
+  
+  "___SECTION___PROBABILITY_TRACKING___": "═══════════════════════════════════════",
+  
+  "signals_evaluated": 0,
+  "signals_above_threshold": 0,
+  "signals_rejected": 0,
+  "avg_entry_probability": 0.0,
+  "probability_accuracy": 0.0,
+  "probability_history": [],
+  
+  "___SECTION___HOURLY_ANALYSIS___": "═══════════════════════════════════════",
+  
+  "hourly_analysis_enabled": true,
+  "hourly_analysis_interval": 3600,
+  "last_hourly_analysis": null,
+  "hourly_analysis_count": 0,
+  
+  "___SECTION___MARKET_STATE___": "═══════════════════════════════════════",
+  
+  "current_market_trend": "neutral",
+  "market_volatility": "normal",
+  "last_market_update": null,
+  "watched_symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "BNBUSDT"
+  ],
+  
+  "___SECTION___NOTIFICATIONS___": "═══════════════════════════════════════",
+  
+  "notifications_enabled": true,
+  "trade_notifications": true,
+  "analysis_notifications": true,
+  "error_notifications": true,
+  "daily_summary_enabled": true,
+  "daily_summary_time": "23:55",
+  
+  "___SECTION___SESSION___": "═══════════════════════════════════════",
+  
+  "session_id": null,
+  "session_start": null,
+  "session_trades": 0,
+  "session_pnl": 0.0,
+  "session_pnl_inr": 0.0,
+  
+  "___SECTION___METADATA___": "═══════════════════════════════════════",
+  
+  "version": "2.0.0",
+  "created_at": null,
+  "updated_at": null,
+  "last_backup": null
 }
